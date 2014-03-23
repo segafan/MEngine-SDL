@@ -30,7 +30,7 @@ public:
 		if (texture == NULL)
 		{
 			//TODO: Log this
-			std::cout << "Texture couldn't be loaded! Key: " << key << SDL_GetError() << std::endl;
+			std::cout << "Texture couldn't be loaded! Key: " << key << " Error: " << SDL_GetError() << std::endl;
 			return;
 		}
 
@@ -54,8 +54,11 @@ public:
 
 		for (it_type iterator = textures.begin(); iterator != textures.end(); iterator++)
 		{
-			std::cout << "Destroyed texture: " << iterator->first << std::endl;
-			SDL_DestroyTexture(textures[iterator->first]);
+			if (textures[iterator->first] != NULL)
+			{
+				std::cout << "Destroyed texture: " << iterator->first << std::endl;
+				SDL_DestroyTexture(textures[iterator->first]);
+			}
 		}
 		
 		textures.clear();

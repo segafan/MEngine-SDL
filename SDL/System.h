@@ -39,6 +39,10 @@ static int Init()
 		{
 			throw "Error Mix_OpenAudio!";
 		}
+		if (TTF_Init() != 0)
+		{
+			throw "Error TTF_Init()!";
+		}
 	}
 	catch (char* error)
 	{
@@ -55,7 +59,7 @@ static void Quit()
 	IMG_Quit();
 	Mix_CloseAudio();
 	Mix_Quit();
-	//TTF_Quit();
+	TTF_Quit();
 	//SDLNet_Quit();
 }
 

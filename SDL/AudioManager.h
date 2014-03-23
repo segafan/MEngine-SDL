@@ -29,7 +29,7 @@ public:
 		if (tempMusic == NULL)
 		{
 			//TODO: Log this
-			std::cout << "Music couldn't be loaded! Key: " << key << SDL_GetError() << std::endl;
+			std::cout << "Music couldn't be loaded! Key: " << key << " Error: " << SDL_GetError() << std::endl;
 			return;
 		}
 
@@ -80,7 +80,7 @@ public:
 		if (tempEffect == NULL)
 		{
 			//TODO: Log this
-			std::cout << "SoundEffect couldn't be loaded! Key: " << key << SDL_GetError() << std::endl;
+			std::cout << "SoundEffect couldn't be loaded! Key: " << key << " Error: " << SDL_GetError() << std::endl;
 			return;
 		}
 
@@ -138,8 +138,11 @@ public:
 
 		for (it_type_music iterator = music.begin(); iterator != music.end(); iterator++)
 		{
-			std::cout << "Destroyed music: " << iterator->first << std::endl;
-			Mix_FreeMusic(music[iterator->first]);
+			if (music[iterator->first])
+			{
+				std::cout << "Destroyed music: " << iterator->first << std::endl;
+				Mix_FreeMusic(music[iterator->first]);
+			}
 		}
 
 		music.clear();
@@ -148,8 +151,11 @@ public:
 
 		for (it_type_effect iterator = soundEffect.begin(); iterator != soundEffect.end(); iterator++)
 		{
-			std::cout << "Destroyed soundEffect: " << iterator->first << std::endl;
-			Mix_FreeChunk(soundEffect[iterator->first]);
+			if (soundEffect[iterator->first])
+			{
+				std::cout << "Destroyed soundEffect: " << iterator->first << std::endl;
+				Mix_FreeChunk(soundEffect[iterator->first]);
+			}
 		}
 
 		soundEffect.clear();

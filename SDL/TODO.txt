@@ -1,0 +1,8 @@
+[-] ResourceManager
+[-] Code::Blocks port & Linux/Mac OS X port
+[-] Update to SDL 2.0.3
+[-] Refactor
+[-] Test Engine (Create a simple game)
+[+] FontManager
+[-] TextureManager Draw()
+[-] FontManager RendererText with colors etc.
