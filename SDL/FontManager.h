@@ -1,13 +1,11 @@
 #ifndef FONTMANAGER_H
 #define FONTMANAGER_H
 
-#include <SDL_ttf.h>
-
+#include <map>
 #include <cstring>
 
-#include <map>
-
-#include "TextureManager.h"
+#include <SDL.h>
+#include <SDL_ttf.h>
 
 class FontManager
 {

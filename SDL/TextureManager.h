@@ -2,7 +2,6 @@
 #define TEXTUREMANAGER_H
 
 #include <map>
-#include <vector>
 #include <cstring>
 
 #include <SDL.h>
@@ -21,6 +20,7 @@ public:
 		Clear();
 	}
 
+	//Add & Destroy Textures
 	void AddTexture(char* filepath, char* key)
 	{
 		//Check if the texture exists
@@ -108,14 +108,26 @@ public:
 		textures.clear();
 	}
 
+	//Get Window & Renderer
 	SDL_Window* GetWindow()
 	{
 		return window;
 	}
-
 	SDL_Renderer* GetRenderer()
 	{
 		return renderer;
+	}
+
+	//Draw Textures
+	//TODO: Add more options to Draw
+
+	void Draw(char* key, SDL_Rect *pos)
+	{
+		SDL_RenderCopy(renderer, GetTexture(key), NULL, pos);
+	}
+	void Draw(char* key,SDL_Rect *srcpos, SDL_Rect *pos)
+	{
+		SDL_RenderCopy(renderer, GetTexture(key), srcpos, pos);
 	}
 private:
 	SDL_Window* window;
