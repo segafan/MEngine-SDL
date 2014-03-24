@@ -7,6 +7,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include "Rect.h"
+
 class TextureManager
 {
 public:
@@ -120,8 +122,8 @@ public:
 
 	//Draw Textures
 	//TODO: Add more options to Draw
-	//TODO: Add Draw() using own Rect class
 
+	//Drawing using SDL_Rect
 	void Draw(char* key, SDL_Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), NULL, pos);
@@ -129,6 +131,53 @@ public:
 	void Draw(char* key,SDL_Rect *srcpos, SDL_Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), srcpos, pos);
+	}
+
+	void DrawRotated(char* key, SDL_Rect *pos, double angle)
+	{
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos, angle, NULL, SDL_FLIP_NONE);
+	}
+	void DrawRotated(char* key, SDL_Rect *srcpos, SDL_Rect *pos, double angle)
+	{
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, pos, angle, NULL, SDL_FLIP_NONE);
+	}
+
+	void DrawFlip(char* key, SDL_Rect *pos, SDL_RendererFlip flip)
+	{
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos, NULL, NULL, flip);
+	}
+	void DrawFlip(char* key, SDL_Rect *srcpos, SDL_Rect *pos, SDL_RendererFlip flip)
+	{
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, pos, NULL, NULL, flip);
+	}
+
+	//Drawing using own Rect class
+
+	void Draw(char* key, Rect *pos)
+	{
+		SDL_RenderCopy(renderer, GetTexture(key), NULL, &pos->GetSDLRect());
+	}
+	void Draw(char* key, Rect *srcpos, Rect *pos)
+	{
+		SDL_RenderCopy(renderer, GetTexture(key), &srcpos->GetSDLRect(), &pos->GetSDLRect());
+	}
+
+	void DrawRotated(char* key, Rect *pos, double angle)
+	{
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, &pos->GetSDLRect(), angle, NULL, SDL_FLIP_NONE);
+	}
+	void DrawRotated(char* key, Rect *srcpos, Rect *pos, double angle)
+	{
+		SDL_RenderCopyEx(renderer, GetTexture(key), &srcpos->GetSDLRect(), &pos->GetSDLRect(), angle, NULL, SDL_FLIP_NONE);
+	}
+
+	void DrawFlip(char* key, Rect *pos, SDL_RendererFlip flip)
+	{
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, &pos->GetSDLRect(), NULL, NULL, flip);
+	}
+	void DrawFlip(char* key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip)
+	{
+		SDL_RenderCopyEx(renderer, GetTexture(key), &srcpos->GetSDLRect(), &pos->GetSDLRect(), NULL, NULL, flip);
 	}
 private:
 	SDL_Window* window;
