@@ -19,6 +19,7 @@ public:
 		Clear();
 	}
 
+	//TODO: Check for is there another with that key and etc.
 
 	//Music
 	void AddMusic(char* filepath, char* key)
