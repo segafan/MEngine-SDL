@@ -19,11 +19,16 @@ public:
 		Clear();
 	}
 
-	//TODO: Check for is there another with that key and etc.
-
 	//Music
 	void AddMusic(char* filepath, char* key)
 	{
+		if (music[key] != NULL)
+		{
+			//TODO: Log this
+			std::cout << "There is already a music with that key! Key: " << key << std::endl;
+			return;
+		}
+
 		Mix_Music* tempMusic = NULL;
 		tempMusic = Mix_LoadMUS(filepath);
 
@@ -37,12 +42,19 @@ public:
 		music[key] = tempMusic;
 	}
 
-	void PlayMusic(char* key)
+	inline void PlayMusic(char* key)
 	{
-		Mix_PlayMusic(music[key], -1);
+		PlayMusic(key, -1);
 	}
-	void PlayMusic(char* key, int loops)
+	inline void PlayMusic(char* key, int loops)
 	{
+		if (music[key] == NULL)
+		{
+			//TODO: Log this
+			std::cout << "Music couldn't be played because it doesn't exist! Key: " << key << std::endl;
+			return;
+		}
+
 		Mix_PlayMusic(music[key], loops);
 	}
 
@@ -75,6 +87,13 @@ public:
 
 	void AddSoundEffect(char* filepath, char* key)
 	{
+		if (soundEffect[key] != NULL)
+		{
+			//TODO: Log this
+			std::cout << "There is already a soundEffect with that key! Key: " << key << std::endl;
+			return;
+		}
+
 		Mix_Chunk* tempEffect = NULL;
 		tempEffect = Mix_LoadWAV(filepath);
 
@@ -90,19 +109,33 @@ public:
 
 	void PlaySoundEffect(char* key)
 	{
-		Mix_PlayChannel(-1, soundEffect[key], 0);
+		PlaySoundEffect(key, 0);
 	}
 	void PlaySoundEffect(char* key, int loops)
 	{
+		if (soundEffect[key] == NULL)
+		{
+			//TODO: Log this
+			std::cout << "SoundEffect couldn't be played because it doesn't exist! Key: " << key << std::endl;
+			return;
+		}
+
 		Mix_PlayChannel(-1, soundEffect[key], loops);
 	}
 
-	void SuondEffectVolume(char* key, int volume)
+	void SoundEffectVolume(char* key, int volume)
 	{
 		if (volume > 100)
 			volume = 100;
 		if (volume < 0)
 			volume = 0;
+
+		if (soundEffect[key] == NULL)
+		{
+			//TODO: Log this
+			std::cout << "SoundEffect's volume couldn't be changed because it doesn't exist! Key: " << key << std::endl;
+			return;
+		}
 
 		Mix_VolumeChunk(soundEffect[key], (MIX_MAX_VOLUME / 100) * volume);
 	}

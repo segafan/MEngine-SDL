@@ -120,6 +120,7 @@ public:
 
 	//Draw Textures
 	//TODO: Add more options to Draw
+	//TODO: Add Draw() using own Rect class
 
 	void Draw(char* key, SDL_Rect *pos)
 	{

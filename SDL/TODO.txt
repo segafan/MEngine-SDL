@@ -4,6 +4,8 @@
 [-] Refactor
 [-] Test Engine (Create a simple game)
 [+] FontManager
-[-] TextureManager Draw()
+[+] TextureManager Draw()
+[+] Add more Drawing options like Rotating
 [-] FontManager RendererText with colors etc.
 [-] Do the //TODO: stuff in code
+[-] Change char* to std::string

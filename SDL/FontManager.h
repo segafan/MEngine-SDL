@@ -92,6 +92,7 @@ public:
 
 	//Draw Font
 	//TODO: Add more Draw() options
+	//TODO: Add every letter as a Texture and draw every letter of the text one by one
 	void DrawText(char* text, char* key, int size)
 	{
 		SDL_Color color = { 0, 0, 0 };
