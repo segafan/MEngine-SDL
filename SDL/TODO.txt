@@ -9,3 +9,7 @@
 [-] FontManager RendererText with colors etc.
 [-] Do the //TODO: stuff in code
 [-] Change char* to std::string
+[-] Add Text Drawing with x,y
+[-] Add Texture Drawing with x,y
+[-] Do rect.CreateRect() static to do Rect::CreateRect()
+[-] Create Draw() in TextureManager inline

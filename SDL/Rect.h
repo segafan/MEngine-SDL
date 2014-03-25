@@ -104,7 +104,7 @@ public:
 		return Contains(tempRect);
 	}
 
-	Rect CreateRect(int x,int y,int w,int h)
+	static Rect CreateRect(int x,int y,int w,int h)
 	{
 		Rect tempRect(x,y,w,h);
 		return tempRect;

@@ -7,11 +7,11 @@
 
 inline float toRad(float angle)
 {
-	return ((angle * PI) / 180);
+	return (float)((angle * PI) / 180);
 }
 inline float toAngle(float rad)
 {
-	return ((rad * 180) / PI);
+	return (float)((rad * 180) / PI);
 }
 
 #endif
