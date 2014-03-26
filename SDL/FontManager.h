@@ -9,6 +9,11 @@
 
 #include "Rect.h"
 
+//This may create bugs & errors if it does redefine DrawText at the end of the file
+#ifdef DrawText
+#undef DrawText
+#endif
+
 class FontManager
 {
 public:
@@ -96,47 +101,11 @@ public:
 	//TODO: Add more Draw() options
 	//TODO: Add every letter as a Texture and draw every letter of the text one by one
 	//TDOD: Add align Center | Left |Right
-
-	//Drawing with no pos
-	inline void DrawText(char* key , char* text, int size)
-	{
-		DrawText(key, text, size, 0, 0, 0);
-	}
-	inline void DrawText(char* key, char* text, int size, SDL_Color color)
-	{
-		if (fonts[key][size] == NULL)
-		{
-			//TODO: Log this
-			std::cout << "The text can't be drawn beacuse the font doesn't exist! Key: " << key << std::endl;
-			return;
-		}
-
-		SDL_Surface* surface = NULL;
-		surface = TTF_RenderText_Solid(fonts[key][size], text, color);
-
-		SDL_Texture* texture = NULL;
-		texture = SDL_CreateTextureFromSurface(renderer, surface);
-
-		SDL_FreeSurface(surface);
-
-		SDL_RenderCopy(renderer, texture, NULL, NULL);
-
-		SDL_DestroyTexture(texture);
-	}
-	inline void DrawText(char* key, char* text, int size, int r, int g, int b)
-	{
-		SDL_Color color = { r, g, b };
-
-		DrawText(key, text, size, color);
-	}
+	//TODO: There might be problems because the pos can resize the texture
 
 	//Drawing with SDL_Rect
 
-	inline void DrawText(char* key, char* text, int size, SDL_Rect *pos)
-	{
-		DrawText(key, text, size, pos, 0, 0, 0);
-	}
-	inline void DrawText(char* key, char* text, int size, SDL_Rect *pos, SDL_Color color)
+	void DrawText(char* key, char* text, int size, SDL_Rect *pos, SDL_Color color)
 	{
 		if (fonts[key][size] == NULL)
 		{
@@ -145,32 +114,27 @@ public:
 			return;
 		}
 
+		//Create Text Surface
 		SDL_Surface* surface = NULL;
 		surface = TTF_RenderText_Solid(fonts[key][size], text, color);
 
+		//Create Texture from Surface
 		SDL_Texture* texture = NULL;
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
 
+		//Free Surface
 		SDL_FreeSurface(surface);
 
+		//Render
 		SDL_RenderCopy(renderer, texture, NULL, pos);
 
+		//Destroy Texture
 		SDL_DestroyTexture(texture);
-	}
-	inline void DrawText(char* key, char* text, int size, SDL_Rect *pos, int r, int g, int b)
-	{
-		SDL_Color color = { r, g, b };
-
-		DrawText(key, text, size, pos,color);
 	}
 
 	//Drawing with own Rect
 
-	inline void DrawText(char* key, char* text, int size, Rect *pos)
-	{
-		DrawText(key, text, size, pos, 0, 0, 0);
-	}
-	inline void DrawText(char* key, char* text, int size, Rect *pos, SDL_Color color)
+	void DrawText(char* key, char* text, int size, Rect *pos, SDL_Color color)
 	{
 		if (fonts[key][size] == NULL)
 		{
@@ -179,23 +143,22 @@ public:
 			return;
 		}
 
+		//Create Text Surface
 		SDL_Surface* surface = NULL;
 		surface = TTF_RenderText_Solid(fonts[key][size], text, color);
 
+		//Create Texture from Surface
 		SDL_Texture* texture = NULL;
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
 
+		//Free Surface
 		SDL_FreeSurface(surface);
 
+		//Render
 		SDL_RenderCopy(renderer, texture, NULL, &pos->GetSDLRect());
 
+		//Destroy Texture
 		SDL_DestroyTexture(texture);
-	}
-	inline void DrawText(char* key, char* text, int size, Rect *pos, int r, int g, int b)
-	{
-		SDL_Color color = { r, g, b };
-
-		DrawText(key, text, size, pos, color);
 	}
 private:
 	std::map<std::string,std::map<int, TTF_Font*>> fonts;

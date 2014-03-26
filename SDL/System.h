@@ -7,6 +7,15 @@
 #include "Logger.h"
 #include "RenderSupport.h"
 
+inline SDL_Color MapRGB(int r, int g, int b)
+{
+	SDL_Color color;
+
+	color.r = r;
+	color.g = g;
+	color.b = b;
+}
+
 inline SDL_Rect SetValues(int x, int y, int w, int h)
 {
 	SDL_Rect rect;
