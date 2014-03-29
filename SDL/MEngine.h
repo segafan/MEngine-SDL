@@ -22,9 +22,8 @@
 #include "FPSTimer.h"
 
 //Managers
-#include "FontManager.h"
 #include "AudioManager.h"
-#include "TextureManager.h"
+#include "GraphicsManager.h"
 
 //Input
 #include "Input.h"
