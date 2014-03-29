@@ -191,6 +191,20 @@ public:
 		this->h = h;
 	}
 
+	void TranslateX(int x)
+	{
+		this->x += x;
+	}
+	void TransalteY(int y)
+	{
+		this->y += y;
+	}
+	void Translate(int x, int y)
+	{
+		this->x += x;
+		this->y += y;
+	}
+
 	int x,y,w,h;
 };
 
