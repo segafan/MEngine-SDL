@@ -20,10 +20,7 @@ int main(int argc, char *argv[])
 	if (renderer == NULL)
 		return 1;
 
-	TextureManager* textures = new TextureManager(window, renderer);
-	AudioManager* audio = new AudioManager();
-
-	Input *input = new Input();
+	Data *global = new Data(window, renderer);
 
 	Timer *timer = new Timer();
 	timer->Start();
@@ -40,18 +37,18 @@ int main(int argc, char *argv[])
 	while (running)
 	{
 		//Input
-		while (SDL_PollEvent(input->event))
+		while (SDL_PollEvent(global->input->event))
 		{
-			if (input->event->type == SDL_QUIT)
+			if (global->input->event->type == SDL_QUIT)
 				running = false;
-			if (input->keyboard->isKeyPressedOnce(SDLK_ESCAPE))
+			if (global->input->keyboard->isKeyPressedOnce(SDLK_ESCAPE))
 				running = false;
 
-			input->keyboard->Update();
+			global->input->keyboard->Update();
 		}
 
 		//Screenshot Creation
-		if (input->keyboard->isKeyPressedOnce(SDLK_F2))
+		if (global->input->keyboard->isKeyPressedOnce(SDLK_F2))
 			CreateScreenshot(window, renderer);
 
 		//Update
@@ -71,11 +68,9 @@ int main(int argc, char *argv[])
 		FPSCounter(timer);
 	}
 
-	delete audio;
-	delete textures;
+	delete global;
 	delete timer;
 	delete logger;
-	delete input;
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
