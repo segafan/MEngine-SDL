@@ -92,7 +92,7 @@ inline std::string GetLogName()
 
 	std::string date = GetDate();
 
-	int logNumber = 1;
+	static int logNumber = 1;
 
 	while (true)
 	{

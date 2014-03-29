@@ -33,7 +33,7 @@ public:
 		if (fonts[key][size] != NULL)
 		{
 			//TODO: Log this
-			std::cout << "There is already a font with this key! Key: " << key << std::endl;
+			std::cout << "There is already a font with this key! Key: " << key << " Size: " << size << std::endl;
 			return;
 		}
 
@@ -43,7 +43,7 @@ public:
 		if (font == NULL)
 		{
 			//TODO: Log this
-			std::cout << "Font couldn't be loaded! Key: " << key << " Error: " << SDL_GetError() << std::endl;
+			std::cout << "Font couldn't be loaded! Key: " << key << " Size: " << size << " Error: " << SDL_GetError() << std::endl;
 			return;
 		}
 
@@ -54,7 +54,7 @@ public:
 		if (fonts[key][size] == NULL)
 		{
 			//TODO: Log this
-			std::cout << "Font couldn't be removed because it doesn't exist! Key: " << key << std::endl;
+			std::cout << "Font couldn't be removed because it doesn't exist! Key: " << key << " Size: " << size << std::endl;
 			return;
 		}
 
@@ -67,7 +67,7 @@ public:
 		if (fonts[key][size] == NULL)
 		{
 			//TODO: Log this
-			std::cout << "You can't get this font because it doesn't exist! Key: " << key << std::endl;
+			std::cout << "You can't get this font because it doesn't exist! Key: " << key << " Size: " << size << std::endl;
 			return NULL;
 		}
 
@@ -110,7 +110,7 @@ public:
 		if (fonts[key][size] == NULL)
 		{
 			//TODO: Log this
-			std::cout << "The text can't be drawn beacuse the font doesn't exist! Key: " << key << std::endl;
+			std::cout << "The text can't be drawn beacuse the font doesn't exist! Key: " << key << " Size: " << size << std::endl;
 			return;
 		}
 
@@ -124,6 +124,9 @@ public:
 
 		//Free Surface
 		SDL_FreeSurface(surface);
+
+		//Query Texture for w and h
+		SDL_QueryTexture(texture, NULL, NULL, &pos->w, &pos->h);
 
 		//Render
 		SDL_RenderCopy(renderer, texture, NULL, pos);
@@ -136,29 +139,7 @@ public:
 
 	void DrawText(char* key, char* text, int size, Rect *pos, SDL_Color color)
 	{
-		if (fonts[key][size] == NULL)
-		{
-			//TODO: Log this
-			std::cout << "The text can't be drawn beacuse the font doesn't exist! Key: " << key << std::endl;
-			return;
-		}
-
-		//Create Text Surface
-		SDL_Surface* surface = NULL;
-		surface = TTF_RenderText_Solid(fonts[key][size], text, color);
-
-		//Create Texture from Surface
-		SDL_Texture* texture = NULL;
-		texture = SDL_CreateTextureFromSurface(renderer, surface);
-
-		//Free Surface
-		SDL_FreeSurface(surface);
-
-		//Render
-		SDL_RenderCopy(renderer, texture, NULL, &pos->GetSDLRect());
-
-		//Destroy Texture
-		SDL_DestroyTexture(texture);
+		DrawText(key, text, size, &pos->GetSDLRect(), color);
 	}
 private:
 	std::map<std::string,std::map<int, TTF_Font*>> fonts;

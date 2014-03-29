@@ -14,6 +14,8 @@ inline SDL_Color MapRGB(int r, int g, int b)
 	color.r = r;
 	color.g = g;
 	color.b = b;
+
+	return color;
 }
 
 inline SDL_Rect SetValues(int x, int y, int w, int h)
