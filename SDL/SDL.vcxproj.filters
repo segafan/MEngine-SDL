@@ -95,7 +95,7 @@
     <ClInclude Include="GraphicsManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Data.h">
+    <ClInclude Include="Global.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>

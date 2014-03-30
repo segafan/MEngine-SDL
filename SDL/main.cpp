@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	if (renderer == NULL)
 		return 1;
 
-	Data *global = new Data(window, renderer);
+	Global *global = new Global(window, renderer);
 
 	Timer *timer = new Timer();
 	timer->Start();

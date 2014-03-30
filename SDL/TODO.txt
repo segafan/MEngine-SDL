@@ -12,3 +12,4 @@
 [+] Do rect.CreateRect() static to do Rect::CreateRect()
 [-] Create Draw() in TextureManager inline
 [-] FPS Timer Frame Skip
+[-] Animation class

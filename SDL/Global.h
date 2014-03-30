@@ -1,21 +1,21 @@
-#ifndef DATA_H
-#define DATA_H
+#ifndef GLOBAL_H
+#define GLOBAL_H
 
 #include "Input.h"
 #include "AudioManager.h"
 #include "GraphicsManager.h"
 
-class Data
+class Global
 {
 public:
-	Data(SDL_Window *window, SDL_Renderer *renderer)
+	Global(SDL_Window *window, SDL_Renderer *renderer)
 	{
 		input = new Input();
 		audio = new AudioManager();
 		gfx = new GraphicsManager(window, renderer);
 	}
 	
-	~Data()
+	~Global()
 	{
 		delete input;
 		delete audio;

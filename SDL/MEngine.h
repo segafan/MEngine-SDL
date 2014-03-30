@@ -22,7 +22,7 @@
 #include "FPSTimer.h"
 
 //Managers
-#include "Data.h"
+#include "Global.h"
 #include "AudioManager.h"
 #include "GraphicsManager.h"
 
