@@ -195,7 +195,7 @@ public:
 	{
 		this->x += x;
 	}
-	void TransalteY(int y)
+	void TranslateY(int y)
 	{
 		this->y += y;
 	}
