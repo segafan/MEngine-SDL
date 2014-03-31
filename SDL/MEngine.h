@@ -38,4 +38,7 @@
 #include "Matrix4.h"
 #include "Quaternion.h"
 
+//Random
+#include "Random.h"
+
 #endif

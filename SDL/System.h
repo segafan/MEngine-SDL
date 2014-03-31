@@ -32,6 +32,7 @@ inline SDL_Rect SetValues(int x, int y, int w, int h)
 
 static int Init()
 {
+	//TODO: Log this
 	try
 	{
 		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)

@@ -4,7 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 
-bool isRandomSafe()
+inline bool isRandomSafe()
 {
 	if (sizeof(time_t) > 4)
 		return true;
@@ -12,21 +12,30 @@ bool isRandomSafe()
 		return false;
 }
 
-void InitRandom()
+inline void InitRandom()
 {
 	std::srand((unsigned)std::time(nullptr));
 }
 
-int RandomNumber(int min, int max)
+inline int RandomNumber(int min, int max)
 {
 	int range = (max - min) + 1;
 
 	return ((rand() % range) + min);
 }
 
-int RandomNumber(int max)
+inline int RandomNumber(int max)
 {
 	return ((std::rand() % max) + 1);
 }
 
+inline bool RandomBool()
+{
+	int random = RandomNumber(0, 1);
+	
+	if (random == 0)
+		return true;
+	else
+		false;
+}
 #endif
