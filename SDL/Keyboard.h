@@ -25,7 +25,7 @@ public:
 		return !keys[key];
 	}
 
-	bool isKeyPressedOnce(SDL_Keycode key)
+	bool IsKeyPressedOnce(SDL_Keycode key)
 	{
 		if (IsKeyPressed(key))
 		{
