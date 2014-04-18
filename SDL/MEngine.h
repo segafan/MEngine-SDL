@@ -1,6 +1,26 @@
 #ifndef MENGINE_H
 #define MENGINE_H
 
+//Check if NULL is defined
+#ifndef NULL
+#define NULL 0
+#endif
+
+//If not Microsoft Visual Studio 
+#ifndef _MSC_VER
+#define _MSC_VER 0
+#endif
+
+//Check if C++11 is supported
+#if _MSC_VER >= 1600 || __cplusplus > 199711L
+#define cplusplus11 true
+#elif _MSC_VER < 1600 || __cplusplus <= 199711L
+#define cplusplus11 false
+//Define C++11 stuff
+#define nullptr NULL
+#endif
+
+
 //C & C++
 #include <iostream>
 

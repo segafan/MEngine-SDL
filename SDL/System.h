@@ -7,8 +7,7 @@
 #include "Logger.h"
 #include "RenderSupport.h"
 
-template<class U, class I, class J>
-inline std::string CreateString(U text1, I text2, J text3)
+inline std::string CreateString(std::string text1, std::string text2, std::string text3)
 {
 	std::string text = "";
 	text += text1;
@@ -16,6 +15,17 @@ inline std::string CreateString(U text1, I text2, J text3)
 	text += text3;
 
 	return text;
+}
+
+inline char* CreateText(std::string text1, std::string text2, std::string text3)
+{
+	std::string stringText = CreateString(text1, text2, text3);
+
+	std::vector<char> text;
+	text.assign(stringText.begin(), stringText.end());
+	text.push_back('\0');
+
+	return &text[0];
 }
 
 inline SDL_Color MapRGB(int r, int g, int b)
