@@ -7,6 +7,17 @@
 #include "Logger.h"
 #include "RenderSupport.h"
 
+template<class U, class I, class J>
+inline std::string CreateString(U text1, I text2, J text3)
+{
+	std::string text = "";
+	text += text1;
+	text += text2;
+	text += text3;
+
+	return text;
+}
+
 inline SDL_Color MapRGB(int r, int g, int b)
 {
 	SDL_Color color;

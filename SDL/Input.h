@@ -15,9 +15,9 @@ public:
 	}
 	~Input()
 	{
+		delete event;
 		delete keyboard;
 		delete mouse;
-		delete event;
 	}
 
 	SDL_Event *event;

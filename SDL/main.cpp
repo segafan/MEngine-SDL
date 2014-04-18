@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 		{
 			if (global->input->event->type == SDL_QUIT)
 				running = false;
-			if (global->input->keyboard->IsKeyPressedOnce(SDLK_ESCAPE))
+			if (global->input->keyboard->IsKeyPressed(SDLK_ESCAPE))
 				running = false;
 
 			global->input->keyboard->Update();
