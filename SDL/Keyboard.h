@@ -13,6 +13,9 @@ public:
 		this->event = event;
 
 		keys[event->key.keysym.sym] = false;
+		
+		repeat[event->key.keysym.sym] = 0;
+		keysPressedOnce[event->key.keysym.sym] = false;
 	}
 
 	bool IsKeyPressed(SDL_Keycode key)
@@ -29,24 +32,25 @@ public:
 	{
 		if (IsKeyPressed(key))
 		{
-			if (keysAlreadyPressed[key])
-				return false;
-			else if (!keysAlreadyPressed[key])
-			{
-				keysAlreadyPressed[key] = true;
-				return true;
-			}
+			if (repeat[key] == 0)
+				keysPressedOnce[key] = true;
+			else
+				keysPressedOnce[key] = false;
+
+			repeat[key]++;
 		}
-		if (IsKeyReleased(key))
+		else if (IsKeyReleased(key))
 		{
-			keysAlreadyPressed[key] = false;
+			repeat[key] = 0;
+			keysPressedOnce[key] = false;
 		}
-		
-		return false;
+
+		return keysPressedOnce[key];
 	}
 
 	void Update()
 	{
+		//Normal Key Input
 		if (event->type == SDL_KEYDOWN)
 		{
 			keys[event->key.keysym.sym] = true;
@@ -60,7 +64,8 @@ private:
 	SDL_Event *event;
 	std::map<int, bool> keys;
 
-	std::map<int, bool> keysAlreadyPressed;
+	std::map<int, bool> keysPressedOnce;
+	std::map<int, int> repeat;
 };
 
 #endif
