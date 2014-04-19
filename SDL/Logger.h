@@ -10,7 +10,7 @@
 
 #include <stdlib.h>
 
-inline std::string GetTime(void)
+inline std::string GetClockTime(void)
 {
 	time_t now;
 	char the_date[12];
@@ -29,7 +29,7 @@ inline std::string GetTime(void)
 
 inline std::string GetPrintTime(void)
 {
-	std::string time = ("[" + GetTime() + "] ");
+	std::string time = ("[" + GetClockTime() + "] ");
 	return time;
 }
 

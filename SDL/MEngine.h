@@ -20,6 +20,7 @@
 #define nullptr NULL
 #endif
 
+#define GetArraySizeInElements(a) (sizeof(a)/sizeof(a[0]))
 
 //C & C++
 #include <iostream>

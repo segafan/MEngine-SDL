@@ -120,6 +120,15 @@ public:
 		return renderer;
 	}
 
+	Rect* GetWindowSize()
+	{
+		Rect* windowSize;
+
+		SDL_GetWindowSize(window, &windowSize->w, &windowSize->h);
+		
+		return windowSize;
+	}
+
 	//Draw Textures
 	//TODO: Add more options to Draw
 
