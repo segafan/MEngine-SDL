@@ -13,8 +13,8 @@ public:
 	{
 		this->logger = logger;
 		input = new Input();
-		audio = new AudioManager();
-		gfx = new GraphicsManager(window, renderer);
+		audio = new AudioManager(logger);
+		gfx = new GraphicsManager(window, renderer, logger);
 	}
 	
 	~Global()

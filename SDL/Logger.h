@@ -147,6 +147,11 @@ public:
 		std::cout << GetPrintTime() << message << message2 << message3 << std::endl;
 		out << GetPrintTime() << message << message2 << message3 << std::endl;
 	}
+	void LogLine(const char *message, const char *message2, const char *message3, const char *message4)
+	{
+		std::cout << GetPrintTime() << message << message2 << message3 << message4 << std::endl;
+		out << GetPrintTime() << message << message2 << message3 << message4 << std::endl;
+	}
 
 	void LogLineWithoutDate(const char *message)
 	{

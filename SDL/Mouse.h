@@ -51,6 +51,14 @@ public:
 		return scroll;
 	}
 
+	void SetMouseVisible(bool visible)
+	{
+		if (visible)
+			SDL_ShowCursor(1);
+		else
+			SDL_ShowCursor(0);
+	}
+
 	void Update()
 	{
 		//Mouse Position

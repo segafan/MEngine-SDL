@@ -8,6 +8,7 @@
 #include <SDL_ttf.h>
 
 #include "Rect.h"
+#include "Logger.h"
 
 //This may create bugs & errors if it does redefine DrawText at the end of the file
 #ifdef DrawText
@@ -17,8 +18,9 @@
 class FontManager
 {
 public:
-	FontManager(SDL_Window *window, SDL_Renderer *renderer)
+	FontManager(SDL_Window *window, SDL_Renderer *renderer, Logger *logger)
 	{
+		this->logger = logger;
 		this->window = window;
 		this->renderer = renderer;
 	}
@@ -32,8 +34,7 @@ public:
 	{
 		if (fonts[key][size] != NULL)
 		{
-			//TODO: Log this
-			std::cout << "There is already a font with this key! Key: " << key << " Size: " << size << std::endl;
+			logger->LogLine("There is already a font with this key! Key: ", key);
 			return;
 		}
 
@@ -42,8 +43,7 @@ public:
 
 		if (font == NULL)
 		{
-			//TODO: Log this
-			std::cout << "Font couldn't be loaded! Key: " << key << " Size: " << size << " Error: " << SDL_GetError() << std::endl;
+			logger->LogLine(CreateString("Font couldn't be loaded! Key: ", NumberToString(key), " Size: ").c_str(), NumberToString(size).c_str(), " Error: ", SDL_GetError());
 			return;
 		}
 
@@ -53,8 +53,7 @@ public:
 	{
 		if (fonts[key][size] == NULL)
 		{
-			//TODO: Log this
-			std::cout << "Font couldn't be removed because it doesn't exist! Key: " << key << " Size: " << size << std::endl;
+			logger->LogLine("Font couldn't be removed because it doesn't exist! Key: ", NumberToString(key).c_str(), " Size: ", NumberToString(size).c_str());
 			return;
 		}
 
@@ -66,8 +65,7 @@ public:
 	{
 		if (fonts[key][size] == NULL)
 		{
-			//TODO: Log this
-			std::cout << "You can't get this font because it doesn't exist! Key: " << key << " Size: " << size << std::endl;
+			logger->LogLine("You can't get this font because it doesn't exist! Key: ", NumberToString(key).c_str(), " Size: ", NumberToString(size).c_str());
 			return NULL;
 		}
 
@@ -143,6 +141,8 @@ public:
 	}
 private:
 	std::map<std::string,std::map<int, TTF_Font*>> fonts;
+
+	Logger *logger;
 
 	SDL_Window *window;
 	SDL_Renderer *renderer;

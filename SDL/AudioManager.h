@@ -7,12 +7,14 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 
+#include "Logger.h"
+
 class AudioManager
 {
 public:
-	AudioManager()
+	AudioManager(Logger *logger)
 	{
-		
+		this->logger = logger;
 	}
 	~AudioManager()
 	{
@@ -24,8 +26,7 @@ public:
 	{
 		if (music[key] != NULL)
 		{
-			//TODO: Log this
-			std::cout << "There is already a music with that key! Key: " << key << std::endl;
+			logger->LogLine("There is already a music with that key! Key: ", key);
 			return;
 		}
 
@@ -34,8 +35,7 @@ public:
 
 		if (tempMusic == NULL)
 		{
-			//TODO: Log this
-			std::cout << "Music couldn't be loaded! Key: " << key << " Error: " << SDL_GetError() << std::endl;
+			logger->LogLine("Music couldn't be loaded! Key: ", key, " Error: ", SDL_GetError());
 			return;
 		}
 
@@ -50,8 +50,7 @@ public:
 	{
 		if (music[key] == NULL)
 		{
-			//TODO: Log this
-			std::cout << "Music couldn't be played because it doesn't exist! Key: " << key << std::endl;
+			logger->LogLine("Music couldn't be played because it doesn't exist! Key: ", key);
 			return;
 		}
 
@@ -89,8 +88,7 @@ public:
 	{
 		if (soundEffect[key] != NULL)
 		{
-			//TODO: Log this
-			std::cout << "There is already a soundEffect with that key! Key: " << key << std::endl;
+			logger->LogLine("There is already a soundEffect with that key! Key: ", key);
 			return;
 		}
 
@@ -99,8 +97,7 @@ public:
 
 		if (tempEffect == NULL)
 		{
-			//TODO: Log this
-			std::cout << "SoundEffect couldn't be loaded! Key: " << key << " Error: " << SDL_GetError() << std::endl;
+			logger->LogLine("SoundEffect couldn't be loaded! Key: ", key, " Error: ", SDL_GetError());
 			return;
 		}
 
@@ -115,8 +112,7 @@ public:
 	{
 		if (soundEffect[key] == NULL)
 		{
-			//TODO: Log this
-			std::cout << "SoundEffect couldn't be played because it doesn't exist! Key: " << key << std::endl;
+			logger->LogLine("SoundEffect couldn't be played because it doesn't exist! Key: ", key);
 			return;
 		}
 
@@ -132,8 +128,7 @@ public:
 
 		if (soundEffect[key] == NULL)
 		{
-			//TODO: Log this
-			std::cout << "SoundEffect's volume couldn't be changed because it doesn't exist! Key: " << key << std::endl;
+			logger->LogLine("SoundEffect's volume couldn't be changed because it doesn't exist! Key: ", key);
 			return;
 		}
 
@@ -195,6 +190,8 @@ public:
 		soundEffect.clear();
 	}
 private:
+	Logger *logger;
+
 	std::map<std::string, Mix_Music*> music;
 	std::map<std::string, Mix_Chunk*> soundEffect;
 };

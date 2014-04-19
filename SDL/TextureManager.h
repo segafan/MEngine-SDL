@@ -8,12 +8,15 @@
 #include <SDL_image.h>
 
 #include "Rect.h"
+#include "Logger.h"
 
 class TextureManager
 {
 public:
-	TextureManager(SDL_Window* window, SDL_Renderer* renderer)
+	TextureManager(SDL_Window* window, SDL_Renderer* renderer, Logger *logger)
 	{
+		this->logger = logger;
+
 		this->window = window;
 		this->renderer = renderer;
 	}
@@ -28,8 +31,7 @@ public:
 		//Check if the texture exists
 		if (textures[key] != NULL)
 		{
-			//TODO: Log this
-			std::cout << "There is already a texture with this key! Key: " << key << std::endl;
+			logger->LogLine("There is already a texture with this key! Key: ", key);
 			return;
 		}
 
@@ -40,9 +42,7 @@ public:
 		//Checking if Loading was succesfull
 		if (texture == NULL)
 		{
-			//TODO: Log this
-			std::cout << "Texture couldn't be loaded! Key: " << key << " Error: " << SDL_GetError() << std::endl;
-			return;
+			logger->LogLine("Texture couldn't be loaded! Key: ", key, " Error: ", SDL_GetError());
 		}
 
 		//Push to global
@@ -53,16 +53,14 @@ public:
 		//Check if the texture exists
 		if (textures[key] != NULL)
 		{
-			//TODO: Log this
-			std::cout << "There is already a texture with this key! Key: " << key << std::endl;
+			logger->LogLine("There is already a texture with this key! Key: ", key);
 			return;
 		}
 
 		//Checking if Loading was succesfull
 		if (texture == NULL)
 		{
-			//TODO: Log this
-			std::cout << "Texture couldn't be loaded! Key: " << key << " Error: " << SDL_GetError() << std::endl;
+			logger->LogLine("Texture couldn't be loaded! Key: ", key, " Error: ", SDL_GetError());
 			return;
 		}
 
@@ -73,8 +71,7 @@ public:
 	{
 		if (textures[key] == NULL)
 		{
-			//TODO: Log this
-			std::cout << "The texture can't be removed because it doesn't exist! Key:" << key << std::endl;
+			logger->LogLine("The texture can't be removed because it doesn't exist! Key:", key);
 			return;
 		}
 
@@ -86,8 +83,7 @@ public:
 	{
 		if (textures[key] == NULL)
 		{
-			//TODO: Log this
-			std::cout << "You can't get the texture because it doesn't exist! Key: " << key << std::endl;
+			logger->LogLine("You can't get the texture because it doesn't exist! Key: ", key);
 			return NULL;
 		}
 
@@ -189,6 +185,8 @@ public:
 		SDL_RenderCopyEx(renderer, GetTexture(key), &srcpos->GetSDLRect(), &pos->GetSDLRect(), NULL, NULL, flip);
 	}
 private:
+	Logger *logger;
+
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
