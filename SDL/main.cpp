@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 			if (global->input->keyboard->IsKeyPressed(SDLK_ESCAPE))
 				running = false;
 
+			global->input->mouse->Update();
 			global->input->keyboard->Update();
 		}
 

@@ -48,6 +48,29 @@ public:
 		return keysPressedOnce[key];
 	}
 
+	bool IsKeyPressedOnce(SDL_Keycode key, unsigned int interval)
+	{
+		if (IsKeyPressed(key))
+		{
+			if (repeat[key] == 0)
+				keysPressedOnce[key] = true;
+			else
+				keysPressedOnce[key] = false;
+
+			if (repeat[key] % interval == 0)
+				keysPressedOnce[key] = true;
+
+			repeat[key]++;
+		}
+		else if (IsKeyReleased(key))
+		{
+			repeat[key] = 0;
+			keysPressedOnce[key] = false;
+		}
+
+		return keysPressedOnce[key];
+	}
+
 	void Update()
 	{
 		//Normal Key Input

@@ -3,6 +3,14 @@
 
 #include <SDL.h>
 
+#include "Rect.h"
+
+enum Scroll
+{
+	SDL_MOUSESCROLL_UP = 0,
+	SDL_MOUSESCROLL_DOWN = 1
+};
+
 class Mouse
 {
 public:
@@ -10,47 +18,84 @@ public:
 	{
 		this->event = event;
 
-		left = false;
-		right = false;
+		buttons[event->button.button] = false;
+
+		scroll = 0;
+
+		scrollUp = false;
+		scrollDown = false;
 
 		x = 0;
 		y = 0;
 	}
 
-	bool isLeftPressed()
+	bool IsButtonPressed(Uint8 button)
 	{
-		return left;
+		return buttons[button];
 	}
-	bool isRightPressed()
+	bool IsButtonReleased(Uint8 button)
 	{
-		return right;
+		return !buttons[button];
+	}
+
+	bool IsWheelScrolled(Scroll scroll)
+	{
+		if (scroll == SDL_MOUSESCROLL_UP)
+			return scrollUp;
+		if (scroll == SDL_MOUSESCROLL_DOWN)
+			return scrollDown;
+	}
+
+	int GetScroll()
+	{
+		return scroll;
 	}
 
 	void Update()
 	{
+		//Mouse Position
 		SDL_GetMouseState(&x, &y);
 
+		//Mouse Buttons
 		if (event->type == SDL_MOUSEBUTTONDOWN)
-		{
-			if (event->button.button == SDL_BUTTON_LEFT)
-				left = true;
-			if (event->button.button == SDL_BUTTON_RIGHT)
-				right = true;
-		}
+			buttons[event->button.button] = true;
 		if (event->type == SDL_MOUSEBUTTONUP)
+			buttons[event->button.button] = false;
+
+		//Scrolling
+		scrollUp = false;
+		scrollDown = false;
+
+		if (event->type == SDL_MOUSEWHEEL)
 		{
-			if (event->button.button == SDL_BUTTON_LEFT)
-				left = false;
-			if (event->button.button == SDL_BUTTON_RIGHT)
-				right = false;
+			if (event->button.x > 0)
+			{
+				scroll++;
+				scrollUp = true;
+			}
+			if (event->button.x < 0)
+			{
+				scroll--;
+				scrollDown = true;
+			}
 		}
+	}
+
+	Rect GetMouseRect()
+	{
+		return Rect::CreateRect(x, y, 4, 4);
 	}
 
 	int x, y;
 private:
 	SDL_Event *event;
-	bool left;
-	bool right;
+
+	bool scrollUp;
+	bool scrollDown;
+
+	int scroll;
+
+	std::map<int, bool> buttons;
 };
 
 #endif
