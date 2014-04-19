@@ -83,7 +83,14 @@ public:
 	{
 		if (textures[key] == NULL)
 		{
-			logger->LogLine("You can't get the texture because it doesn't exist! Key: ", key);
+			static std::map<std::string, bool> errorShown;
+
+			if (errorShown[key] == NULL || errorShown[key] == false)
+			{
+				logger->LogLine("You can't get the texture because it doesn't exist! Key: ", key);
+				errorShown[key] = true;
+			}
+
 			return NULL;
 		}
 

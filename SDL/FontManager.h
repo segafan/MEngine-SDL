@@ -65,7 +65,14 @@ public:
 	{
 		if (fonts[key][size] == NULL)
 		{
-			logger->LogLine("You can't get this font because it doesn't exist! Key: ", NumberToString(key).c_str(), " Size: ", NumberToString(size).c_str());
+			static std::map<std::string, std::map<int, bool>> errorShown;
+
+			if (errorShown[key][size] == NULL || errorShown[key][size] == false)
+			{
+				logger->LogLine("You can't get this font because it doesn't exist! Key: ", NumberToString(key).c_str(), " Size: ", NumberToString(size).c_str());
+				errorShown[key][size] = true;
+			}
+
 			return NULL;
 		}
 
