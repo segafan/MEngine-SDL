@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
 	if (renderer == NULL)
 		return 1;
 
-	Global *global = new Global(window, renderer);
-
+	Global *global = new Global(window, renderer, logger);
+	
 	Timer *timer = new Timer();
 	timer->Start();
 	
