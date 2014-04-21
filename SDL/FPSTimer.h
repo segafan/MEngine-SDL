@@ -64,6 +64,7 @@ private:
 inline void FPSCounter(Timer *timer)
 {
 	static unsigned short int frames = 0;
+	frames++;
 
 	if ((timer->GetTicks() > 1000))
 	{
@@ -71,7 +72,6 @@ inline void FPSCounter(Timer *timer)
 		timer->Reset();
 		frames = 0;
 	}
-	frames++;
 }
 
 #endif
