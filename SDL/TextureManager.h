@@ -113,25 +113,6 @@ public:
 		textures.clear();
 	}
 
-	//Get Window & Renderer
-	SDL_Window* GetWindow()
-	{
-		return window;
-	}
-	SDL_Renderer* GetRenderer()
-	{
-		return renderer;
-	}
-
-	Rect* GetWindowSize()
-	{
-		Rect* windowSize;
-
-		SDL_GetWindowSize(window, &windowSize->w, &windowSize->h);
-		
-		return windowSize;
-	}
-
 	//Draw Textures
 	//TODO: Add more options to Draw
 
