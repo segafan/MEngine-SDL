@@ -36,37 +36,40 @@ int main(int argc, char *argv[])
 	
 	while (running)
 	{
-		//Input
-		while (SDL_PollEvent(global->input->event))
+		if (FPS.Tick())
 		{
-			if (global->input->event->type == SDL_QUIT)
-				running = false;
-			if (global->input->keyboard->IsKeyPressed(SDLK_ESCAPE))
-				running = false;
+			//Input
+			while (SDL_PollEvent(global->input->event))
+			{
+				if (global->input->event->type == SDL_QUIT)
+					running = false;
+				if (global->input->keyboard->IsKeyPressed(SDLK_ESCAPE))
+					running = false;
 
-			global->input->mouse->Update();
-			global->input->keyboard->Update();
+				global->input->mouse->Update();
+				global->input->keyboard->Update();
+			}
+
+			//Screenshot Creation
+			if (global->input->keyboard->IsKeyPressedOnce(SDLK_F2))
+				CreateScreenshot(window, renderer);
+
+			//Update
+
+
+
+			//Draw
+
+			SDL_RenderClear(renderer);
+
+
+
+			SDL_RenderPresent(renderer);
+
+			//FPS StufF
+
+			FPSCounter(timer);
 		}
-
-		//Screenshot Creation
-		if (global->input->keyboard->IsKeyPressedOnce(SDLK_F2))
-			CreateScreenshot(window, renderer);
-
-		//Update
-
-
-
-		//Draw
-		SDL_RenderClear(renderer);
-		
-
-
-		SDL_RenderPresent(renderer);
-
-		//FPS Stuff
-		FPS.Update();
-
-		FPSCounter(timer);
 	}
 
 	delete global;

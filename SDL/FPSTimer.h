@@ -9,11 +9,12 @@ public:
 	FPSTimer(float FramesPerSecond)
 	{
 		FPS = FramesPerSecond;
-		frameTime = 1000.0f / FPS;
+		frameTime = (1000.0f / FPS) + 0.00001;
 	}
 	FPSTimer()
 	{
 		FPS = 60;
+		frameTime = (1000.0f / FPS) + 0.00001;
 	}
 	~FPSTimer()
 	{
@@ -35,30 +36,28 @@ public:
 		timer.Start();
 	}
 
-	void Update()
+	bool Tick()
 	{
 		if (frameTime == NULL)
-			frameTime = (1000.0f / FPS);
+			frameTime = (1000.0f / FPS) + 0.00001;
 
 		if (FPS == 0)
-			return;
+			return true;
 
-		if (timer.GetTicks() < frameTime)
+		if (frameTime <= timer.GetTicks())
 		{
-			if ((frameTime - timer.GetTicks()) > 0)
-			{
-				SDL_Delay((Uint32)(frameTime - timer.GetTicks()));
-			}
+			timer.Reset();
+			return true;
 		}
-
-		timer.Reset();
+		else
+			return false;
 	}
 
 private:
 	Timer timer;
 	float FPS;
 
-	float frameTime;
+	double frameTime;
 };
 
 inline void FPSCounter(Timer *timer)
