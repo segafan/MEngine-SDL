@@ -1,15 +1,23 @@
-[-] ResourceManager
+- Not Done
+? Work In Progress
++ Done
+
+[-] Add DrawTextureScaled()
+[-] #define DEBUGMODE in MEngine.h OR create a switchable DEBUGMODE
+[-] Add timer or TimerManager in Global
+[-] Add ScreenWidth and ScreenHeight in Global
+[?] Keyboard IsKeyPressedOnce() Bug / Rewrite so it Updates in the Update() and just returns data in IsKeyPressedOnce();
+[-] make some GUI stuff
+[-] organize stuff in System.h / and everywhere
+[-] make modules
+[-] rewrite it so it has .cpp files
+[-] Improve Performace
+[-] test if import for Windows Symbols is needed
+[-] Add Debug mode to Drawing (Draws a rectangle around the texture)
+[-] Create Logger template funtions
 [-] Code::Blocks port & Linux/Mac OS X port
-[+] Update to SDL 2.0.3
 [-] Refactor
-[-] Test Engine (Create a simple game)
-[+] FontManager
-[+] TextureManager Draw()
-[+] Add more Drawing options like Rotating
-[+] FontManager RendererText with colors etc.
 [-] Do the //TODO: stuff in code
 [-] Change char* to std::string
-[+] Do rect.CreateRect() static to do Rect::CreateRect()
-[-] Create Draw() in TextureManager inline
 [-] FPS Timer Frame Skip
 [-] Animation class
