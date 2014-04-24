@@ -95,10 +95,10 @@
     <ClInclude Include="GraphicsManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Global.h">
+    <ClInclude Include="Screen.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Screen.h">
+    <ClInclude Include="Global.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>

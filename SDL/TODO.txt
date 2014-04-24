@@ -21,3 +21,7 @@
 [-] Change char* to std::string
 [-] FPS Timer Frame Skip
 [-] Animation class
+[-] In Rect use operator *= and so on with float values add float values
+[-] Return references
+[-] inline Get and Set
+[-] Remove new and delete in Global

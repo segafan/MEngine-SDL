@@ -12,9 +12,9 @@ public:
 	{
 		Clear();
 	}
-	Rect(int x,int y,int w,int h)
+	Rect(int x, int y, int w, int h)
 	{
-		SetPosition(x,y,w,h);
+		SetPosition(x, y, w, h);
 	}
 
 	SDL_Rect& operator= (const SDL_Rect c)
@@ -34,7 +34,7 @@ public:
 		return rect;
 	}
 
-	void SetPosition(int x,int y,int w,int h)
+	inline void SetPosition(int x, int y, int w, int h)
 	{
 		this->x = x;
 		this->y = y;
@@ -43,11 +43,11 @@ public:
 	}
 	void Clear()
 	{
-		SetPosition(0,0,0,0);
+		SetPosition(0, 0, 0, 0);
 	}
 
 
-	bool Intersects(Rect rect)
+	bool Intersects(Rect& rect)
 	{
 		//The sides of the rectangles
 		int leftA, leftB;
@@ -78,33 +78,33 @@ public:
     
 		return true;
 	}
-	bool Intersects(int x,int y,int w,int h)
+	bool Intersects(int x, int y, int w, int h)
 	{
 		return Intersects(CreateRect(x,y,w,h));
 	}
 
 
-	bool Contains(Rect rect)
+	bool Contains(Rect& rect)
 	{
 		if(rect.getX() > x && rect.getW() < w && rect.getY() > y && rect.getH() < h)
 			return true;
 		else
 			return false;
 	}
-	bool Contains(Point point)
+	bool Contains(Point& point)
 	{
 		if(point.getX() > x && point.getX() < w && point.getY() > y && point.getY() < h)
 			return true;
 		else
 			return false;
 	}
-	bool Contains(int x,int y,int w,int h)
+	bool Contains(int x, int y, int w, int h)
 	{
-		Rect tempRect = CreateRect(x,y,w,h);
+		Rect tempRect = CreateRect(x, y, w, h);
 		return Contains(tempRect);
 	}
 
-	static Rect CreateRect(int x,int y,int w,int h)
+	static Rect CreateRect(int x, int y, int w, int h)
 	{
 		Rect tempRect(x,y,w,h);
 		return tempRect;
@@ -131,81 +131,81 @@ public:
 		return point;
 	}
 
-	int Left()
+	inline int Left()
 	{
 		return x;
 	}
-	int Right()
+	inline int Right()
 	{
 		return (x + w);
 	}
-	int Top()
+	inline int Top()
 	{
 		return y;
 	}
-	int Bottom()
+	inline int Bottom()
 	{
 		return (y + h);
 	}
 
-	int Perimiter()
+	inline int Perimiter()
 	{
 		return (w + w + h + h);
 	}
-	int Area()
+	inline int Area()
 	{
 		return (w * h);
 	}
 
-	int getX()
+	inline int getX()
 	{
 		return x;
 	}
-	int getY()
+	inline int getY()
 	{
 		return y;
 	}
-	int getW()
+	inline int getW()
 	{
 		return w;
 	}
-	int getH()
+	inline int getH()
 	{
 		return h;
 	}
 
-	void setX(int x)
+	inline void setX(int x)
 	{
 		this->x = x;
 	}
-	void setY(int y)
+	inline void setY(int y)
 	{
 		this->y = y;
 	}
-	void setW(int w)
+	inline void setW(int w)
 	{
 		this->w = w;
 	}
-	void setH(int h)
+	inline void setH(int h)
 	{
 		this->h = h;
 	}
 
-	void TranslateX(int x)
+	inline void TranslateX(int x)
 	{
 		this->x += x;
 	}
-	void TranslateY(int y)
+	inline void TranslateY(int y)
 	{
 		this->y += y;
 	}
-	void Translate(int x, int y)
+	inline void Translate(int x, int y)
 	{
 		this->x += x;
 		this->y += y;
 	}
 
-	int x,y,w,h;
+	int x, y, w, h;
 };
 
 #endif

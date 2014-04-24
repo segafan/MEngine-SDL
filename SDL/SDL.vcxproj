@@ -75,9 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="Global.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="FPSTimer.h" />
+    <ClInclude Include="Global.h" />
     <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Matrix4.h" />

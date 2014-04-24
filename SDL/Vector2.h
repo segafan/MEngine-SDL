@@ -10,7 +10,7 @@ public:
 	{
 		Clear();
 	}
-	Vector2(float x,float y)
+	Vector2(float x, float y)
 	{
 		SetPosition(x,y);
 	}
@@ -19,46 +19,63 @@ public:
 	{
 		return (float)sqrt((float)(x * x) + (y * y));
 	}
-	float Dot(Vector2 vector)
+	float Dot(Vector2& vector)
 	{
 		return (x * vector.getX() + y * vector.getY());
 	}
+	
+	Vector2& operator+ (Vector2& vector)
+	{
+		return CreateVector(x + vector.getX(), y + vector.getY());
+	}
+	Vector2& operator- (Vector2& vector)
+	{
+		return CreateVector(x - vector.getX(), y - vector.getY());
+	}
+	Vector2& operator* (Vector2& vector)
+	{
+		return CreateVector(x * vector.getX(), y * vector.getY());
+	}
+	Vector2& operator/ (Vector2& vector)
+	{
+		return CreateVector(x / vector.getX(), y / vector.getY());
+	}
 
-	Vector2 Add(Vector2 vector)
+	Vector2& Add(Vector2& vector)
 	{
 		return CreateVector(x + vector.getX(),y + vector.getY());
 	}
-	Vector2 Sub(Vector2 vector)
+	Vector2& Sub(Vector2& vector)
 	{
 		return CreateVector(x - vector.getX(),y - vector.getY());
 	}
-	Vector2 Mul(Vector2 vector)
+	Vector2& Mul(Vector2& vector)
 	{
 		return CreateVector(x * vector.getX(),y * vector.getY());
 	}
-	Vector2 Div(Vector2 vector)
+	Vector2& Div(Vector2& vector)
 	{
 		return CreateVector(x / vector.getX(),y / vector.getY());
 	}
 
-	Vector2 Add(float value)
+	Vector2& Add(float value)
 	{
 		return CreateVector(x + value,y + value);
 	}
-	Vector2 Sub(float value)
+	Vector2& Sub(float value)
 	{
 		return CreateVector(x - value,y - value);
 	}
-	Vector2 Mul(float value)
+	Vector2& Mul(float value)
 	{
 		return CreateVector(x * value,y * value);
 	}
-	Vector2 Div(float value)
+	Vector2& Div(float value)
 	{
 		return CreateVector(x / value,y / value);
 	}
 
-	Vector2 Normalize()
+	Vector2& Normalize()
 	{
 		float length = Length();
 
@@ -68,21 +85,21 @@ public:
 		return Clone();
 	}
 
-	Vector2 Rotate(float angle)
+	Vector2& Rotate(float angle)
 	{
-		float radian = (float)toRad(angle);
+		float radian = (float)ToRadian(angle);
 		float cosine = (float)cos(radian);
 		float sine   = (float)sin(radian);
 
 		return CreateVector((float)(x * cosine - y * sine),(float)(x * sine + y * cosine));
 	}
 
-	Vector2 Clone()
+	Vector2& Clone()
 	{
 		return CreateVector(x,y);
 	}
 
-	void SetPosition(float x,float y)
+	inline void SetPosition(float x, float y)
 	{
 		this->x = x;
 		this->y = y;
@@ -92,31 +109,31 @@ public:
 		SetPosition(0,0);
 	}
 
-	float getX()
+	inline float getX()
 	{
 		return x;
 	}
-	float getY()
+	inline float getY()
 	{
 		return y;
 	}
 	
-	void setX(float x)
+	inline void setX(float x)
 	{
 		this->x = x;
 	}
-	void setY(float y)
+	inline void setY(float y)
 	{
 		this->y = y;
 	}
 
-	static Vector2 CreateVector(float x,float y)
+	static Vector2 CreateVector(float x, float y)
 	{
 		Vector2 vector(x,y);
 		return vector;
 	}
 
-	float x,y;
+	float x, y;
 };
 
 #endif

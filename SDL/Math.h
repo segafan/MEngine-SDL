@@ -5,13 +5,17 @@
 
 #define PI 3.141592653589793238462
 
-inline float toRad(float angle)
+#define DEG2RAD 0.01745329251994329576923690768f
+#define RAD2DEG 57.2957795130823208767981548141f
+
+inline float ToRadian(const float Degree)
 {
-	return (float)((angle * PI) / 180);
+	return (Degree * DEG2RAD);
 }
-inline float toAngle(float rad)
+
+inline float ToDegree(const float Radian)
 {
-	return (float)((rad * 180) / PI);
+	return (Radian * RAD2DEG);
 }
 
 #endif

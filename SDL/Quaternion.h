@@ -9,11 +9,11 @@ class Quaternion
 public:
 	Quaternion()
 	{
-		SetPosition(0,0,0,0);
+		SetPosition(0, 0, 0, 0);
 	}
-	Quaternion(float x,float y,float z,float w)
+	Quaternion(float x, float y, float z, float w)
 	{
-		SetPosition(x,y,z,w);
+		SetPosition(x, y, z, w);
 	}
 
 	float Length()
@@ -21,7 +21,7 @@ public:
 		return (float)sqrt(x * x + y * y + z * z + w * w);
 	}
 
-	Quaternion Normalize()
+	Quaternion& Normalize()
 	{
 		float length = Length();
 
@@ -32,12 +32,12 @@ public:
 
 		return CreateQuarternion(x,y,z,w);
 	}
-	Quaternion Conjugate()
+	Quaternion& Conjugate()
 	{
 		return CreateQuarternion(-x,-y,-z,w);
 	}
 
-	Quaternion Mul(Quaternion r)
+	Quaternion& Mul(Quaternion& r)
 	{
 		float w_ = w * r.getW() - x * r.getX() - y * r.getY() - z * r.getZ();
         float x_ = x * r.getW() + w * r.getX() + y * r.getZ() - z * r.getY();
@@ -46,7 +46,7 @@ public:
 
 		return CreateQuarternion(x_,y_,z_,w_);
 	}
-	Quaternion Mul(Vector3 r)
+	Quaternion& Mul(Vector3& r)
 	{
 		float w_ = -x * r.getX() - y * r.getY() - z * r.getZ();
         float x_ =  w * r.getX() + y * r.getZ() - z * r.getY();
@@ -56,7 +56,7 @@ public:
         return CreateQuarternion(x_,y_,z_,w_);
 	}
 
-	void SetPosition(float x,float y,float z,float w)
+	inline void SetPosition(float x, float y, float z, float w)
 	{
 		this->x = x;
 		this->y = y;
@@ -64,46 +64,48 @@ public:
 		this->w = w;
 	}
 
-	float getX()
+	inline float getX()
 	{
 		return x;
 	}
-	float getY()
+	inline float getY()
 	{
 		return y;
 	}
-	float getZ()
+	inline float getZ()
 	{
 		return z;
 	}
-	float getW()
+	inline float getW()
 	{
 		return w;
 	}
 
-	void setX(float x)
+	inline void setX(float x)
 	{
 		this->x = x;
 	}
-	void setY(float y)
+	inline void setY(float y)
 	{
 		this->y = y;
 	}
-	void setZ(float z)
+	inline void setZ(float z)
 	{
 		this->z = z;
 	}
-	void setW(float w)
+	inline void setW(float w)
 	{
 		this->w = w;
 	}
-private:
-	Quaternion CreateQuarternion(float x,float y,float z,float w)
+
+	static Quaternion CreateQuarternion(float x, float y, float z, float w)
 	{
-		Quaternion q(x,y,z,w);
+		Quaternion q(x, y, z, w);
 		return q;
 	}
-	float x,y,z,w;
+
+private:
+	float x, y, z, w;
 };
 
 #endif

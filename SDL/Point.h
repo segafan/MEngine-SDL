@@ -8,61 +8,61 @@ public:
 	{
 		Clear();
 	}
-	Point(int x,int y)
+	Point(int x, int y)
 	{
-		SetPosition(x,y);
+		SetPosition(x, y);
 	}
 
 
-	void SetPosition(int x,int y)
+	inline void SetPosition(int x, int y)
 	{
 		this->x = x;
 		this->y = y;
 	}
 	void Clear()
 	{
-		SetPosition(0,0);
+		SetPosition(0, 0);
 	}
 
 
-	bool Intersects(Point point)
+	bool Intersects(Point& point)
 	{
 		if(x == point.getX() && y == point.getY())
 			return true;
 		else
 			return false;
 	}
-	bool Intersects(int x,int y)
+	bool Intersects(int x, int y)
 	{
-		return Intersects(CreatePoint(x,y));
+		return Intersects(CreatePoint(x, y));
 	}
 
 
-	Point CreatePoint(int x,int y)
+	static Point CreatePoint(int x, int y)
 	{
-		Point point(x,y);
+		Point point(x, y);
 		return point;
 	}
 
-	int getX()
+	inline int getX()
 	{
 		return x;
 	}
-	int getY()
+	inline int getY()
 	{
 		return y;
 	}
 
-	void setX(int x)
+	inline void setX(int x)
 	{
 		this->x = x;
 	}
-	void setY(int y)
+	inline void setY(int y)
 	{
 		this->y = y;
 	}
 
-	int x,y;
+	int x, y;
 };
 
 #endif
