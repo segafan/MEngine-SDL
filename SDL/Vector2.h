@@ -41,6 +41,23 @@ public:
 		return CreateVector(x / vector.getX(), y / vector.getY());
 	}
 
+	Vector2& operator+ (float value)
+	{
+		return CreateVector(x + value, y + value);
+	}
+	Vector2& operator- (float value)
+	{
+		return CreateVector(x - value, y - value);
+	}
+	Vector2& operator* (float value)
+	{
+		return CreateVector(x * value, y * value);
+	}
+	Vector2& operator/ (float value)
+	{
+		return CreateVector(x / value, y / value);
+	}
+
 	Vector2& Add(Vector2& vector)
 	{
 		return CreateVector(x + vector.getX(),y + vector.getY());
@@ -109,11 +126,11 @@ public:
 		SetPosition(0,0);
 	}
 
-	inline float getX()
+	inline float& getX()
 	{
 		return x;
 	}
-	inline float getY()
+	inline float& getY()
 	{
 		return y;
 	}
@@ -125,6 +142,15 @@ public:
 	inline void setY(float y)
 	{
 		this->y = y;
+	}
+
+	inline bool operator==(const Vector2& r) const
+	{
+		return x == r.x && y == r.y;
+	}
+	inline bool operator!=(const Vector2& r) const
+	{
+		return !operator==(r);
 	}
 
 	static Vector2 CreateVector(float x, float y)

@@ -157,19 +157,19 @@ public:
 		return (w * h);
 	}
 
-	inline int getX()
+	inline int& getX()
 	{
 		return x;
 	}
-	inline int getY()
+	inline int& getY()
 	{
 		return y;
 	}
-	inline int getW()
+	inline int& getW()
 	{
 		return w;
 	}
-	inline int getH()
+	inline int& getH()
 	{
 		return h;
 	}

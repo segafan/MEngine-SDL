@@ -70,6 +70,23 @@ public:
 		return CreateVector(x / vector.getX(), y / vector.getY(), z / vector.getZ());
 	}
 
+	Vector3& operator+ (float value)
+	{
+		return CreateVector(x + value, y + value, z + value);
+	}
+	Vector3& operator- (float value)
+	{
+		return CreateVector(x - value, y - value, z - value);
+	}
+	Vector3& operator* (float value)
+	{
+		return CreateVector(x * value, y * value, z * value);
+	}
+	Vector3& operator/ (float value)
+	{
+		return CreateVector(x / value, y / value, z / value);
+	}
+
 	Vector3& Add(Vector3& vector)
 	{
 		return CreateVector(x + vector.getX(),y + vector.getY(),z + vector.getZ());
@@ -111,15 +128,15 @@ public:
 		this->z = z;
 	}
 
-	inline float getX()
+	inline float& getX()
 	{
 		return x;
 	}
-	inline float getY()
+	inline float& getY()
 	{
 		return y;
 	}
-	inline float getZ()
+	inline float& getZ()
 	{
 		return z;
 	}

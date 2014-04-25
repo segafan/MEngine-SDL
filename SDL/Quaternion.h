@@ -64,19 +64,19 @@ public:
 		this->w = w;
 	}
 
-	inline float getX()
+	inline float& getX()
 	{
 		return x;
 	}
-	inline float getY()
+	inline float& getY()
 	{
 		return y;
 	}
-	inline float getZ()
+	inline float& getZ()
 	{
 		return z;
 	}
-	inline float getW()
+	inline float& getW()
 	{
 		return w;
 	}
