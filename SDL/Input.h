@@ -8,21 +8,15 @@ class Input
 {
 public:
 	Input()
+		: event()
+		, mouse(&event)
+		, keyboard(&event)
 	{
-		event =    new SDL_Event();
-		mouse =	   new Mouse(event);
-		keyboard = new Keyboard(event);
-	}
-	~Input()
-	{
-		delete event;
-		delete keyboard;
-		delete mouse;
 	}
 
-	SDL_Event *event;
-	Mouse	  *mouse;
-	Keyboard  *keyboard;
+	SDL_Event event;
+	Mouse	  mouse;
+	Keyboard  keyboard;
 };
 
 #endif

@@ -39,19 +39,19 @@ int main(int argc, char *argv[])
 		if (FPS.Tick())
 		{
 			//Input
-			while (SDL_PollEvent(global->input->event))
+			while (SDL_PollEvent(&global->input.event))
 			{
-				if (global->input->event->type == SDL_QUIT)
+				if (global->input.event.type == SDL_QUIT)
 					running = false;
-				if (global->input->keyboard->IsKeyPressed(SDLK_ESCAPE))
+				if (global->input.keyboard.IsKeyPressed(SDLK_ESCAPE))
 					running = false;
 
-				global->input->mouse->Update();
-				global->input->keyboard->Update();
+				global->input.mouse.Update();
+				global->input.keyboard.Update();
 			}
 
 			//Screenshot Creation
-			if (global->input->keyboard->IsKeyPressedOnce(SDLK_F2))
+			if (global->input.keyboard.IsKeyPressedOnce(SDLK_F2))
 				CreateScreenshot(window, renderer);
 
 			//Update

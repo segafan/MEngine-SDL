@@ -11,27 +11,19 @@ class Global
 {
 public:
 	Global(SDL_Window *window, SDL_Renderer *renderer, Logger *logger)
+		: input()
+		, screen(window, renderer)
+		, logger(*logger)
+		, audio(logger)
+		, gfx(window, renderer, logger)
 	{
-		this->logger = logger;
-		screen = new Screen(window, renderer);
-		input = new Input();
-		audio = new AudioManager(logger);
-		gfx = new GraphicsManager(window, renderer, logger);
-	}
-	
-	~Global()
-	{
-		delete screen;
-		delete input;
-		delete audio;
-		delete gfx;
 	}
 
-	Input* input;
-	Screen* screen;
-	Logger* logger;
-	AudioManager* audio;
-	GraphicsManager* gfx;
+	Input input;
+	Screen screen;
+	Logger& logger;
+	AudioManager audio;
+	GraphicsManager gfx;
 };
 
 #endif
