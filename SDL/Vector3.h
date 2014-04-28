@@ -45,12 +45,12 @@ public:
 
 	Vector3& Rotate()
 	{
-		return CreateVector(0,0,0);
+		return CreateVector(0, 0, 0);
 	}
 
 	Vector3& Clone()
 	{
-		CreateVector(x,y,z);
+		CreateVector(x, y, z);
 	}
 
 	Vector3& operator+ (Vector3& vector)
@@ -89,36 +89,36 @@ public:
 
 	Vector3& Add(Vector3& vector)
 	{
-		return CreateVector(x + vector.getX(),y + vector.getY(),z + vector.getZ());
+		return CreateVector(x + vector.getX(), y + vector.getY(), z + vector.getZ());
 	}
 	Vector3& Sub(Vector3& vector)
 	{
-		return CreateVector(x - vector.getX(),y - vector.getY(),z - vector.getZ());
+		return CreateVector(x - vector.getX(), y - vector.getY(), z - vector.getZ());
 	}
 	Vector3& Mul(Vector3& vector)
 	{
-		return CreateVector(x * vector.getX(),y * vector.getY(),z * vector.getZ());
+		return CreateVector(x * vector.getX(), y * vector.getY(), z * vector.getZ());
 	}
 	Vector3& Div(Vector3& vector)
 	{
-		return CreateVector(x / vector.getX(),y / vector.getY(),z / vector.getZ());
+		return CreateVector(x / vector.getX(), y / vector.getY(), z / vector.getZ());
 	}
 
 	Vector3& Add(float value)
 	{
-		return CreateVector(x + value,y + value,z + value);
+		return CreateVector(x + value, y + value, z + value);
 	}
 	Vector3& Sub(float value)
 	{
-		return CreateVector(x - value,y - value,z - value);
+		return CreateVector(x - value, y - value, z - value);
 	}
 	Vector3& Mul(float value)
 	{
-		return CreateVector(x * value,y * value,z * value);
+		return CreateVector(x * value, y * value, z * value);
 	}
 	Vector3& Div(float value)
 	{
-		return CreateVector(x / value,y / value,z / value);
+		return CreateVector(x / value, y / value, z / value);
 	}
 
 	inline void SetPosition(float x, float y, float z)

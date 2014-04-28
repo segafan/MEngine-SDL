@@ -189,7 +189,6 @@ inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bo
 
 inline SDL_Window* CreateAndLogWindow(const char* title, int x, int y, int w, int h, Uint32 flags, Logger* logger)
 {
-
 	LogSDLInfo(logger);
 	LogSystemInfo(logger);
 	LogOSInfo(logger);

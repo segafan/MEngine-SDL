@@ -38,4 +38,5 @@ inline bool RandomBool()
 	else
 		return false;
 }
+
 #endif

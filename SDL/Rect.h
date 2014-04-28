@@ -110,7 +110,7 @@ public:
 
 	Point Position()
 	{
-		Point point(x,y);
+		Point point(x, y);
 		return point;
 	}
 

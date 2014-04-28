@@ -34,3 +34,6 @@
 [-] Create Log types (Error,Info,Message,etc.)
 [-] IsNumber function
 [-] Camera
+[-] Remove CreateRect and things like this
+[-] Make Logger so it can logger.Log("Hi ").Log("How are you") etc.
+[-] Log GetRenderFlags()

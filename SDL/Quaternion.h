@@ -30,11 +30,11 @@ public:
 		z /= length;
 		w /= length;
 
-		return CreateQuarternion(x,y,z,w);
+		return CreateQuarternion(x, y, z, w);
 	}
 	Quaternion& Conjugate()
 	{
-		return CreateQuarternion(-x,-y,-z,w);
+		return CreateQuarternion(-x, -y, -z, w);
 	}
 
 	Quaternion& Mul(Quaternion& r)
@@ -44,7 +44,7 @@ public:
         float y_ = y * r.getW() + w * r.getY() + z * r.getX() - x * r.getZ();
         float z_ = z * r.getW() + w * r.getZ() + x * r.getY() - y * r.getX();
 
-		return CreateQuarternion(x_,y_,z_,w_);
+		return CreateQuarternion(x_, y_, z_, w_);
 	}
 	Quaternion& Mul(Vector3& r)
 	{
@@ -53,7 +53,7 @@ public:
         float y_ =  w * r.getY() + z * r.getX() - x * r.getZ();
         float z_ =  w * r.getZ() + x * r.getY() - y * r.getX();
                 
-        return CreateQuarternion(x_,y_,z_,w_);
+		return CreateQuarternion(x_, y_, z_, w_);
 	}
 
 	inline void SetPosition(float x, float y, float z, float w)

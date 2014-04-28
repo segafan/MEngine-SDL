@@ -12,7 +12,7 @@ public:
 	}
 	Vector2(float x, float y)
 	{
-		SetPosition(x,y);
+		SetPosition(x, y);
 	}
 
 	float Length()
@@ -60,36 +60,36 @@ public:
 
 	Vector2& Add(Vector2& vector)
 	{
-		return CreateVector(x + vector.GetX(),y + vector.GetY());
+		return CreateVector(x + vector.GetX(), y + vector.GetY());
 	}
 	Vector2& Sub(Vector2& vector)
 	{
-		return CreateVector(x - vector.GetX(),y - vector.GetY());
+		return CreateVector(x - vector.GetX(), y - vector.GetY());
 	}
 	Vector2& Mul(Vector2& vector)
 	{
-		return CreateVector(x * vector.GetX(),y * vector.GetY());
+		return CreateVector(x * vector.GetX(), y * vector.GetY());
 	}
 	Vector2& Div(Vector2& vector)
 	{
-		return CreateVector(x / vector.GetX(),y / vector.GetY());
+		return CreateVector(x / vector.GetX(), y / vector.GetY());
 	}
 
 	Vector2& Add(float value)
 	{
-		return CreateVector(x + value,y + value);
+		return CreateVector(x + value, y + value);
 	}
 	Vector2& Sub(float value)
 	{
-		return CreateVector(x - value,y - value);
+		return CreateVector(x - value, y - value);
 	}
 	Vector2& Mul(float value)
 	{
-		return CreateVector(x * value,y * value);
+		return CreateVector(x * value, y * value);
 	}
 	Vector2& Div(float value)
 	{
-		return CreateVector(x / value,y / value);
+		return CreateVector(x / value, y / value);
 	}
 
 	Vector2& Normalize()
@@ -113,7 +113,7 @@ public:
 
 	Vector2& Clone()
 	{
-		return CreateVector(x,y);
+		return CreateVector(x, y);
 	}
 
 	inline void SetPosition(float x, float y)
@@ -123,7 +123,7 @@ public:
 	}
 	void Clear()
 	{
-		SetPosition(0,0);
+		SetPosition(0, 0);
 	}
 
 	inline float& GetX()
@@ -155,7 +155,7 @@ public:
 
 	static Vector2 CreateVector(float x, float y)
 	{
-		Vector2 vector(x,y);
+		Vector2 vector(x, y);
 		return vector;
 	}
 

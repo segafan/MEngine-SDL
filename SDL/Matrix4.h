@@ -8,9 +8,9 @@ class Matrix4
 public:
 	Matrix4()
 	{
-		for(int i = 0; i < 4;i++)
+		for (int i = 0; i < 4; i++)
 		{
-			for(int j = 0;j < 4;j++)
+			for (int j = 0; j < 4; j++)
 			{
 				values[i][j] = 0;
 			}
@@ -32,14 +32,14 @@ public:
 	{
 		Matrix4 newMatrix;
 
-		for(int i = 0; i < 4;i++)
+		for (int i = 0; i < 4; i++)
 		{
-			for(int j = 0;j < 4;j++)
+			for (int j = 0; j < 4; j++)
 			{
-				newMatrix.SetAt(i,j,values[i][0] * matrix.GetAt(0,j) + 
-									values[i][1] * matrix.GetAt(1,j) + 
-									values[i][2] * matrix.GetAt(2,j) + 
-									values[i][3] * matrix.GetAt(3,j));
+				newMatrix.SetAt(i, j, values[i][0] * matrix.GetAt(0, j) +
+									  values[i][1] * matrix.GetAt(1, j) +
+									  values[i][2] * matrix.GetAt(2, j) +
+									  values[i][3] * matrix.GetAt(3, j));
 			}
 		}
 	}
@@ -55,9 +55,9 @@ public:
 
 	void SetAll(float value)
 	{
-		for(int i = 0; i < 4;i++)
+		for (int i = 0; i < 4; i++)
 		{
-			for(int j = 0;j < 4;j++)
+			for (int j = 0; j < 4; j++)
 			{
 				values[i][j] = value;
 			}
