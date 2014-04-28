@@ -60,10 +60,10 @@ public:
 		bottomA = y + h;
         
 		//Calculate the sides of rect B
-		leftB = rect.getX();
-		rightB = rect.getX() + rect.getW();
-		topB = rect.getY();
-		bottomB = rect.getY() + rect.getH();
+		leftB = rect.GetX();
+		rightB = rect.GetX() + rect.GetW();
+		topB = rect.GetY();
+		bottomB = rect.GetY() + rect.GetH();
 		
 		if( bottomA <= topB )
 			return false;
@@ -84,7 +84,7 @@ public:
 
 	bool Contains(Rect& rect)
 	{
-		if(rect.getX() > x && rect.getW() < w && rect.getY() > y && rect.getH() < h)
+		if(rect.GetX() > x && rect.GetW() < w && rect.GetY() > y && rect.GetH() < h)
 			return true;
 		else
 			return false;
@@ -104,7 +104,7 @@ public:
 
 	static Rect CreateRect(int x, int y, int w, int h)
 	{
-		Rect tempRect(x,y,w,h);
+		Rect tempRect(x, y, w, h);
 		return tempRect;
 	}
 
@@ -155,36 +155,36 @@ public:
 		return (w * h);
 	}
 
-	inline int& getX()
+	inline int& GetX()
 	{
 		return x;
 	}
-	inline int& getY()
+	inline int& GetY()
 	{
 		return y;
 	}
-	inline int& getW()
+	inline int& GetW()
 	{
 		return w;
 	}
-	inline int& getH()
+	inline int& GetH()
 	{
 		return h;
 	}
 
-	inline void setX(int x)
+	inline void SetX(int x)
 	{
 		this->x = x;
 	}
-	inline void setY(int y)
+	inline void SetY(int y)
 	{
 		this->y = y;
 	}
-	inline void setW(int w)
+	inline void SetW(int w)
 	{
 		this->w = w;
 	}
-	inline void setH(int h)
+	inline void SetH(int h)
 	{
 		this->h = h;
 	}

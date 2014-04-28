@@ -64,6 +64,9 @@ public:
 		//Mouse Position
 		SDL_GetMouseState(&x, &y);
 
+		//Mouse Rect
+		rect.SetPosition(x, y, 4, 4);
+
 		//Mouse Buttons
 		if (event->type == SDL_MOUSEBUTTONDOWN)
 			buttons[event->button.button] = true;
@@ -89,13 +92,15 @@ public:
 		}
 	}
 
-	Rect GetMouseRect()
+	Rect* GetMouseRect()
 	{
-		return Rect::CreateRect(x, y, 4, 4);
+		return &rect;
 	}
 
 	int x, y;
 private:
+	Rect rect;
+
 	SDL_Event *event;
 
 	bool scrollUp;

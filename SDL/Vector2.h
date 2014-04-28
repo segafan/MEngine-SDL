@@ -21,24 +21,24 @@ public:
 	}
 	float Dot(Vector2& vector)
 	{
-		return (x * vector.getX() + y * vector.getY());
+		return (x * vector.GetX() + y * vector.GetY());
 	}
 	
 	Vector2& operator+ (Vector2& vector)
 	{
-		return CreateVector(x + vector.getX(), y + vector.getY());
+		return CreateVector(x + vector.GetX(), y + vector.GetY());
 	}
 	Vector2& operator- (Vector2& vector)
 	{
-		return CreateVector(x - vector.getX(), y - vector.getY());
+		return CreateVector(x - vector.GetX(), y - vector.GetY());
 	}
 	Vector2& operator* (Vector2& vector)
 	{
-		return CreateVector(x * vector.getX(), y * vector.getY());
+		return CreateVector(x * vector.GetX(), y * vector.GetY());
 	}
 	Vector2& operator/ (Vector2& vector)
 	{
-		return CreateVector(x / vector.getX(), y / vector.getY());
+		return CreateVector(x / vector.GetX(), y / vector.GetY());
 	}
 
 	Vector2& operator+ (float value)
@@ -60,19 +60,19 @@ public:
 
 	Vector2& Add(Vector2& vector)
 	{
-		return CreateVector(x + vector.getX(),y + vector.getY());
+		return CreateVector(x + vector.GetX(),y + vector.GetY());
 	}
 	Vector2& Sub(Vector2& vector)
 	{
-		return CreateVector(x - vector.getX(),y - vector.getY());
+		return CreateVector(x - vector.GetX(),y - vector.GetY());
 	}
 	Vector2& Mul(Vector2& vector)
 	{
-		return CreateVector(x * vector.getX(),y * vector.getY());
+		return CreateVector(x * vector.GetX(),y * vector.GetY());
 	}
 	Vector2& Div(Vector2& vector)
 	{
-		return CreateVector(x / vector.getX(),y / vector.getY());
+		return CreateVector(x / vector.GetX(),y / vector.GetY());
 	}
 
 	Vector2& Add(float value)
@@ -126,20 +126,20 @@ public:
 		SetPosition(0,0);
 	}
 
-	inline float& getX()
+	inline float& GetX()
 	{
 		return x;
 	}
-	inline float& getY()
+	inline float& GetY()
 	{
 		return y;
 	}
 	
-	inline void setX(float x)
+	inline void SetX(float x)
 	{
 		this->x = x;
 	}
-	inline void setY(float y)
+	inline void SetY(float y)
 	{
 		this->y = y;
 	}
