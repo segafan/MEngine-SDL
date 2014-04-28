@@ -98,7 +98,7 @@ public:
 	}
 	bool Contains(int x, int y, int w, int h)
 	{
-		Rect tempRect = CreateRect(x, y, w, h);
+		Rect tempRect(x, y, w, h);
 		return Contains(tempRect);
 	}
 
