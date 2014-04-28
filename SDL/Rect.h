@@ -19,19 +19,17 @@ public:
 
 	SDL_Rect& operator= (const SDL_Rect c)
 	{
-		return GetSDLRect();
+		return *GetSDLRect();
 	}
 
-	SDL_Rect GetSDLRect()
+	SDL_Rect* GetSDLRect()
 	{
-		SDL_Rect rect;
-
 		rect.x = x;
 		rect.y = y;
 		rect.w = w;
 		rect.h = h;
 
-		return rect;
+		return &rect;
 	}
 
 	inline void SetPosition(int x, int y, int w, int h)
@@ -206,6 +204,9 @@ public:
 	}
 
 	int x, y, w, h;
+
+private:
+	SDL_Rect rect;
 };
 
 #endif

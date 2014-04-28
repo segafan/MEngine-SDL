@@ -15,6 +15,13 @@
 #undef DrawText
 #endif
 
+enum Align
+{
+	ALIGN_LEFT = 0,
+	ALIGN_RIGHT = 1,
+	ALIGN_CENTER = 2
+};
+
 class FontManager
 {
 public:
@@ -95,7 +102,7 @@ public:
 				if (fonts[iterator->first][iterator2->first] != NULL)
 				{
 					//Destroy Font
-					std::cout << "Destroyed texture: " << iterator->first << " Size: " << iterator2->first << std::endl;
+					std::cout << "Destroyed font: " << iterator->first << " Size: " << iterator2->first << std::endl;
 					TTF_CloseFont(fonts[iterator->first][iterator2->first]);
 				}
 			}
@@ -106,16 +113,14 @@ public:
 	//TODO: Add more Draw() options
 	//TODO: Add every letter as a Texture and draw every letter of the text one by one
 	//TDOD: Add align Center | Left |Right
-	//TODO: There might be problems because the pos can resize the texture
 
 	//Drawing with SDL_Rect
 
-	void DrawText(char* key, char* text, int size, SDL_Rect *pos, SDL_Color color)
+	void DrawText(const char* key, const char* text, int size, SDL_Rect *pos, SDL_Color color)
 	{
 		if (fonts[key][size] == NULL)
 		{
-			//TODO: Log this
-			std::cout << "The text can't be drawn beacuse the font doesn't exist! Key: " << key << " Size: " << size << std::endl;
+			logger->LogLine("The text can't be drawn beacuse the font doesn't exist! Key: ", key, " Size: ", NumberToString(size).c_str());
 			return;
 		}
 
@@ -123,15 +128,31 @@ public:
 		SDL_Surface* surface = NULL;
 		surface = TTF_RenderText_Solid(fonts[key][size], text, color);
 
+		if (surface == NULL)
+		{
+			logger->LogLine(CreateString("Couldn't create surface from Font! Key: ", key, " Size: ").c_str(), NumberToString(size).c_str(), " Text: ", text);
+			return;
+		}
+
 		//Create Texture from Surface
 		SDL_Texture* texture = NULL;
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+		if (texture == NULL)
+		{
+			logger->LogLine(CreateString("Couldn't create texture from surface(made from Font)! Key: ", key, " Size: ").c_str(), NumberToString(size).c_str(), " Text: ", text);
+			return;
+		}
 
 		//Free Surface
 		SDL_FreeSurface(surface);
 
 		//Query Texture for w and h
-		SDL_QueryTexture(texture, NULL, NULL, &pos->w, &pos->h);
+		if (SDL_QueryTexture(texture, NULL, NULL, &pos->w, &pos->h) == -1)
+		{
+			logger->LogLine(CreateString("Couldn't query texture from surface(made from Font)! Key: ", key, " Size: ").c_str(), NumberToString(size).c_str(), " Text: ", text);
+			return;
+		}
 
 		//Render
 		SDL_RenderCopy(renderer, texture, NULL, pos);
@@ -142,12 +163,12 @@ public:
 
 	//Drawing with own Rect
 
-	void DrawText(char* key, char* text, int size, Rect *pos, SDL_Color color)
+	void DrawText(const char* key, const char* text, int size, Rect *pos, SDL_Color color)
 	{
-		DrawText(key, text, size, &pos->GetSDLRect(), color);
+		DrawText(key, text, size, pos->GetSDLRect(), color);
 	}
 private:
-	std::map<std::string,std::map<int, TTF_Font*>> fonts;
+	std::map<std::string, std::map<int, TTF_Font*>> fonts;
 
 	Logger *logger;
 

@@ -21,7 +21,16 @@
 [-] Change char* to std::string
 [-] FPS Timer Frame Skip
 [-] Animation class
-[-] In Rect use operator *= and so on with float values add float values
-[-] Return references
-[-] inline Get and Set
-[-] Remove new and delete in Global
+[-] GetScreenSize must return reference not pointer
+[-] Make GetScreenW and H functions too!
+[-] GameStateManager in Global
+[-] Fix RandomBool()
+[-] Change char* to std::string or const char*
+[-] Create Align option at text drawing
+[-] Fix a bug with DrawText at CreateTextureFromSurface()
+[-] Bitmap fonts
+[-] Rework Font Drawing
+[-] Check for NULL in DrawText()
+[-] Create Log types (Error,Info,Message,etc.)
+[-] IsNumber function
+[-] Camera

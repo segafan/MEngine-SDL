@@ -36,6 +36,6 @@ inline bool RandomBool()
 	if (random == 0)
 		return true;
 	else
-		false;
+		return false;
 }
 #endif
