@@ -45,7 +45,7 @@ public:
 	}
 
 
-	bool Intersects(Rect& rect)
+	bool Intersects(Rect rect)
 	{
 		//The sides of the rectangles
 		int leftA, leftB;
