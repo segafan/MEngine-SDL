@@ -137,11 +137,11 @@ public:
 
 	void DrawTextureFlip(char* key, SDL_Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos, NULL, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos, 0, NULL, flip);
 	}
 	void DrawTextureFlip(char* key, SDL_Rect *srcpos, SDL_Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, pos, NULL, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, pos, 0, NULL, flip);
 	}
 
 	//Drawing using own Rect class
@@ -166,11 +166,11 @@ public:
 
 	void DrawTextureFlip(char* key, Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->GetSDLRect(), NULL, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->GetSDLRect(), 0, NULL, flip);
 	}
 	void DrawTextureFlip(char* key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->GetSDLRect(), pos->GetSDLRect(), NULL, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->GetSDLRect(), pos->GetSDLRect(), 0, NULL, flip);
 	}
 private:
 	Logger *logger;

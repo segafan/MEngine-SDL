@@ -42,6 +42,8 @@ public:
 									  values[i][3] * matrix.GetAt(3, j));
 			}
 		}
+
+		return newMatrix;
 	}
 
 	float GetAt(int x,int y)

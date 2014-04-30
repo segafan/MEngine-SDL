@@ -8,7 +8,7 @@
 
 #include "Logger.h"
 
-inline bool GetRenderFlagAvailable(SDL_RendererInfo *info, int flag)
+inline bool GetRenderFlagAvailable(SDL_RendererInfo *info, unsigned int flag)
 {
 	if ((info->flags & flag) == flag)
 		return true;
@@ -43,7 +43,7 @@ inline bool GetRenderFlagAvailable(SDL_Renderer *renderer, int flag)
 
 static Uint32 GetRenderFlags(SDL_Window *window, bool TargetTextureSupport, bool HaveVSYNC)
 {
-	Uint32 finalFlags = NULL;
+	Uint32 finalFlags = 0;
 	
 	bool textureTargetAvailable = false;
 
@@ -68,10 +68,10 @@ static Uint32 GetRenderFlags(SDL_Window *window, bool TargetTextureSupport, bool
 		bool texture  = false;
 		bool vsync   = false;
 
-		int hardwareRender = NULL;
-		int softwareRender = NULL;
-		int targetTexture  = NULL;
-		int presentVSYNC   = NULL;
+		int hardwareRender = 0;
+		int softwareRender = 0;
+		int targetTexture  = 0;
+		int presentVSYNC   = 0;
 
 
 		//Calculate
@@ -141,7 +141,7 @@ static Uint32 GetRenderFlags(SDL_Window *window, bool TargetTextureSupport, bool
 	}
 
 	//Software Acceleration (if no TargetTexture or no Hardware)
-	if ((finalFlags == NULL) || (TargetTextureSupport && !hardwareTextureTarget && textureTargetAvailable))
+	if ((finalFlags == 0) || (TargetTextureSupport && !hardwareTextureTarget && textureTargetAvailable))
 	{
 		for (int i = 0; i < SDL_GetNumRenderDrivers(); i++)
 		{
@@ -172,15 +172,15 @@ static Uint32 GetRenderFlags(SDL_Window *window, bool TargetTextureSupport, bool
 	}
 	
 	//Final Error Checks
-	if (finalFlags == NULL)
+	if (finalFlags == 0)
 	{
-		SDL_ShowSimpleMessageBox(NULL, "Error", "No Hardware or Software Acceleration Available! ", window);
+		SDL_ShowSimpleMessageBox(0, "Error", "No Hardware or Software Acceleration Available! ", window);
 		std::cout << "No Hardware or Software Acceleration Available! Error: " << SDL_GetError() << std::endl;
 	}
 
 	if (!textureTargetAvailable && TargetTextureSupport)
 	{
-		SDL_ShowSimpleMessageBox(NULL, "Error", "Error your videocard doesn't support TargetTexture! \n IT MAY CAUSE PROGRAM CRASHES!", window);
+		SDL_ShowSimpleMessageBox(0, "Error", "Error your videocard doesn't support TargetTexture! \n IT MAY CAUSE PROGRAM CRASHES!", window);
 		std::cout << "Error your videocard doesn't support TargetTexture! Error: " << SDL_GetError() << std::endl;
 	}
 

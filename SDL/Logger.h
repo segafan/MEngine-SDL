@@ -81,8 +81,6 @@ inline bool FileExits(const char *filename)
 		in.close();
 		return true;
 	}
-
-	in.close();
 }
 
 inline std::string GetLogName()

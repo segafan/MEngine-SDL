@@ -39,19 +39,19 @@ public:
 
 	Quaternion& Mul(Quaternion& r)
 	{
-		float w_ = w * r.getW() - x * r.getX() - y * r.getY() - z * r.getZ();
-        float x_ = x * r.getW() + w * r.getX() + y * r.getZ() - z * r.getY();
-        float y_ = y * r.getW() + w * r.getY() + z * r.getX() - x * r.getZ();
-        float z_ = z * r.getW() + w * r.getZ() + x * r.getY() - y * r.getX();
+		float w_ = w * r.GetW() - x * r.GetX() - y * r.GetY() - z * r.GetZ();
+        float x_ = x * r.GetW() + w * r.GetX() + y * r.GetZ() - z * r.GetY();
+        float y_ = y * r.GetW() + w * r.GetY() + z * r.GetX() - x * r.GetZ();
+        float z_ = z * r.GetW() + w * r.GetZ() + x * r.GetY() - y * r.GetX();
 
 		return CreateQuarternion(x_, y_, z_, w_);
 	}
 	Quaternion& Mul(Vector3& r)
 	{
-		float w_ = -x * r.getX() - y * r.getY() - z * r.getZ();
-        float x_ =  w * r.getX() + y * r.getZ() - z * r.getY();
-        float y_ =  w * r.getY() + z * r.getX() - x * r.getZ();
-        float z_ =  w * r.getZ() + x * r.getY() - y * r.getX();
+		float w_ = -x * r.GetX() - y * r.GetY() - z * r.GetZ();
+        float x_ =  w * r.GetX() + y * r.GetZ() - z * r.GetY();
+        float y_ =  w * r.GetY() + z * r.GetX() - x * r.GetZ();
+        float z_ =  w * r.GetZ() + x * r.GetY() - y * r.GetX();
                 
 		return CreateQuarternion(x_, y_, z_, w_);
 	}
@@ -64,36 +64,36 @@ public:
 		this->w = w;
 	}
 
-	inline float& getX()
+	inline float& GetX()
 	{
 		return x;
 	}
-	inline float& getY()
+	inline float& GetY()
 	{
 		return y;
 	}
-	inline float& getZ()
+	inline float& GetZ()
 	{
 		return z;
 	}
-	inline float& getW()
+	inline float& GetW()
 	{
 		return w;
 	}
 
-	inline void setX(float x)
+	inline void SetX(float x)
 	{
 		this->x = x;
 	}
-	inline void setY(float y)
+	inline void SetY(float y)
 	{
 		this->y = y;
 	}
-	inline void setZ(float z)
+	inline void SetZ(float z)
 	{
 		this->z = z;
 	}
-	inline void setW(float w)
+	inline void SetW(float w)
 	{
 		this->w = w;
 	}

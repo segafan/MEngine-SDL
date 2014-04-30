@@ -113,7 +113,7 @@ public:
 
 	Vector2& Clone()
 	{
-		return CreateVector(x, y);
+		return (*this);
 	}
 
 	inline void SetPosition(float x, float y)

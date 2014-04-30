@@ -21,13 +21,13 @@ public:
 	}
 	float Dot(Vector3& vector)
 	{
-		return (x * vector.getX() + y * vector.getY() + z * vector.getZ());
+		return (x * vector.GetX() + y * vector.GetY() + z * vector.GetZ());
 	}
 	Vector3& Cross(Vector3& vector)
 	{
-		float x1 = (y * vector.getZ() - z * vector.getY());
-		float y1 = (z * vector.getX() - x * vector.getZ());
-		float z1 = (x * vector.getY() - y * vector.getX());
+		float x1 = (y * vector.GetZ() - z * vector.GetY());
+		float y1 = (z * vector.GetX() - x * vector.GetZ());
+		float z1 = (x * vector.GetY() - y * vector.GetX());
 
 		return CreateVector(x1, y1, z1);
 	}
@@ -50,24 +50,24 @@ public:
 
 	Vector3& Clone()
 	{
-		CreateVector(x, y, z);
+		return (*this);
 	}
 
 	Vector3& operator+ (Vector3& vector)
 	{
-		return CreateVector(x + vector.getX(), y + vector.getY(), z + vector.getZ());
+		return CreateVector(x + vector.GetX(), y + vector.GetY(), z + vector.GetZ());
 	}
 	Vector3& operator- (Vector3& vector)
 	{
-		return CreateVector(x - vector.getX(), y - vector.getY(), z - vector.getZ());
+		return CreateVector(x - vector.GetX(), y - vector.GetY(), z - vector.GetZ());
 	}
 	Vector3& operator* (Vector3& vector)
 	{
-		return CreateVector(x * vector.getX(), y * vector.getY(), z * vector.getZ());
+		return CreateVector(x * vector.GetX(), y * vector.GetY(), z * vector.GetZ());
 	}
 	Vector3& operator/ (Vector3& vector)
 	{
-		return CreateVector(x / vector.getX(), y / vector.getY(), z / vector.getZ());
+		return CreateVector(x / vector.GetX(), y / vector.GetY(), z / vector.GetZ());
 	}
 
 	Vector3& operator+ (float value)
@@ -89,19 +89,19 @@ public:
 
 	Vector3& Add(Vector3& vector)
 	{
-		return CreateVector(x + vector.getX(), y + vector.getY(), z + vector.getZ());
+		return CreateVector(x + vector.GetX(), y + vector.GetY(), z + vector.GetZ());
 	}
 	Vector3& Sub(Vector3& vector)
 	{
-		return CreateVector(x - vector.getX(), y - vector.getY(), z - vector.getZ());
+		return CreateVector(x - vector.GetX(), y - vector.GetY(), z - vector.GetZ());
 	}
 	Vector3& Mul(Vector3& vector)
 	{
-		return CreateVector(x * vector.getX(), y * vector.getY(), z * vector.getZ());
+		return CreateVector(x * vector.GetX(), y * vector.GetY(), z * vector.GetZ());
 	}
 	Vector3& Div(Vector3& vector)
 	{
-		return CreateVector(x / vector.getX(), y / vector.getY(), z / vector.getZ());
+		return CreateVector(x / vector.GetX(), y / vector.GetY(), z / vector.GetZ());
 	}
 
 	Vector3& Add(float value)
@@ -128,28 +128,28 @@ public:
 		this->z = z;
 	}
 
-	inline float& getX()
+	inline float& GetX()
 	{
 		return x;
 	}
-	inline float& getY()
+	inline float& GetY()
 	{
 		return y;
 	}
-	inline float& getZ()
+	inline float& GetZ()
 	{
 		return z;
 	}
 
-	inline void setX(float x)
+	inline void SetX(float x)
 	{
 		this->x = x;
 	}
-	inline void setY(float y)
+	inline void SetY(float y)
 	{
 		this->y = y;
 	}
-	inline void setZ(float z)
+	inline void SetZ(float z)
 	{
 		this->z = z;
 	}

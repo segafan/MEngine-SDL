@@ -38,9 +38,6 @@ public:
 
 	bool Tick()
 	{
-		if (frameTime == NULL)
-			frameTime = (1000.0f / FPS) + 0.00001;
-
 		if (FPS == 0)
 			return true;
 

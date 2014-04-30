@@ -126,12 +126,15 @@ static void LogSubSystemInfo(Logger *logger, SDL_Window *window)
 		const char *subsystem = "Unknown System";
 		switch (info.subsystem)
 		{
-		case SDL_SYSWM_UNKNOWN:   break;
-		case SDL_SYSWM_WINDOWS:   subsystem = "Microsoft Windows";      break;
-		case SDL_SYSWM_X11:       subsystem = "X Window System";        break;
-		case SDL_SYSWM_DIRECTFB:  subsystem = "DirectFB";               break;
-		case SDL_SYSWM_COCOA:     subsystem = "Apple OS X";             break;
-		case SDL_SYSWM_UIKIT:     subsystem = "UIKit";                  break;
+			case SDL_SYSWM_UNKNOWN:   break;
+			case SDL_SYSWM_WINDOWS:   subsystem = "Microsoft Windows";      break;
+			case SDL_SYSWM_X11:       subsystem = "X Window System";        break;
+			case SDL_SYSWM_DIRECTFB:  subsystem = "DirectFB";               break;
+			case SDL_SYSWM_COCOA:     subsystem = "Apple OS X";             break;
+			case SDL_SYSWM_UIKIT:     subsystem = "UIKit";                  break;
+			case SDL_SYSWM_WAYLAND:	  subsystem = "Wayland";				break;
+			case SDL_SYSWM_MIR:		  subsystem = "Mir";					break;
+			case SDL_SYSWM_WINRT:	  subsystem = "Win RT";					break;
 		}
 		logger->LogLineWithoutDate("Subsystem: ", subsystem);
 	}
@@ -166,7 +169,7 @@ inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bo
 	LogAllRenderInfo(logger);
 
 	Uint32 flags = GetRenderFlags(window, targetTexture, vsync);
-	if (flags == NULL)
+	if (flags == 0)
 	{
 		logger->LogLine("No Render Flags Available!");
 		return NULL;
