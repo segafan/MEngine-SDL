@@ -26,7 +26,7 @@ public:
 	}
 
 	//Add & Destroy Textures
-	void AddTexture(char* filepath, char* key)
+	void AddTexture(std::string filepath, std::string key)
 	{
 		//Check if the texture exists
 		if (textures[key] != NULL)
@@ -37,7 +37,7 @@ public:
 
 		//Loading Texture
 		SDL_Texture* texture = NULL;
-		texture = IMG_LoadTexture(renderer, filepath);
+		texture = IMG_LoadTexture(renderer, filepath.c_str());
 		
 		//Checking if Loading was succesfull
 		if (texture == NULL)
@@ -48,7 +48,7 @@ public:
 		//Push to global
 		textures[key] = texture;
 	}
-	void AddTexture(SDL_Texture* texture, char* key)
+	void AddTexture(SDL_Texture* texture, std::string key)
 	{
 		//Check if the texture exists
 		if (textures[key] != NULL)
@@ -67,7 +67,7 @@ public:
 		//Push to global
 		textures[key] = texture;
 	}
-	void RemoveTexture(char* key)
+	void RemoveTexture(std::string key)
 	{
 		if (textures[key] == NULL)
 		{
@@ -79,7 +79,7 @@ public:
 		textures[key] = NULL;
 	}
 	
-	SDL_Texture* GetTexture(char* key)
+	SDL_Texture* GetTexture(std::string key)
 	{
 		if (textures[key] == NULL)
 		{
@@ -117,58 +117,58 @@ public:
 	//TODO: Add more options to Draw
 
 	//Drawing using SDL_Rect
-	void DrawTexture(char* key, SDL_Rect *pos)
+	void DrawTexture(std::string key, SDL_Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), NULL, pos);
 	}
-	void DrawTexture(char* key,SDL_Rect *srcpos, SDL_Rect *pos)
+	void DrawTexture(std::string key, SDL_Rect *srcpos, SDL_Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), srcpos, pos);
 	}
 
-	void DrawTextureRotated(char* key, SDL_Rect *pos, double angle)
+	void DrawTextureRotated(std::string key, SDL_Rect *pos, double angle)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos, angle, NULL, SDL_FLIP_NONE);
 	}
-	void DrawTextureRotated(char* key, SDL_Rect *srcpos, SDL_Rect *pos, double angle)
+	void DrawTextureRotated(std::string key, SDL_Rect *srcpos, SDL_Rect *pos, double angle)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, pos, angle, NULL, SDL_FLIP_NONE);
 	}
 
-	void DrawTextureFlip(char* key, SDL_Rect *pos, SDL_RendererFlip flip)
+	void DrawTextureFlip(std::string key, SDL_Rect *pos, SDL_RendererFlip flip)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos, 0, NULL, flip);
 	}
-	void DrawTextureFlip(char* key, SDL_Rect *srcpos, SDL_Rect *pos, SDL_RendererFlip flip)
+	void DrawTextureFlip(std::string key, SDL_Rect *srcpos, SDL_Rect *pos, SDL_RendererFlip flip)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, pos, 0, NULL, flip);
 	}
 
 	//Drawing using own Rect class
 
-	void DrawTexture(char* key, Rect *pos)
+	void DrawTexture(std::string key, Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), NULL, pos->GetSDLRect());
 	}
-	void DrawTexture(char* key, Rect *srcpos, Rect *pos)
+	void DrawTexture(std::string key, Rect *srcpos, Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), srcpos->GetSDLRect(), pos->GetSDLRect());
 	}
 
-	void DrawTextureRotated(char* key, Rect *pos, double angle)
+	void DrawTextureRotated(std::string key, Rect *pos, double angle)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->GetSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
-	void DrawTextureRotated(char* key, Rect *srcpos, Rect *pos, double angle)
+	void DrawTextureRotated(std::string key, Rect *srcpos, Rect *pos, double angle)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->GetSDLRect(), pos->GetSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
 
-	void DrawTextureFlip(char* key, Rect *pos, SDL_RendererFlip flip)
+	void DrawTextureFlip(std::string key, Rect *pos, SDL_RendererFlip flip)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->GetSDLRect(), 0, NULL, flip);
 	}
-	void DrawTextureFlip(char* key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip)
+	void DrawTextureFlip(std::string key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->GetSDLRect(), pos->GetSDLRect(), 0, NULL, flip);
 	}

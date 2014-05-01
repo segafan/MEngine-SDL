@@ -37,7 +37,7 @@ public:
 	}
 
 	//Add & Destroy Fonts
-	void AddFont(char* filepath, char* key, int size)
+	void AddFont(std::string filepath, std::string key, int size)
 	{
 		if (fonts[key][size] != NULL)
 		{
@@ -46,21 +46,21 @@ public:
 		}
 
 		TTF_Font* font = NULL;
-		font = TTF_OpenFont(filepath, size);
+		font = TTF_OpenFont(filepath.c_str(), size);
 
 		if (font == NULL)
 		{
-			logger->LogLine(CreateString("Font couldn't be loaded! Key: ", NumberToString(key), " Size: ").c_str(), NumberToString(size).c_str(), " Error: ", SDL_GetError());
+			logger->LogLine("Font couldn't be loaded! Key: ", key, " Size: ", NumberToString(size), " Error: ", SDL_GetError());
 			return;
 		}
 
 		fonts[key][size] = font;
 	}
-	void RemoveFont(char* key, int size)
+	void RemoveFont(std::string key, int size)
 	{
 		if (fonts[key][size] == NULL)
 		{
-			logger->LogLine("Font couldn't be removed because it doesn't exist! Key: ", NumberToString(key).c_str(), " Size: ", NumberToString(size).c_str());
+			logger->LogLine("Font couldn't be removed because it doesn't exist! Key: ", key, " Size: ", NumberToString(size));
 			return;
 		}
 
@@ -68,7 +68,7 @@ public:
 		fonts[key][size] = NULL;
 	}
 
-	TTF_Font* GetFont(char* key, int size)
+	TTF_Font* GetFont(std::string key, int size)
 	{
 		if (fonts[key][size] == NULL)
 		{
@@ -76,7 +76,7 @@ public:
 
 			if (errorShown[key][size] == NULL || errorShown[key][size] == false)
 			{
-				logger->LogLine("You can't get this font because it doesn't exist! Key: ", NumberToString(key).c_str(), " Size: ", NumberToString(size).c_str());
+				logger->LogLine("You can't get this font because it doesn't exist! Key: ", key, " Size: ", NumberToString(size));
 				errorShown[key][size] = true;
 			}
 
@@ -116,21 +116,21 @@ public:
 
 	//Drawing with SDL_Rect
 
-	void DrawText(const char* key, const char* text, int size, SDL_Rect *pos, SDL_Color color)
+	void DrawText(std::string key, std::string text, int size, SDL_Rect *pos, SDL_Color color)
 	{
 		if (fonts[key][size] == NULL)
 		{
-			logger->LogLine("The text can't be drawn beacuse the font doesn't exist! Key: ", key, " Size: ", NumberToString(size).c_str());
+			logger->LogLine("The text can't be drawn beacuse the font doesn't exist! Key: ", key, " Size: ", NumberToString(size));
 			return;
 		}
 
 		//Create Text Surface
 		SDL_Surface* surface = NULL;
-		surface = TTF_RenderText_Solid(fonts[key][size], text, color);
+		surface = TTF_RenderText_Solid(fonts[key][size], text.c_str(), color);
 
 		if (surface == NULL)
 		{
-			logger->LogLine(CreateString("Couldn't create surface from Font! Key: ", key, " Size: ").c_str(), NumberToString(size).c_str(), " Text: ", text);
+			logger->LogLine("Couldn't create surface from Font! Key: ", key, " Size: ", NumberToString(size), " Text: ", text);
 			return;
 		}
 
@@ -140,7 +140,7 @@ public:
 
 		if (texture == NULL)
 		{
-			logger->LogLine(CreateString("Couldn't create texture from surface(made from Font)! Key: ", key, " Size: ").c_str(), NumberToString(size).c_str(), " Text: ", text);
+			logger->LogLine("Couldn't create texture from surface(made from Font)! Key: ", key, " Size: ", NumberToString(size), " Text: ", text);
 			return;
 		}
 
@@ -150,7 +150,7 @@ public:
 		//Query Texture for w and h
 		if (SDL_QueryTexture(texture, NULL, NULL, &pos->w, &pos->h) == -1)
 		{
-			logger->LogLine(CreateString("Couldn't query texture from surface(made from Font)! Key: ", key, " Size: ").c_str(), NumberToString(size).c_str(), " Text: ", text);
+			logger->LogLine("Couldn't query texture from surface(made from Font)! Key: ", key, " Size: ", NumberToString(size), " Text: ", text);
 			return;
 		}
 
@@ -163,7 +163,7 @@ public:
 
 	//Drawing with own Rect
 
-	void DrawText(const char* key, const char* text, int size, Rect *pos, SDL_Color color)
+	void DrawText(std::string key, std::string text, int size, Rect *pos, SDL_Color color)
 	{
 		DrawText(key, text, size, pos->GetSDLRect(), color);
 	}

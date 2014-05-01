@@ -116,6 +116,11 @@ public:
 		return (*this);
 	}
 
+	double Angle(Vector2& vector)
+	{
+		return acos((Dot(vector)) / (Length() * vector.Length())) * 180 / PI;
+	}
+
 	inline void SetPosition(float x, float y)
 	{
 		this->x = x;

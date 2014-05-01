@@ -22,7 +22,7 @@ public:
 	}
 
 	//Music
-	void AddMusic(char* filepath, char* key)
+	void AddMusic(std::string filepath, std::string key)
 	{
 		if (music[key] != NULL)
 		{
@@ -31,7 +31,7 @@ public:
 		}
 
 		Mix_Music* tempMusic = NULL;
-		tempMusic = Mix_LoadMUS(filepath);
+		tempMusic = Mix_LoadMUS(filepath.c_str());
 
 		if (tempMusic == NULL)
 		{
@@ -42,11 +42,11 @@ public:
 		music[key] = tempMusic;
 	}
 
-	inline void PlayMusic(char* key)
+	inline void PlayMusic(std::string key)
 	{
 		PlayMusic(key, -1);
 	}
-	inline void PlayMusic(char* key, int loops)
+	inline void PlayMusic(std::string key, int loops)
 	{
 		if (music[key] == NULL)
 		{
@@ -84,7 +84,7 @@ public:
 
 	//SoundEffect
 
-	void AddSoundEffect(char* filepath, char* key)
+	void AddSoundEffect(std::string filepath, std::string key)
 	{
 		if (soundEffect[key] != NULL)
 		{
@@ -93,7 +93,7 @@ public:
 		}
 
 		Mix_Chunk* tempEffect = NULL;
-		tempEffect = Mix_LoadWAV(filepath);
+		tempEffect = Mix_LoadWAV(filepath.c_str());
 
 		if (tempEffect == NULL)
 		{
@@ -104,11 +104,11 @@ public:
 		soundEffect[key] = tempEffect;
 	}
 
-	void PlaySoundEffect(char* key)
+	void PlaySoundEffect(std::string key)
 	{
 		PlaySoundEffect(key, 0);
 	}
-	void PlaySoundEffect(char* key, int loops)
+	void PlaySoundEffect(std::string key, int loops)
 	{
 		if (soundEffect[key] == NULL)
 		{
@@ -119,7 +119,7 @@ public:
 		Mix_PlayChannel(-1, soundEffect[key], loops);
 	}
 
-	void SoundEffectVolume(char* key, int volume)
+	void SoundEffectVolume(std::string key, int volume)
 	{
 		if (volume > 100)
 			volume = 100;
