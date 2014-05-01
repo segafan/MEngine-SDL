@@ -146,62 +146,157 @@ public:
 			std::cout << "Logging Started!" << std::endl << std::endl;
 	}
 
-	void LogLine(std::string message)
+	//Log
+	template<class I>
+	Logger& Log(I message)
+	{
+		std::cout << message;
+		out		  << message;
+		return (*this);
+	}
+	template<class I, class U>
+	Logger& Log(I message, U message2)
+	{
+		std::cout << message << message2;
+		out		  << message << message2;
+		return (*this);
+	}
+	template<class I, class U, class J>
+	Logger& Log(I message, U message2, J message3)
+	{
+		std::cout << message << message2 << message3;
+		out		  << message << message2 << message3;
+		return (*this);
+	}
+	template<class I, class U, class J, class K>
+	Logger& Log(I message, U message2, J message3, K message4)
+	{
+		std::cout << message << message2 << message3 << message4;
+		out		  << message << message2 << message3 << message4;
+		return (*this);
+	}
+	template<class I, class U, class J, class K, class M>
+	Logger& Log(I message, U message2, J message3, K message4, M message5)
+	{
+		std::cout << message << message2 << message3 << message4 << message5;
+		out		  << message << message2 << message3 << message4 << message5;
+		return (*this);
+	}
+	template<class I, class U, class J, class K, class M, class L>
+	Logger& Log(I message, U message2, J message3, K message4, M message5, L message6)
+	{
+		std::cout << message << message2 << message3 << message4 << message5 << message6;
+		out		  << message << message2 << message3 << message4 << message5 << message6;
+		return (*this);
+	}
+
+	//Log Line
+	template<class I>
+	Logger& LogLine(I message)
 	{
 		std::cout << GetPrintTime() << message << std::endl;
-		out << GetPrintTime() << message << std::endl;
+		out		  << GetPrintTime() << message << std::endl;
+		return (*this);
 	}
-	void LogLine(std::string message, std::string message2)
+	template<class I, class U>
+	Logger& LogLine(I message, U message2)
 	{
 		std::cout << GetPrintTime() << message << message2 << std::endl;
-		out << GetPrintTime() << message << message2 << std::endl;
+		out		  << GetPrintTime() << message << message2 << std::endl;
+		return (*this);
 	}
-	void LogLine(std::string message, std::string message2, std::string message3)
+	template<class I, class U, class J>
+	Logger& LogLine(I message, U message2, J message3)
 	{
 		std::cout << GetPrintTime() << message << message2 << message3 << std::endl;
-		out << GetPrintTime() << message << message2 << message3 << std::endl;
+		out		  << GetPrintTime() << message << message2 << message3 << std::endl;
+		return (*this);
 	}
-	void LogLine(std::string message, std::string message2, std::string message3, std::string message4)
+	template<class I, class U, class J, class K>
+	Logger& LogLine(I message, U message2, J message3, K message4)
 	{
 		std::cout << GetPrintTime() << message << message2 << message3 << message4 << std::endl;
-		out << GetPrintTime() << message << message2 << message3 << message4 << std::endl;
+		out		  << GetPrintTime() << message << message2 << message3 << message4 << std::endl;
+		return (*this);
 	}
-	void LogLine(std::string message, std::string message2, std::string message3, std::string message4, std::string message5)
+	template<class I, class U, class J, class K, class M>
+	Logger& LogLine(I message, U message2, J message3, K message4, M message5)
 	{
 		std::cout << GetPrintTime() << message << message2 << message3 << message4 << message5 << std::endl;
-		out << GetPrintTime() << message << message2 << message3 << message4 << message5 << std::endl;
+		out		  << GetPrintTime() << message << message2 << message3 << message4 << message5 << std::endl;
+		return (*this);
 	}
-	void LogLine(std::string message, std::string message2, std::string message3, std::string message4, std::string message5, std::string message6)
+	template<class I, class U, class J, class K, class M, class L>
+	Logger& LogLine(I message, U message2, J message3, K message4, M message5, L message6)
 	{
 		std::cout << GetPrintTime() << message << message2 << message3 << message4 << message5 << message6 << std::endl;
-		out << GetPrintTime() << message << message2 << message3 << message4 << message5 << message6 << std::endl;
+		out		  << GetPrintTime() << message << message2 << message3 << message4 << message5 << message6 << std::endl;
+		return (*this);
 	}
 
-	void LogLineWithoutDate(std::string message)
+	//Log Line without Time
+	template<class I>
+	Logger& LogLineWithoutTime(I message)
 	{
 		std::cout << message << std::endl;
-		out << message << std::endl;
+		out		  << message << std::endl;
+		return (*this);
 	}
-	void LogLineWithoutDate(std::string message, std::string message2)
+	template<class I, class U>
+	Logger& LogLineWithoutTime(I message, U message2)
 	{
 		std::cout << message << message2 << std::endl;
-		out << message << message2 << std::endl;
+		out		  << message << message2 << std::endl;
+		return (*this);
 	}
-	void LogLineWithoutDate(std::string message, std::string message2, std::string message3)
+	template<class I, class U, class J>
+	Logger& LogLineWithoutTime(I message, U message2, J message3)
 	{
 		std::cout << message << message2 << message3 << std::endl;
-		out << message << message2 << message3 << std::endl;
+		out		  << message << message2 << message3 << std::endl;
+		return (*this);
+	}
+	template<class I, class U, class J, class K>
+	Logger& LogLineWithoutTime(I message, U message2, J message3, K message4)
+	{
+		std::cout << message << message2 << message3 << message4 << std::endl;
+		out		  << message << message2 << message3 << message4 << std::endl;
+		return (*this);
+	}
+	template<class I, class U, class J, class K, class M>
+	Logger& LogLineWithoutTime(I message, U message2, J message3, K message4, M message5)
+	{
+		std::cout << message << message2 << message3 << message4 << message5 << std::endl;
+		out		  << message << message2 << message3 << message4 << message5 << std::endl;
+		return (*this);
+	}
+	template<class I, class U, class J, class K, class M, class L>
+	Logger& LogLineWithoutTime(I message, U message2, J message3, K message4, M message5, L message6)
+	{
+		std::cout << message << message2 << message3 << message4 << message5 << message6 << std::endl;
+		out		  << message << message2 << message3 << message4 << message5 << message6 << std::endl;
+		return (*this);
 	}
 
-	void LogLineWithoutDate(std::string message, int major, int minor, int patch)
+	//Other Logs
+	Logger& LogVersion(std::string message, int major, int minor, int patch)
 	{
 		std::cout << message << major << "." << minor << "." << patch << std::endl;
-		out << message << major << "." << minor << "." << patch << std::endl;
+		out		  << message << major << "." << minor << "." << patch << std::endl;
+		return (*this);
 	}
 
-	void NewLine()
+	Logger& LogTime()
 	{
-		LogLineWithoutDate("");
+		std::cout << GetPrintTime();
+		out		  << GetPrintTime();
+		return (*this);
+	}
+
+	Logger& NewLine()
+	{
+		LogLineWithoutTime("");
+		return (*this);
 	}
 private:
 	std::ofstream out;

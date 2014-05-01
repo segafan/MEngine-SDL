@@ -282,38 +282,38 @@ inline void GetUsedRenderInfo(SDL_Renderer *renderer)
 
 static void LogRenderFlags(Uint32 flags, Logger *logger)
 {
-	logger->LogLineWithoutDate("Used Render Flags:");
+	logger->LogLineWithoutTime("Used Render Flags:");
 
 	if ((flags & SDL_RENDERER_SOFTWARE) == SDL_RENDERER_SOFTWARE)
-		logger->LogLineWithoutDate("		", "SOFTWARE");
+		logger->LogLineWithoutTime("		", "SOFTWARE");
 
 	if ((flags & SDL_RENDERER_ACCELERATED) == SDL_RENDERER_ACCELERATED)
-		logger->LogLineWithoutDate("		", "ACCELERATED");
+		logger->LogLineWithoutTime("		", "ACCELERATED");
 
 	if ((flags & SDL_RENDERER_TARGETTEXTURE) == SDL_RENDERER_TARGETTEXTURE)
-		logger->LogLineWithoutDate("		", "TARGETTEXTURE");
+		logger->LogLineWithoutTime("		", "TARGETTEXTURE");
 
 	if ((flags & SDL_RENDERER_PRESENTVSYNC) == SDL_RENDERER_PRESENTVSYNC)
-		logger->LogLineWithoutDate("		", "PRESENTVSYNC");
+		logger->LogLineWithoutTime("		", "PRESENTVSYNC");
 
 	logger->NewLine();
 }
 
 static void LogRenderInfo(SDL_RendererInfo* info, Logger *logger)
 {
-	logger->LogLineWithoutDate("- ",info->name);
+	logger->LogLineWithoutTime("- ",info->name);
 
 	if (GetRenderFlagAvailable(info, SDL_RENDERER_SOFTWARE))
-		logger->LogLineWithoutDate("		","SOFTWARE");
+		logger->LogLineWithoutTime("		","SOFTWARE");
 
 	if (GetRenderFlagAvailable(info, SDL_RENDERER_ACCELERATED))
-		logger->LogLineWithoutDate("		", "ACCELERATED");
+		logger->LogLineWithoutTime("		", "ACCELERATED");
 
 	if (GetRenderFlagAvailable(info, SDL_RENDERER_PRESENTVSYNC))
-		logger->LogLineWithoutDate("		", "PRESENTVSYNC");
+		logger->LogLineWithoutTime("		", "PRESENTVSYNC");
 
 	if (GetRenderFlagAvailable(info, SDL_RENDERER_TARGETTEXTURE))
-		logger->LogLineWithoutDate("		", "TARGETTEXTURE");
+		logger->LogLineWithoutTime("		", "TARGETTEXTURE");
 }
 
 static void LogRenderInfo(int num, Logger *logger)
@@ -326,7 +326,7 @@ static void LogRenderInfo(int num, Logger *logger)
 
 static void LogAllRenderInfo(Logger *logger)
 {
-	logger->LogLineWithoutDate("Available Render Drivers:");
+	logger->LogLineWithoutTime("Available Render Drivers:");
 	for (int i = 0; i < SDL_GetNumRenderDrivers(); i++)
 	{
 		LogRenderInfo(i,logger);
@@ -336,7 +336,7 @@ static void LogAllRenderInfo(Logger *logger)
 
 static void LogUsedRenderInfo(SDL_Renderer *renderer, Logger *logger)
 {
-	logger->LogLineWithoutDate("Used Render Driver:");
+	logger->LogLineWithoutTime("Used Render Driver:");
 	SDL_RendererInfo info;
 	SDL_GetRendererInfo(renderer, &info);
 

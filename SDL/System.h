@@ -104,16 +104,16 @@ static void LogSDLInfo(Logger *logger)
 	SDL_VERSION(&compiled);
 	SDL_GetVersion(&linked);
 
-	logger->LogLineWithoutDate("Compiled SDL: ", compiled.major, compiled.minor, compiled.patch);
-	logger->LogLineWithoutDate("Linked SDL: ", linked.major, linked.minor, linked.patch);
+	logger->LogVersion("Compiled SDL: ", compiled.major, compiled.minor, compiled.patch);
+	logger->LogVersion("Linked SDL: ", linked.major, linked.minor, linked.patch);
 
 	logger->NewLine();
 }
 
 static void LogSystemInfo(Logger *logger)
 {
-	logger->LogLineWithoutDate("Logical CPU Cores: ", NumberToString(SDL_GetCPUCount()).c_str());
-	logger->LogLineWithoutDate("RAM: ", NumberToString(SDL_GetSystemRAM()).c_str(), " MB");
+	logger->LogLineWithoutTime("Logical CPU Cores: ", NumberToString(SDL_GetCPUCount()).c_str());
+	logger->LogLineWithoutTime("RAM: ", NumberToString(SDL_GetSystemRAM()).c_str(), " MB");
 	logger->NewLine();
 }
 
@@ -136,10 +136,10 @@ static void LogSubSystemInfo(Logger *logger, SDL_Window *window)
 			case SDL_SYSWM_MIR:		  subsystem = "Mir";					break;
 			case SDL_SYSWM_WINRT:	  subsystem = "Win RT";					break;
 		}
-		logger->LogLineWithoutDate("Subsystem: ", subsystem);
+		logger->LogLineWithoutTime("Subsystem: ", subsystem);
 	}
 	else
-		logger->LogLineWithoutDate("Couldn't get used Subsystem");
+		logger->LogLineWithoutTime("Couldn't get used Subsystem");
 
 	logger->NewLine();
 
@@ -148,19 +148,19 @@ static void LogSubSystemInfo(Logger *logger, SDL_Window *window)
 static void LogOSInfo(Logger *logger)
 {
 #ifdef _WIN32
-	logger->LogLineWithoutDate("Windows 32-bit");
+	logger->LogLineWithoutTime("Windows 32-bit");
 #elif _WIN64
-	logger->LogLineWithoutDate("Windows 64-bit");
+	logger->LogLineWithoutTime("Windows 64-bit");
 #elif __unix || __unix__
-	logger->LogLineWithoutDate("Unix");
+	logger->LogLineWithoutTime("Unix");
 #elif __APPLE__ || __MACH__
-	logger->LogLineWithoutDate("Mac OSX");
+	logger->LogLineWithoutTime("Mac OSX");
 #elif __linux__
-	logger->LogLineWithoutDate("Linux");
+	logger->LogLineWithoutTime("Linux");
 #elif __FreeBSD__
-	logger->LogLineWithoutDate("FreeBSD");
+	logger->LogLineWithoutTime("FreeBSD");
 #else
-	logger->LogLineWithoutDate("Other OS");
+	logger->LogLineWithoutTime("Other OS");
 #endif
 }
 
