@@ -23,7 +23,7 @@ public:
 	{
 		return (x * vector.GetX() + y * vector.GetY() + z * vector.GetZ());
 	}
-	Vector3& Cross(Vector3& vector)
+	Vector3 Cross(Vector3& vector)
 	{
 		float x1 = (y * vector.GetZ() - z * vector.GetY());
 		float y1 = (z * vector.GetX() - x * vector.GetZ());
@@ -43,7 +43,7 @@ public:
 		return Clone();
 	}
 
-	Vector3& Rotate()
+	Vector3 Rotate()
 	{
 		return CreateVector(0, 0, 0);
 	}
@@ -53,70 +53,70 @@ public:
 		return (*this);
 	}
 
-	Vector3& operator+ (Vector3& vector)
+	Vector3 operator+ (Vector3& vector)
 	{
 		return CreateVector(x + vector.GetX(), y + vector.GetY(), z + vector.GetZ());
 	}
-	Vector3& operator- (Vector3& vector)
+	Vector3 operator- (Vector3& vector)
 	{
 		return CreateVector(x - vector.GetX(), y - vector.GetY(), z - vector.GetZ());
 	}
-	Vector3& operator* (Vector3& vector)
+	Vector3 operator* (Vector3& vector)
 	{
 		return CreateVector(x * vector.GetX(), y * vector.GetY(), z * vector.GetZ());
 	}
-	Vector3& operator/ (Vector3& vector)
+	Vector3 operator/ (Vector3& vector)
 	{
 		return CreateVector(x / vector.GetX(), y / vector.GetY(), z / vector.GetZ());
 	}
 
-	Vector3& operator+ (float value)
+	Vector3 operator+ (float value)
 	{
 		return CreateVector(x + value, y + value, z + value);
 	}
-	Vector3& operator- (float value)
+	Vector3 operator- (float value)
 	{
 		return CreateVector(x - value, y - value, z - value);
 	}
-	Vector3& operator* (float value)
+	Vector3 operator* (float value)
 	{
 		return CreateVector(x * value, y * value, z * value);
 	}
-	Vector3& operator/ (float value)
+	Vector3 operator/ (float value)
 	{
 		return CreateVector(x / value, y / value, z / value);
 	}
 
-	Vector3& Add(Vector3& vector)
+	Vector3 Add(Vector3& vector)
 	{
 		return CreateVector(x + vector.GetX(), y + vector.GetY(), z + vector.GetZ());
 	}
-	Vector3& Sub(Vector3& vector)
+	Vector3 Sub(Vector3& vector)
 	{
 		return CreateVector(x - vector.GetX(), y - vector.GetY(), z - vector.GetZ());
 	}
-	Vector3& Mul(Vector3& vector)
+	Vector3 Mul(Vector3& vector)
 	{
 		return CreateVector(x * vector.GetX(), y * vector.GetY(), z * vector.GetZ());
 	}
-	Vector3& Div(Vector3& vector)
+	Vector3 Div(Vector3& vector)
 	{
 		return CreateVector(x / vector.GetX(), y / vector.GetY(), z / vector.GetZ());
 	}
 
-	Vector3& Add(float value)
+	Vector3 Add(float value)
 	{
 		return CreateVector(x + value, y + value, z + value);
 	}
-	Vector3& Sub(float value)
+	Vector3 Sub(float value)
 	{
 		return CreateVector(x - value, y - value, z - value);
 	}
-	Vector3& Mul(float value)
+	Vector3 Mul(float value)
 	{
 		return CreateVector(x * value, y * value, z * value);
 	}
-	Vector3& Div(float value)
+	Vector3 Div(float value)
 	{
 		return CreateVector(x / value, y / value, z / value);
 	}

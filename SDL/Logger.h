@@ -79,7 +79,7 @@ inline std::string NumberToString(T num)
 
 inline bool FileExits(std::string filename)
 {
-	std::ifstream in(filename);
+	std::ifstream in(filename.c_str());
 	
 	if (!in)
 	{
@@ -139,7 +139,7 @@ public:
 
 	void Open()
 	{
-		out.open(GetLogName());
+		out.open(GetLogName().c_str());
 		if (!out.is_open())
 			std::cout << "Couldn't Open Log!" << std::endl;
 		else

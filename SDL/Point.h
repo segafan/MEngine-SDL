@@ -25,7 +25,7 @@ public:
 	}
 
 
-	bool Intersects(Point& point)
+	bool Intersects(Point point)
 	{
 		if(x == point.getX() && y == point.getY())
 			return true;

@@ -72,9 +72,9 @@ public:
 	{
 		if (fonts[key][size] == NULL)
 		{
-			static std::map<std::string, std::map<int, bool>> errorShown;
+			static std::map<std::string, std::map<int, bool> > errorShown;
 
-			if (errorShown[key][size] == NULL || errorShown[key][size] == false)
+			if (errorShown[key][size] == 0 || errorShown[key][size] == false)
 			{
 				logger->LogLine("You can't get this font because it doesn't exist! Key: ", key, " Size: ", NumberToString(size));
 				errorShown[key][size] = true;
@@ -88,7 +88,7 @@ public:
 
 	void Clear()
 	{
-		typedef std::map<std::string, std::map<int, TTF_Font*>>::iterator it_type;
+		typedef std::map<std::string, std::map<int, TTF_Font*> >::iterator it_type;
 
 		typedef std::map<int, TTF_Font*>::iterator it_type2;
 
@@ -168,7 +168,7 @@ public:
 		DrawText(key, text, size, pos->GetSDLRect(), color);
 	}
 private:
-	std::map<std::string, std::map<int, TTF_Font*>> fonts;
+	std::map<std::string, std::map<int, TTF_Font*> > fonts;
 
 	Logger *logger;
 

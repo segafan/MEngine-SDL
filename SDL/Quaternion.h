@@ -21,7 +21,7 @@ public:
 		return (float)sqrt(x * x + y * y + z * z + w * w);
 	}
 
-	Quaternion& Normalize()
+	Quaternion Normalize()
 	{
 		float length = Length();
 
@@ -32,12 +32,12 @@ public:
 
 		return CreateQuarternion(x, y, z, w);
 	}
-	Quaternion& Conjugate()
+	Quaternion Conjugate()
 	{
 		return CreateQuarternion(-x, -y, -z, w);
 	}
 
-	Quaternion& Mul(Quaternion& r)
+	Quaternion Mul(Quaternion& r)
 	{
 		float w_ = w * r.GetW() - x * r.GetX() - y * r.GetY() - z * r.GetZ();
         float x_ = x * r.GetW() + w * r.GetX() + y * r.GetZ() - z * r.GetY();
@@ -46,7 +46,7 @@ public:
 
 		return CreateQuarternion(x_, y_, z_, w_);
 	}
-	Quaternion& Mul(Vector3& r)
+	Quaternion Mul(Vector3& r)
 	{
 		float w_ = -x * r.GetX() - y * r.GetY() - z * r.GetZ();
         float x_ =  w * r.GetX() + y * r.GetZ() - z * r.GetY();

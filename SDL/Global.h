@@ -20,7 +20,7 @@ public:
 	}
 
 	Input input;
-	Screen screen;
+	WindowScreen screen;
 	Logger& logger;
 	AudioManager audio;
 	GraphicsManager gfx;

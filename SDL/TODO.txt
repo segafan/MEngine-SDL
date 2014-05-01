@@ -37,3 +37,4 @@
 [-] Remove CreateRect and things like this
 [-] Make Logger so it can logger.Log("Hi ").Log("How are you") etc.
 [-] Log GetRenderFlags()
+[-] Rename Screen class because Linux uses it!!!!!

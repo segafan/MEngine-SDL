@@ -3,10 +3,10 @@
 
 #include <SDL.h>
 
-class Screen
+class WindowScreen
 {
 public:
-	Screen(SDL_Window *window, SDL_Renderer *renderer)
+	WindowScreen(SDL_Window *window, SDL_Renderer *renderer)
 	{
 		this->window = window;
 		this->renderer = renderer;
