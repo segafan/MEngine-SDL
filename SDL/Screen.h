@@ -11,16 +11,26 @@ public:
 		this->window = window;
 		this->renderer = renderer;
 
-		GetScreenSize();
+		GetSize();
 	}
 
-	Rect* GetScreenSize()
+	Rect& GetSize()
 	{		
 		SDL_GetWindowSize(window, &ScreenWidth, &ScreenHeight);
 
 		ScreenPos.SetPosition(0, 0, ScreenWidth, ScreenHeight);
 
-		return &ScreenPos;
+		return ScreenPos;
+	}
+	int& GetW()
+	{
+		SDL_GetWindowSize(window, &ScreenWidth, &ScreenHeight);
+		return ScreenWidth;
+	}
+	int& GetH()
+	{
+		SDL_GetWindowSize(window, &ScreenWidth, &ScreenHeight);
+		return ScreenHeight;
 	}
 
 	SDL_Window* GetWindow()

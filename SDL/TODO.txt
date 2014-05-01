@@ -18,23 +18,16 @@
 [-] Code::Blocks port & Linux/Mac OS X port
 [-] Refactor
 [-] Do the //TODO: stuff in code
-[-] Change char* to std::string
 [-] FPS Timer Frame Skip
 [-] Animation class
-[-] GetScreenSize must return reference not pointer
-[-] Make GetScreenW and H functions too!
 [-] GameStateManager in Global
-[-] Fix RandomBool()
-[-] Change char* to std::string or const char*
 [-] Create Align option at text drawing
 [-] Fix a bug with DrawText at CreateTextureFromSurface()
 [-] Bitmap fonts
 [-] Rework Font Drawing
-[-] Check for NULL in DrawText()
 [-] Create Log types (Error,Info,Message,etc.)
 [-] IsNumber function
 [-] Camera
 [-] Remove CreateRect and things like this
-[-] Make Logger so it can logger.Log("Hi ").Log("How are you") etc.
 [-] Log GetRenderFlags()
-[-] Rename Screen class because Linux uses it!!!!!
+[-] Try to use const more and static less

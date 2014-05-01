@@ -10,7 +10,7 @@
 #include "Rect.h"
 #include "Logger.h"
 
-//This may create bugs & errors if it does redefine DrawText at the end of the file
+//TOOD: This may create bugs & errors if it does redefine DrawText at the end of the file
 #ifdef DrawText
 #undef DrawText
 #endif
