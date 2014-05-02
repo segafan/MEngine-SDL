@@ -166,6 +166,12 @@ static void LogOSInfo(Logger *logger)
 
 inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bool targetTexture, bool vsync)
 {
+	if (window == NULL)
+	{
+		logger->LogLine("Couldn't create renderer because Window is NULL!");
+		return NULL;
+	}
+
 	LogAllRenderInfo(logger);
 
 	Uint32 flags = GetRenderFlags(window, targetTexture, vsync);
