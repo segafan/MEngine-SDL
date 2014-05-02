@@ -83,8 +83,6 @@ public:
 	{
 		if (textures[key] == NULL)
 		{
-			static std::map<std::string, bool> errorShown;
-
 			if (errorShown[key] == 0 || errorShown[key] == false)
 			{
 				logger->LogLine("You can't get the texture because it doesn't exist! Key: ", key);
@@ -179,6 +177,8 @@ private:
 	SDL_Renderer* renderer;
 
 	std::map<std::string, SDL_Texture*> textures;
+
+	std::map<std::string, bool> errorShown;
 };
 
 #endif

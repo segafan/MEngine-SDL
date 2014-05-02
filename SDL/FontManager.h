@@ -72,8 +72,6 @@ public:
 	{
 		if (fonts[key][size] == NULL)
 		{
-			static std::map<std::string, std::map<int, bool> > errorShown;
-
 			if (errorShown[key][size] == 0 || errorShown[key][size] == false)
 			{
 				logger->LogLine("You can't get this font because it doesn't exist! Key: ", key, " Size: ", NumberToString(size));
@@ -169,6 +167,8 @@ public:
 	}
 private:
 	std::map<std::string, std::map<int, TTF_Font*> > fonts;
+
+	std::map<std::string, std::map<int, bool> > errorShown;
 
 	Logger *logger;
 
