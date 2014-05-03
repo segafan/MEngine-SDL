@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+#include "Color.h"
+
 class WindowScreen
 {
 public:
@@ -10,8 +12,6 @@ public:
 	{
 		this->window = window;
 		this->renderer = renderer;
-
-		GetSize();
 	}
 
 	Rect& GetSize()
@@ -24,12 +24,12 @@ public:
 	}
 	int& GetW()
 	{
-		SDL_GetWindowSize(window, &ScreenWidth, &ScreenHeight);
+		SDL_GetWindowSize(window, &ScreenWidth, NULL);
 		return ScreenWidth;
 	}
 	int& GetH()
 	{
-		SDL_GetWindowSize(window, &ScreenWidth, &ScreenHeight);
+		SDL_GetWindowSize(window, NULL, &ScreenHeight);
 		return ScreenHeight;
 	}
 
@@ -42,6 +42,57 @@ public:
 		return renderer;
 	}
 
+	void RenderClear()
+	{
+		SDL_RenderClear(renderer);
+	}
+	void RenderPresent()
+	{
+		SDL_RenderPresent(renderer);
+	}
+
+	void SetRenderColor(Color color)
+	{
+		this->color = color;
+
+		if (SDL_SetRenderDrawColor(renderer, (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a) != 0)
+		{
+			//TODO: Log error
+		}
+	}
+	void SetRenderColor(SDL_Color color)
+	{
+		this->color = color;
+		
+		if (SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a) != 0)
+		{
+			//TODO: Log error
+		}
+	}
+	void SetRenderColor(unsigned short r, unsigned short g, unsigned short b)
+	{
+		color.SetColor(r, g, b, 255);
+
+		if (SDL_SetRenderDrawColor(renderer, (Uint8)r, (Uint8)g, (Uint8)b, 255) != 0)
+		{
+			//TODO: Log error
+		}
+	}
+	void SetRenderColor(unsigned short r, unsigned short g, unsigned short b, unsigned short a)
+	{
+		color.SetColor(r, g, b, a);
+
+		if (SDL_SetRenderDrawColor(renderer, (Uint8)r, (Uint8)g, (Uint8)b, (Uint8)a) != 0)
+		{
+			//TODO: Log error
+		}
+	}
+
+	Color& GetRenderColor()
+	{
+		return color;
+	}
+
 private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;
@@ -49,6 +100,7 @@ private:
 	int ScreenWidth;
 	int ScreenHeight;
 	
+	Color color;
 	Rect ScreenPos;
 };
 

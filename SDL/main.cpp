@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
 	SDL_RenderSetLogicalSize(renderer, 1024, 768);
 
-	SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+	global->screen.SetRenderColor(255, 255, 0);
 	
 	while (running)
 	{
@@ -60,11 +60,11 @@ int main(int argc, char *argv[])
 
 			//Draw
 
-			SDL_RenderClear(renderer);
+			global->screen.RenderClear();
+			
 
 
-
-			SDL_RenderPresent(renderer);
+			global->screen.RenderPresent();
 
 			//FPS StufF
 

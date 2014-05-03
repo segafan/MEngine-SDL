@@ -28,17 +28,6 @@ inline char* CreateText(std::string text1, std::string text2, std::string text3)
 	return &text[0];
 }
 
-inline SDL_Color MapRGB(int r, int g, int b)
-{
-	SDL_Color color;
-
-	color.r = r;
-	color.g = g;
-	color.b = b;
-
-	return color;
-}
-
 inline SDL_Rect SetValues(int x, int y, int w, int h)
 {
 	SDL_Rect rect;
