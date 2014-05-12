@@ -5,7 +5,6 @@
 [-] Add DrawTextureScaled()
 [-] #define DEBUGMODE in MEngine.h OR create a switchable DEBUGMODE
 [-] Add timer or TimerManager in Global
-[-] Add ScreenWidth and ScreenHeight in Global
 [?] Keyboard IsKeyPressedOnce() Bug / Rewrite so it Updates in the Update() and just returns data in IsKeyPressedOnce();
 [-] make some GUI stuff
 [-] organize stuff in System.h / and everywhere
@@ -31,3 +30,8 @@
 [-] Remove CreateRect and things like this
 [-] Log GetRenderFlags()
 [-] Try to use const more and static less
+[-] Set Texture and music etc. directory and ad it automaticly to file path
+[-] Create file containing the images to be loaded like so:
+<type> <filepath> <key>
+i ./resources/textures/image.png IMAGE
+use i for image and a for animation and so on

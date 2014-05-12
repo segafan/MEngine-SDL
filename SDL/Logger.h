@@ -79,6 +79,7 @@ inline bool FileExits(std::string filename)
 {
 	std::ifstream in(filename.c_str());
 	
+	//TODO: This MAY cause problems!
 	bool isOpen = (bool)(in);
 
 	in.close();
