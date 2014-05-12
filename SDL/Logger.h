@@ -72,25 +72,18 @@ inline int TextToNumber(const char * str)
 template <typename T>
 inline std::string NumberToString(T num)
 {
-	std::ostringstream strStream;
-	strStream << num;
-	return strStream.str();
+	return static_cast<std::ostringstream*>(&(std::ostringstream() << num))->str();
 }
 
 inline bool FileExits(std::string filename)
 {
 	std::ifstream in(filename.c_str());
 	
-	if (!in)
-	{
-		in.close();
-		return false;
-	}
-	else
-	{
-		in.close();
-		return true;
-	}
+	bool isOpen = (bool)(in);
+
+	in.close();
+
+	return isOpen;
 }
 
 inline std::string GetLogName()
