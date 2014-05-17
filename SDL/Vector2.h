@@ -99,7 +99,7 @@ public:
 		x /= length;
 		y /= length;
 
-		return Clone();
+		return (*this);
 	}
 
 	Vector2 Rotate(float angle)

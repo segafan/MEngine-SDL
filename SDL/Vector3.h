@@ -40,7 +40,7 @@ public:
 		y /= length;
 		z /= length;
 
-		return Clone();
+		return (*this);
 	}
 
 	Vector3 Rotate()
