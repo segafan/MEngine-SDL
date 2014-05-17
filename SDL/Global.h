@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "Screen.h"
 #include "Logger.h"
+#include "StateManager.h"
 #include "AudioManager.h"
 #include "GraphicsManager.h"
 
@@ -14,6 +15,7 @@ public:
 		: input()
 		, screen(window, renderer)
 		, logger(*logger)
+		, state()
 		, audio(logger)
 		, gfx(window, renderer, logger)
 	{
@@ -22,6 +24,7 @@ public:
 	Input input;
 	WindowScreen screen;
 	Logger& logger;
+	StateManager state;
 	AudioManager audio;
 	GraphicsManager gfx;
 };

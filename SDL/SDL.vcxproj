@@ -88,6 +88,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Screen.h" />
+    <ClInclude Include="StateManager.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Keyboard.h" />
