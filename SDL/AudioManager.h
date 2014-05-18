@@ -2,7 +2,6 @@
 #define AUDIOMANAGER_H
 
 #include <map>
-#include <vector>
 
 #include <SDL.h>
 #include <SDL_mixer.h>

@@ -9,26 +9,31 @@
 
 //Define used Operating System
 //TODO: Test this because TARGET_OS_MAC may include iOS too!
-#ifdef _WIN32
-	#define OS_WINDOWS
-	#define OS_WINDOWS_32
-#elif _WIN64
+#ifdef _WIN64
 	#define OS_WINDOWS
 	#define OS_WINDOWS_64
-#elif __unix || __unix__
-	#define OS_UNIX
-#elif __APPLE__ || __MACH__ || TARGET_OS_MAC
-	#define OS_MAC
+#elif _WIN32
+	#define OS_WINDOWS
+	#define OS_WINDOWS_32
+#elif __APPLE__ || __MACH__
+	#include "TargetConditionals.h"
+	#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+		#define OS_IOS
+	#elif TARGET_OS_MAC
+		#define OS_MAC
+	#else
+		#define OS_APPLE_UNKNOWN
+	#endif
+#elif __ANDROID__ || __ANDROID_API__ || ANDROID || TARGET_OS_ANDROID
+	#define OS_ANDROID
 #elif __linux__ || __linux
 	#define OS_LINUX
+#elif __unix__ || __unix
+	#define OS_UNIX
 #elif __FreeBSD__
 	#define OS_FREEBSD
 #elif  __posix__ || __posix
 	#define OS_POSIX
-#elif __ANDROID__ || __ANDROID_API__ || ANDROID || TARGET_OS_ANDROID
-	#define OS_ANDROID
-#elif TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-	#define OS_IOS
 #else
 	#define OS_OTHER
 #endif

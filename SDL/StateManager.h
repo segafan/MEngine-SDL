@@ -1,8 +1,7 @@
 #ifndef STATEMANAGER_H
 #define STATEMANAGER_H
 
-#include <map>
-#include <iostream>
+#include <string>
 
 class StateManager
 {
