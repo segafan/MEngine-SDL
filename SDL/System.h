@@ -77,25 +77,17 @@ static int Init()
 	try
 	{
 		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-		{
 			throw "Error SDL_Init!";
-		}
 		if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG)
-		{
 			throw "Error IMG_Init!";
-		}
 		if (Mix_Init(MIX_INIT_OGG) != MIX_INIT_OGG)
-		{
 			throw "Error Mix_Init!";
-		}
 		if (Mix_OpenAudio(22050 * 2, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
-		{
 			throw "Error Mix_OpenAudio!";
-		}
 		if (TTF_Init() != 0)
-		{
 			throw "Error TTF_Init()!";
-		}
+		if (SDLNet_Init() != 0)
+			throw "Error SDLNet_Init()!";
 	}
 	catch (char* error)
 	{
@@ -113,7 +105,7 @@ static void Quit()
 	Mix_CloseAudio();
 	Mix_Quit();
 	TTF_Quit();
-	//SDLNet_Quit();
+	SDLNet_Quit();
 }
 
 static void LogSDLInfo(Logger *logger)
