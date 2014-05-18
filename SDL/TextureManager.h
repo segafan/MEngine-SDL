@@ -2,7 +2,6 @@
 #define TEXTUREMANAGER_H
 
 #include <map>
-#include <cstring>
 
 #include <SDL.h>
 #include <SDL_image.h>

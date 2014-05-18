@@ -4,7 +4,6 @@
 #include <SDL.h>
 
 #include <vector>
-#include <iostream>
 
 #include "Logger.h"
 

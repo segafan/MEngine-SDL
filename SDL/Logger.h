@@ -2,13 +2,10 @@
 #define LOGGER_H
 
 #include <ctime>
-#include <cstring>
+#include <string>
 #include <fstream>
-#include <iostream>
-
 #include <sstream>
-
-#include <stdlib.h>
+#include <iostream>
 
 #if (_MSC_VER >= 1400)
 #pragma warning(push)

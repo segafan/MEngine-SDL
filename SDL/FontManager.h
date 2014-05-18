@@ -2,7 +2,6 @@
 #define FONTMANAGER_H
 
 #include <map>
-#include <cstring>
 
 #include <SDL.h>
 #include <SDL_ttf.h>
