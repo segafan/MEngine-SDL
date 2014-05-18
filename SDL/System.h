@@ -7,6 +7,25 @@
 #include "Logger.h"
 #include "RenderSupport.h"
 
+//Define used Operating System
+#ifdef _WIN32
+	#define OS_WINDOWS
+	#define OS_WINDOWS_32
+#elif _WIN64
+	#define OS_WINDOWS
+	#define OS_WINDOWS_64
+#elif __unix || __unix__
+	#define OS_UNIX
+#elif __APPLE__ || __MACH__
+	#define OS_MAC
+#elif __linux__
+	#define OS_LINUX
+#elif __FreeBSD__
+	#define OS_FREEBSD
+#else
+	#define OS_OTHER
+#endif
+
 inline std::string CreateString(std::string text1, std::string text2, std::string text3)
 {
 	std::string text = "";
@@ -136,17 +155,17 @@ static void LogSubSystemInfo(Logger *logger, SDL_Window *window)
 
 static void LogOSInfo(Logger *logger)
 {
-#ifdef _WIN32
+#ifdef OS_WINDOWS_32
 	logger->LogLineWithoutTime("Windows 32-bit");
-#elif _WIN64
+#elif OS_WINDOWS_64
 	logger->LogLineWithoutTime("Windows 64-bit");
-#elif __unix || __unix__
+#elif OS_UNIX
 	logger->LogLineWithoutTime("Unix");
-#elif __APPLE__ || __MACH__
+#elif OS_MAC
 	logger->LogLineWithoutTime("Mac OSX");
-#elif __linux__
+#elif OS_LINUX
 	logger->LogLineWithoutTime("Linux");
-#elif __FreeBSD__
+#elif OS_FREEBSD
 	logger->LogLineWithoutTime("FreeBSD");
 #else
 	logger->LogLineWithoutTime("Other OS");
