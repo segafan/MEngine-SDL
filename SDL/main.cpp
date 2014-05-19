@@ -76,9 +76,6 @@ int main(int argc, char *argv[])
 	delete timer;
 	delete logger;
 
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-
 	Quit();
 
 	return 0;

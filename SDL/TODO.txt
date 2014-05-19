@@ -35,3 +35,5 @@
 <type> <filepath> <key>
 i ./resources/textures/image.png IMAGE
 use i for image and a for animation and so on
+[-] Text Input System
+[-] Networking

@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Managers">
       <UniqueIdentifier>{0d987b9a-d3b0-4d41-b623-03ad820555dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{781ae64b-84bb-4905-b577-7e6112a3bdb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
