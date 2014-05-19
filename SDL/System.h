@@ -8,7 +8,7 @@
 #include "RenderSupport.h"
 
 //Define used Operating System
-//TODO: Test this because TARGET_OS_MAC may include iOS too!
+//TODO: Test this
 #ifdef _WIN64
 	#define OS_WINDOWS
 	#define OS_WINDOWS_64

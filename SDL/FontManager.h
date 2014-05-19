@@ -115,6 +115,9 @@ public:
 
 	void DrawText(std::string key, std::string text, int size, SDL_Rect *pos, SDL_Color color)
 	{
+		if (text == "")
+			return;
+
 		if (fonts[key][size] == NULL)
 		{
 			logger->LogLine("The text can't be drawn beacuse the font doesn't exist! Key: ", key, " Size: ", NumberToString(size));
