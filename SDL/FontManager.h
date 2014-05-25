@@ -173,7 +173,7 @@ public:
 
 	void DrawText(std::string key, std::string text, int size, Rect *pos, SDL_Color color)
 	{
-		DrawText(key, text, size, pos->GetSDLRect(), color);
+		DrawText(key, text, size, pos->ToSDLRect(), color);
 	}
 private:
 	std::map<std::string, std::map<int, TTF_Font*> > fonts;

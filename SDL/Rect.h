@@ -19,10 +19,10 @@ public:
 
 	SDL_Rect& operator= (const SDL_Rect c)
 	{
-		return *GetSDLRect();
+		return *ToSDLRect();
 	}
 
-	SDL_Rect* GetSDLRect()
+	SDL_Rect* ToSDLRect()
 	{
 		rect.x = x;
 		rect.y = y;

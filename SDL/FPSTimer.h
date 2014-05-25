@@ -3,6 +3,8 @@
 
 #include "Timer.h"
 
+//TODO: Add better Time System & Create a Time.h
+
 class FPSTimer
 {
 public:
@@ -48,6 +50,7 @@ public:
 		}
 		else if (frameTime - 2 > timer.GetTicks())
 		{
+			//TODO: frameTime - 2 might can be frameTime - 1
 			SDL_Delay(1);
 			return false;
 		}

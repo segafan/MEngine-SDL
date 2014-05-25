@@ -145,29 +145,29 @@ public:
 
 	void DrawTexture(std::string key, Rect *pos)
 	{
-		SDL_RenderCopy(renderer, GetTexture(key), NULL, pos->GetSDLRect());
+		SDL_RenderCopy(renderer, GetTexture(key), NULL, pos->ToSDLRect());
 	}
 	void DrawTexture(std::string key, Rect *srcpos, Rect *pos)
 	{
-		SDL_RenderCopy(renderer, GetTexture(key), srcpos->GetSDLRect(), pos->GetSDLRect());
+		SDL_RenderCopy(renderer, GetTexture(key), srcpos->ToSDLRect(), pos->ToSDLRect());
 	}
 
 	void DrawTextureRotated(std::string key, Rect *pos, double angle)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->GetSDLRect(), angle, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
 	void DrawTextureRotated(std::string key, Rect *srcpos, Rect *pos, double angle)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->GetSDLRect(), pos->GetSDLRect(), angle, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->ToSDLRect(), pos->ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
 
 	void DrawTextureFlip(std::string key, Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->GetSDLRect(), 0, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->ToSDLRect(), 0, NULL, flip);
 	}
 	void DrawTextureFlip(std::string key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->GetSDLRect(), pos->GetSDLRect(), 0, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->ToSDLRect(), pos->ToSDLRect(), 0, NULL, flip);
 	}
 private:
 	Logger *logger;

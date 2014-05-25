@@ -48,7 +48,7 @@ public:
 			global->screen.SetRenderColor(255, 0, 0);
 		}
 		
-		SDL_RenderFillRect(global->screen.GetRenderer(), pos.GetSDLRect());
+		SDL_RenderFillRect(global->screen.GetRenderer(), pos.ToSDLRect());
 		global->screen.SetRenderColor(255, 255, 0);
 	}
 

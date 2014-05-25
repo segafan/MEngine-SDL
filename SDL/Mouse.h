@@ -97,7 +97,7 @@ public:
 		}
 	}
 
-	Rect* GetMouseRect()
+	Rect* GetPosition()
 	{
 		return &rect;
 	}
