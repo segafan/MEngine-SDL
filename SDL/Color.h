@@ -29,7 +29,7 @@ public:
 		this->a = a;
 	}
 
-	SDL_Color& GetSDLColor()
+	SDL_Color& ToSDLColor()
 	{
 		color.r = (Uint8)r;
 		color.g = (Uint8)g;
@@ -48,7 +48,7 @@ private:
 	SDL_Color color;
 };
 #define Colour Color
-#define GetSDLColour GetSDLColor
+#define ToSDLColour ToSDLColor
 
 
 inline Color MapRGB(Uint8 r, Uint8 g, Uint8 b)

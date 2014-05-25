@@ -168,12 +168,20 @@ public:
 		//Destroy Texture
 		SDL_DestroyTexture(texture);
 	}
+	void DrawText(std::string key, std::string text, int size, SDL_Rect *pos, Color color)
+	{
+		DrawText(key, text, size, pos, color.ToSDLColor());
+	}
 
 	//Drawing with own Rect
 
 	void DrawText(std::string key, std::string text, int size, Rect *pos, SDL_Color color)
 	{
 		DrawText(key, text, size, pos->ToSDLRect(), color);
+	}
+	void DrawText(std::string key, std::string text, int size, Rect *pos, Color color)
+	{
+		DrawText(key, text, size, pos->ToSDLRect(), color.ToSDLColor());
 	}
 private:
 	std::map<std::string, std::map<int, TTF_Font*> > fonts;
