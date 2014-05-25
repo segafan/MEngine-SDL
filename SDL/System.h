@@ -212,9 +212,10 @@ inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
 			{
 				if (mode.format == closestMode.format)
 				{
-					if (SDL_SetWindowDisplayMode(window, &mode) == 0)
+					if (SDL_SetWindowDisplayMode(window, &closestMode) == 0)
 					{
 						logger->LogLineWithoutTime("The Display mode of the window has been set!");
+						logger->LogLineWithoutTime("Window refresh rate is now: ", closestMode.refresh_rate);
 						vsync = true;
 					}
 					else
