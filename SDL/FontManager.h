@@ -18,7 +18,15 @@ enum Align
 {
 	ALIGN_LEFT = 0,
 	ALIGN_RIGHT = 1,
-	ALIGN_CENTER = 2
+	ALIGN_CENTER = 2,
+
+	ALIGN_LEFT_X = 3,
+	ALIGN_RIGHT_X = 4,
+	ALIGN_CENTER_X = 5,
+
+	ALIGN_LEFT_Y = 6,
+	ALIGN_RIGHT_Y = 7,
+	ALIGN_CENTER_Y = 8
 };
 
 class FontManager

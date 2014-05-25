@@ -176,13 +176,29 @@ static void LogOSInfo(Logger *logger)
 #endif
 }
 
-inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bool targetTexture, bool vsync)
+inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bool targetTexture, bool vsync, float FPS)
 {
 	if (window == NULL)
 	{
 		logger->LogLine("Couldn't create renderer because Window is NULL!");
 		return NULL;
 	}
+
+	//Get window refresh rate
+	SDL_DisplayMode mode;
+	SDL_GetWindowDisplayMode(window, &mode);
+
+	//Log window refresh rate
+	if (mode.refresh_rate == 0)
+		logger->LogLineWithoutTime("Window refresh rate: ", "Unknown!");
+	else
+		logger->LogLineWithoutTime("Window refresh rate: ", mode.refresh_rate);
+
+	//Check if it's == FPS
+	if (mode.refresh_rate >= (int)FPS)
+		vsync = true;
+
+	logger->NewLine();
 
 	LogAllRenderInfo(logger);
 

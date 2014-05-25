@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 	//Create Renederer
 	SDL_Renderer *renderer = NULL;
-	renderer = CreateAndLogRenderer(window, logger, true, false);
+	renderer = CreateAndLogRenderer(window, logger, true, false, 60);
 
 	if (renderer == NULL)
 		return 1;
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 
 			global->screen.RenderClear();
 			
-
+			
 
 			global->screen.RenderPresent();
 

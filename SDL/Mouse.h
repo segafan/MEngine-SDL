@@ -29,6 +29,11 @@ public:
 		y = 0;
 	}
 
+	bool IsHover(Rect& pos)
+	{
+		return pos.Intersects(rect);
+	}
+
 	bool IsButtonPressed(Uint8 button)
 	{
 		return buttons[button];

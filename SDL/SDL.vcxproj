@@ -80,6 +80,7 @@
     <ClInclude Include="FPSTimer.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GraphicsManager.h" />
+    <ClInclude Include="GUIButton.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="MEngine.h" />

@@ -46,6 +46,11 @@ public:
 			timer.Reset();
 			return true;
 		}
+		else if (frameTime - 2 > timer.GetTicks())
+		{
+			SDL_Delay(1);
+			return false;
+		}
 		else
 			return false;
 	}
@@ -59,10 +64,10 @@ private:
 
 inline void FPSCounter(Timer *timer)
 {
-	static unsigned short int frames = 0;
+	static unsigned int frames = 0;
 	frames++;
 
-	if ((timer->GetTicks() > 1000))
+	if ((timer->GetTicks() >= 1000))
 	{
 		std::cout << "FPS " << frames << std::endl;
 		timer->Reset();

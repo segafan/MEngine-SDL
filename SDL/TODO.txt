@@ -35,5 +35,6 @@
 <type> <filepath> <key>
 i ./resources/textures/image.png IMAGE
 use i for image and a for animation and so on
+[-] Create own image format
 [-] Text Input System
 [-] Networking
