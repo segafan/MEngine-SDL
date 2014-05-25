@@ -176,13 +176,9 @@ static void LogOSInfo(Logger *logger)
 #endif
 }
 
-inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bool targetTexture, bool vsync, float FPS)
+inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
 {
-	if (window == NULL)
-	{
-		logger->LogLine("Couldn't create renderer because Window is NULL!");
-		return NULL;
-	}
+	bool vsync = false;
 
 	//Get window refresh rate
 	SDL_DisplayMode mode;
@@ -196,9 +192,70 @@ inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bo
 
 	//Check if it's == FPS
 	if (mode.refresh_rate >= (int)FPS)
+	{
+		logger->LogLineWithoutTime("Activating VSync if available, because it would help in FPS caping!");
 		vsync = true;
+	}
+	else
+	{
+		//Try to get a good display mode
+		mode.refresh_rate = (int)FPS;
+
+		SDL_DisplayMode closestMode;
+		SDL_GetClosestDisplayMode(0, &mode, &closestMode);
+
+		if (closestMode.refresh_rate >= (int)FPS)
+		{
+			logger->LogLineWithoutTime("Found another Display Mode which has better refresh rate!");
+
+			if (mode.w == closestMode.w && mode.h == closestMode.h)
+			{
+				if (mode.format == closestMode.format)
+				{
+					if (SDL_SetWindowDisplayMode(window, &mode) == 0)
+					{
+						logger->LogLineWithoutTime("The Display mode of the window has been set!");
+						vsync = true;
+					}
+					else
+					{
+						logger->LogLineWithoutTime("Couldn't bind Display Mode to Window!");
+						vsync = false;
+					}
+				}
+				else
+				{
+					logger->LogLineWithoutTime("The Display Mode has other pixel format so it cannot be used!");
+					vsync = false;
+				}
+			}
+			else
+			{
+				logger->LogLineWithoutTime("The Display Mode has other resolution so it cannot be used!");
+				vsync = false;
+			}
+		}
+		else
+		{
+			logger->LogLineWithoutTime("Didn't find a display mode to use VSync!");
+			vsync = false;
+		}
+	}
 
 	logger->NewLine();
+
+	return vsync;
+}
+
+inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bool targetTexture, bool vsync, float FPS)
+{
+	if (window == NULL)
+	{
+		logger->LogLine("Couldn't create renderer because Window is NULL!");
+		return NULL;
+	}
+
+	vsync = IsVSyncGoodToUse(window, logger, FPS);
 
 	LogAllRenderInfo(logger);
 
