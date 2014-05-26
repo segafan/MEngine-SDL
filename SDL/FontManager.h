@@ -119,6 +119,7 @@ public:
 					//Destroy Font
 					std::cout << "Destroyed font: " << iterator->first << " Size: " << iterator2->first << std::endl;
 					TTF_CloseFont(fonts[iterator->first][iterator2->first]);
+					fonts[iterator->first][iterator2->first] = NULL;
 				}
 			}
 		}

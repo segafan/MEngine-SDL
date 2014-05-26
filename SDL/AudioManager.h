@@ -8,6 +8,7 @@
 
 #include "Logger.h"
 
+//TODO: Add RemoveMusic ans SoundEffect
 class AudioManager
 {
 public:
@@ -39,6 +40,17 @@ public:
 		}
 
 		music[key] = tempMusic;
+	}
+	void RemoveMusic(std::string key)
+	{
+		if (music[key] == NULL)
+		{
+			logger->LogLine("The music can't be removed because it doesn't exist! Key:", key);
+			return;
+		}
+
+		Mix_FreeMusic(music[key]);
+		music[key] = NULL;
 	}
 
 	inline void PlayMusic(std::string key)
@@ -101,6 +113,17 @@ public:
 		}
 
 		soundEffect[key] = tempEffect;
+	}
+	void RemoveSoundEffect(std::string key)
+	{
+		if (soundEffect[key] == NULL)
+		{
+			logger->LogLine("The SoundEffect can't be removed because it doesn't exist! Key:", key);
+			return;
+		}
+
+		Mix_FreeChunk(soundEffect[key]);
+		soundEffect[key] = NULL;
 	}
 
 	void PlaySoundEffect(std::string key)
@@ -166,10 +189,11 @@ public:
 
 		for (it_type_music iterator = music.begin(); iterator != music.end(); iterator++)
 		{
-			if (music[iterator->first])
+			if (music[iterator->first] != NULL)
 			{
 				std::cout << "Destroyed music: " << iterator->first << std::endl;
 				Mix_FreeMusic(music[iterator->first]);
+				music[iterator->first] = NULL;
 			}
 		}
 
@@ -179,10 +203,11 @@ public:
 
 		for (it_type_effect iterator = soundEffect.begin(); iterator != soundEffect.end(); iterator++)
 		{
-			if (soundEffect[iterator->first])
+			if (soundEffect[iterator->first] != NULL)
 			{
 				std::cout << "Destroyed soundEffect: " << iterator->first << std::endl;
 				Mix_FreeChunk(soundEffect[iterator->first]);
+				soundEffect[iterator->first] = NULL;
 			}
 		}
 

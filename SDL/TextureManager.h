@@ -104,6 +104,7 @@ public:
 			{
 				std::cout << "Destroyed texture: " << iterator->first << std::endl;
 				SDL_DestroyTexture(textures[iterator->first]);
+				textures[iterator->first] = NULL;
 			}
 		}
 		
