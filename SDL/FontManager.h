@@ -16,17 +16,11 @@
 
 enum Align
 {
-	ALIGN_LEFT = 0,
-	ALIGN_RIGHT = 1,
-	ALIGN_CENTER = 2,
+	ALIGN_NONE = 0,
 
-	ALIGN_LEFT_X = 3,
-	ALIGN_RIGHT_X = 4,
-	ALIGN_CENTER_X = 5,
-
-	ALIGN_LEFT_Y = 6,
-	ALIGN_RIGHT_Y = 7,
-	ALIGN_CENTER_Y = 8
+	ALIGN_LEFT = 1,
+	ALIGN_RIGHT = 2,
+	ALIGN_CENTER = 3
 };
 
 class FontManager
@@ -137,16 +131,13 @@ public:
 
 	//Drawing with SDL_Rect
 
-	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, SDL_Color color
+	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, SDL_Color color, Align align)
 	{
 		if (text == "")
 			return;
 
-		if (fonts[key][size] == NULL)
-		{
-			logger->LogLine("The text can't be drawn beacuse the font doesn't exist! Key: ", key, " Size: ", NumberToString(size));
+		if (GetFont(key, size) == NULL)
 			return;
-		}
 
 		//Create Text Surface
 		SDL_Surface* surface = NULL;
@@ -178,26 +169,42 @@ public:
 			return;
 		}
 
-		//Render
-		SDL_RenderCopy(renderer, texture, NULL, pos);
+		//TODO: Do align_X align_X and both
+		if (align == ALIGN_CENTER || ALIGN_RIGHT)
+		{
+			SDL_Rect tempPos = *pos;
+
+			//Recalculate coordinates
+			if (align == ALIGN_CENTER)
+			{
+				tempPos.x = tempPos.x - (tempPos.w / 2);
+				tempPos.y = tempPos.y - (tempPos.h / 2);
+			}
+			if (align == ALIGN_RIGHT)
+				tempPos.x = tempPos.x - tempPos.w;
+			
+			SDL_RenderCopy(renderer, texture, NULL, &tempPos);
+		}
+		else
+			SDL_RenderCopy(renderer, texture, NULL, pos);
 
 		//Destroy Texture
 		SDL_DestroyTexture(texture);
 	}
-	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color)
+	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color, Align align)
 	{
-		DrawText(key, size, text, pos, color.ToSDLColor());
+		DrawText(key, size, text, pos, color.ToSDLColor(), align);
 	}
 
 	//Drawing with own Rect
 
-	void DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color)
+	void DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color, Align align)
 	{
-		DrawText(key, size, text, pos->ToSDLRect(), color);
+		DrawText(key, size, text, pos->ToSDLRect(), color, align);
 	}
-	void DrawText(std::string key, int size, std::string text, Rect *pos, Color color)
+	void DrawText(std::string key, int size, std::string text, Rect *pos, Color color, Align align)
 	{
-		DrawText(key, size, text, pos->ToSDLRect(), color.ToSDLColor());
+		DrawText(key, size, text, pos->ToSDLRect(), color.ToSDLColor(), align);
 	}
 private:
 	std::map<std::string, std::map<int, TTF_Font*> > fonts;
