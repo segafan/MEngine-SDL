@@ -48,9 +48,9 @@ public:
 			timer.Reset();
 			return true;
 		}
-		else if (frameTime - 2 > timer.GetTicks())
+		else if (frameTime - 1 > timer.GetTicks())
 		{
-			//TODO: frameTime - 2 might can be frameTime - 1
+			//TODO: test if frameTime - 1 is good and do something better than this
 			SDL_Delay(1);
 			return false;
 		}

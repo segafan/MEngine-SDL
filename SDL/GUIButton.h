@@ -49,19 +49,44 @@ public:
 		}
 		
 		SDL_RenderFillRect(global->screen.GetRenderer(), pos.ToSDLRect());
+
+		global->gfx.DrawText(font, fontSize, text, &pos, textColor);
+
 		global->screen.SetRenderColor(255, 255, 0);
+	}
+	
+	//Setters
+	void SetFont(std::string key, int size)
+	{
+		if (global->gfx.GetFont(key, size) == NULL)
+		{
+			global->logger.LogLine("Couldn't set font in button, ", "Font key: ", key, "Font Size: ", size);
+			global->logger.LogLine("It's probably not loaded with that key and size combination!");
+			return;
+		}
+		
+		font = key;
+	}
+	void SetText(std::string text)
+	{
+		this->text = text;
 	}
 
 private:
 	//Global
 	Global* global;
-	
+
 	bool hover;
 	bool clicked;
 
 	Rect pos;
 
+	//Button Text stuff
+	std::string font;
+	int fontSize;
+
 	std::string text;
+	Color textColor;
 };
 
 #endif

@@ -63,6 +63,22 @@ public:
 
 		fonts[key][size] = font;
 	}
+	void AddFont(TTF_Font* font, std::string key, int size)
+	{
+		if (fonts[key][size] != NULL)
+		{
+			logger->LogLine("There is already a font with this key! Key: ", key);
+			return;
+		}
+
+		if (font == NULL)
+		{
+			logger->LogLine("Font couldn't be added! Key: ", key, " Size: ", NumberToString(size), " Error: ", SDL_GetError());
+			return;
+		}
+
+		fonts[key][size] = font;
+	}
 	void RemoveFont(std::string key, int size)
 	{
 		if (fonts[key][size] == NULL)
@@ -121,7 +137,7 @@ public:
 
 	//Drawing with SDL_Rect
 
-	void DrawText(std::string key, std::string text, int size, SDL_Rect *pos, SDL_Color color)
+	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, SDL_Color color
 	{
 		if (text == "")
 			return;
@@ -168,20 +184,20 @@ public:
 		//Destroy Texture
 		SDL_DestroyTexture(texture);
 	}
-	void DrawText(std::string key, std::string text, int size, SDL_Rect *pos, Color color)
+	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color)
 	{
-		DrawText(key, text, size, pos, color.ToSDLColor());
+		DrawText(key, size, text, pos, color.ToSDLColor());
 	}
 
 	//Drawing with own Rect
 
-	void DrawText(std::string key, std::string text, int size, Rect *pos, SDL_Color color)
+	void DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color)
 	{
-		DrawText(key, text, size, pos->ToSDLRect(), color);
+		DrawText(key, size, text, pos->ToSDLRect(), color);
 	}
-	void DrawText(std::string key, std::string text, int size, Rect *pos, Color color)
+	void DrawText(std::string key, int size, std::string text, Rect *pos, Color color)
 	{
-		DrawText(key, text, size, pos->ToSDLRect(), color.ToSDLColor());
+		DrawText(key, size, text, pos->ToSDLRect(), color.ToSDLColor());
 	}
 private:
 	std::map<std::string, std::map<int, TTF_Font*> > fonts;
