@@ -1,13 +1,11 @@
 #include "MEngine.h"
 
-#include "GUITextBox.h"
-#include "GUIButton.h"
-
 int main(int argc, char *argv[])
 {
 	if (Init() != 0)
 		return 1;
 
+	//TODO: Move this to a better place & do it so it shows keyboard only when needed
 	SDL_StartTextInput();
 
 	Logger *logger = new Logger;
@@ -26,8 +24,6 @@ int main(int argc, char *argv[])
 		return 1;
 
 	Global *global = new Global(window, renderer, logger);
-	
-	global->gfx.AddFont("resources/fonts/Arial.ttf", "FONT", 12);
 
 	Timer *timer = new Timer();
 	timer->Start();
@@ -40,8 +36,6 @@ int main(int argc, char *argv[])
 	SDL_RenderSetLogicalSize(renderer, 1024, 768);
 
 	global->screen.SetRenderColor(255, 255, 0);
-	
-	GUITextBox textBox(global, "1");
 
 	while (running)
 	{
@@ -66,15 +60,13 @@ int main(int argc, char *argv[])
 
 			//Update			
 
-			global->input.text.SetTextInputActive("RANDOM", true);
-
-			textBox.Update();
+			
 
 			//Draw
 
 			global->screen.RenderClear();
 			
-			textBox.Draw();
+			
 
 			global->screen.RenderPresent();
 
@@ -87,6 +79,8 @@ int main(int argc, char *argv[])
 	delete global;
 	delete timer;
 	delete logger;
+
+	SDL_StopTextInput();
 
 	Quit();
 
