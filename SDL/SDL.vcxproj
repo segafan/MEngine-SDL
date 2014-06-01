@@ -81,6 +81,7 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="GUIButton.h" />
+    <ClInclude Include="GUITextBox.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="MEngine.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="TextInput.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Keyboard.h" />

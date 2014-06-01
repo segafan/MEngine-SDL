@@ -113,5 +113,11 @@
     <ClInclude Include="GUIButton.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="GUITextBox.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextInput.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,9 +1,14 @@
 #include "MEngine.h"
 
+#include "GUITextBox.h"
+#include "GUIButton.h"
+
 int main(int argc, char *argv[])
 {
 	if (Init() != 0)
 		return 1;
+
+	SDL_StartTextInput();
 
 	Logger *logger = new Logger;
 
@@ -22,6 +27,8 @@ int main(int argc, char *argv[])
 
 	Global *global = new Global(window, renderer, logger);
 	
+	global->gfx.AddFont("resources/fonts/Arial.ttf", "FONT", 12);
+
 	Timer *timer = new Timer();
 	timer->Start();
 	
@@ -34,6 +41,8 @@ int main(int argc, char *argv[])
 
 	global->screen.SetRenderColor(255, 255, 0);
 	
+	GUITextBox textBox(global, "1");
+
 	while (running)
 	{
 		if (FPS.Tick())
@@ -48,21 +57,24 @@ int main(int argc, char *argv[])
 
 				global->input.mouse.Update();
 				global->input.keyboard.Update();
+				global->input.text.Update();
 			}
 
 			//Screenshot Creation
 			if (global->input.keyboard.IsKeyPressedOnce(SDLK_F2))
 				CreateScreenshot(window, renderer);
 
-			//Update
+			//Update			
 
+			global->input.text.SetTextInputActive("RANDOM", true);
 
+			textBox.Update();
 
 			//Draw
 
 			global->screen.RenderClear();
 			
-			
+			textBox.Draw();
 
 			global->screen.RenderPresent();
 

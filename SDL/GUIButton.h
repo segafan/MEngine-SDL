@@ -1,7 +1,6 @@
 #ifndef GUIBUTTON_H
 #define GUIBUTTON_H
 
-#include <map>
 #include <string>
 
 #include "Global.h"
@@ -144,7 +143,8 @@ public:
 		this->enabled = EnabledAndVisible;
 		this->visible = EnabledAndVisible;
 	}
-
+	
+	//TODO: Add name to every button
 private:
 	//Global
 	Global* global;
