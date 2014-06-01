@@ -13,14 +13,12 @@
 [-] Improve Performace
 [-] test if import for Windows Symbols is needed
 [-] Add Debug mode to Drawing (Draws a rectangle around the texture)
-[-] Create Logger template funtions
 [-] Code::Blocks port & Linux/Mac OS X port
 [-] Refactor
 [-] Do the //TODO: stuff in code
 [-] FPS Timer Frame Skip
 [-] Animation class
-[-] GameStateManager in Global
-[-] Create Align option at text drawing
+[-] Improve Align in text drawing
 [-] Fix a bug with DrawText at CreateTextureFromSurface()
 [-] Bitmap fonts
 [-] Rework Font Drawing
@@ -38,3 +36,4 @@ use i for image and a for animation and so on
 [-] Create own image format
 [-] Text Input System
 [-] Networking
+[-] Add Background Image to GUIButton

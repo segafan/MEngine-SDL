@@ -13,49 +13,92 @@ public:
 	{
 		this->global = global;
 
-		text = "";
+		//Position stuff
 		pos.SetPosition(0, 0, 100, 30);
+		relPos = &global->screen.GetSize();
+		finalPos = pos + *relPos;
+
+		//Enabled and visible
+		enabled = true;
+		visible = true;
+
+		//Event stuff
+		hover = false;
+		clicked = false;
+
+		//Font stuff
+		font = "";
+		fontSize = 12;
+
+		//Text stuff
+		text = "";
+		textPos.SetPosition(finalPos.CenterX(), finalPos.CenterY(), 0, 0);
+		textColor.SetColor(0, 0, 0, 255);
+
+		textColorOnHover.SetColor(0, 0, 0, 255);
+		textColorOnClick.SetColor(0, 0, 0, 255);
 	}
 
 	void Update()
 	{
-		hover = false;
-		clicked = false;
-
-		if (global->input.mouse.IsHover(pos))
+		if (enabled)
 		{
-			//TODO: Which button needs to be pressed
-			if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
-				clicked = true;
-			else
+			//Calculate Pos
+			finalPos = pos + *relPos;
+			textPos.SetPosition(finalPos.CenterX(), finalPos.CenterY(), 0, 0);
+
+			//Mouse
+			hover = false;
+			clicked = false;
+
+			if (global->input.mouse.IsHover(finalPos))
+			{
 				hover = true;
+				//TODO: Which button needs to be pressed
+				if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
+					clicked = true;
+			}
 		}
-		
 	}
 
 	void Draw()
 	{
-		if (clicked)
+		if (visible)
 		{
-			global->screen.SetRenderColor(255, 0, 255);
+			if (clicked)
+				global->gfx.DrawText(font, fontSize, text, &textPos, textColorOnClick, ALIGN_CENTER);
+			else if (hover)
+				global->gfx.DrawText(font, fontSize, text, &textPos, textColorOnHover, ALIGN_CENTER);
+			else
+				global->gfx.DrawText(font, fontSize, text, &textPos, textColor, ALIGN_CENTER);
 		}
-		else if (hover)
-		{
-			global->screen.SetRenderColor(0, 255, 0);
-		}
-		else
-		{
-			global->screen.SetRenderColor(255, 0, 0);
-		}
-		
-		SDL_RenderFillRect(global->screen.GetRenderer(), pos.ToSDLRect());
-
-		global->gfx.DrawText(font, fontSize, text, &pos, textColor);
-
-		global->screen.SetRenderColor(255, 255, 0);
 	}
 	
+	//Bool Functions
+	bool IsClicked()
+	{
+		return clicked;
+	}
+	bool IsHover()
+	{
+		return hover;
+	}
+
 	//Setters
+
+	//Position Setters
+	void SetPosition(Rect pos)
+	{
+		this->pos = pos;
+		finalPos = pos + *relPos;
+		textPos.SetPosition(finalPos.CenterX(), finalPos.CenterY(), 0, 0);
+	}
+	void SetPositionRelativeTo(Rect* relPos)
+	{
+		this->relPos = relPos;
+	}
+
+	//Font Setters
 	void SetFont(std::string key, int size)
 	{
 		if (global->gfx.GetFont(key, size) == NULL)
@@ -66,27 +109,70 @@ public:
 		}
 		
 		font = key;
+		fontSize = size;
 	}
+
+	//Text Setters
 	void SetText(std::string text)
 	{
 		this->text = text;
+	}
+	void SetTextColor(Color color)
+	{
+		this->textColor = color;
+	}
+	void SetTextColorOnHover(Color color)
+	{
+		this->textColorOnHover = color;
+	}
+	void SetTextColorOnClick(Color color)
+	{
+		this->textColorOnClick = color;
+	}
+
+	//Enabled and visible Setters
+	void SetEnabled(bool enabled)
+	{
+		this->enabled = enabled;
+	}
+	void SetVisible(bool visible)
+	{
+		this->visible = visible;
+	}
+	void SetEnabledAndVisible(bool EnabledAndVisible)
+	{
+		this->enabled = EnabledAndVisible;
+		this->visible = EnabledAndVisible;
 	}
 
 private:
 	//Global
 	Global* global;
 
+	//Enabled and visible
+	bool enabled;
+	bool visible;
+
+	//Event stuff
 	bool hover;
 	bool clicked;
 
+	//Position
 	Rect pos;
+	Rect* relPos;
+	Rect finalPos;
 
-	//Button Text stuff
+	//Font stuff
 	std::string font;
 	int fontSize;
 
+	//Text stuff
+	Rect textPos;
 	std::string text;
 	Color textColor;
+
+	Color textColorOnHover;
+	Color textColorOnClick;
 };
 
 #endif
