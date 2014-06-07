@@ -26,7 +26,7 @@ public:
 		relPos = &global->screen.GetSize();
 		finalPos = pos + *relPos;
 
-		textPos.SetPosition(finalPos.GetX(), finalPos.CenterY() - 6, 0, 0);
+		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY(), 0, 0);
 
 		//Event Stuff
 		focus = false;
@@ -44,12 +44,14 @@ public:
 	{
 		//Calculate Position
 		finalPos = pos + *relPos;
-		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY() - 6, 0, 0);
+		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY(), 0, 0);
 
 		//Mouse Stuff
 		if (global->input.mouse.IsHover(finalPos))
+		{
 			if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
 				focus = true;
+		}
 		else
 			if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
 				focus = false;
@@ -73,11 +75,62 @@ public:
 
 	void Draw()
 	{
-		global->screen.SetRenderColor(255, 0, 0);
+		global->screen.SetRenderColor(255, 255, 255);
 		SDL_RenderFillRect(global->screen.GetRenderer(), finalPos.ToSDLRect());
+		global->screen.SetRenderColor(0, 0, 0);
+		SDL_RenderDrawRect(global->screen.GetRenderer(), finalPos.ToSDLRect());
 		global->screen.SetRenderColor(255, 255, 0);
 
-		global->gfx.DrawText(font, fontSize, text, &textPos, MapRGB(0, 0, 0), ALIGN_LEFT);
+		global->gfx.DrawText(font, fontSize, text, &textPos, MapRGB(0, 0, 0), ALIGN_CENTER_Y);
+	}
+
+	bool IsFocus()
+	{
+		return focus;
+	}
+
+	//Setters
+
+	void SetFocus(bool focus)
+	{
+		this->focus = focus;
+	}
+
+	//Position
+	void SetPosition(Rect pos)
+	{
+		this->pos = pos;
+	}
+	void SetPositionRelativeTo(Rect* relPos)
+	{
+		this->relPos = relPos;
+	}
+
+	//Font Stuff
+	void SetFont(std::string key, int size)
+	{
+		if (global->gfx.GetFont(key, size) == NULL)
+		{
+			global->logger.LogLine("Couldn't set font in textbox, ", "Font key: ", key, "Font Size: ", size);
+			global->logger.LogLine("It's probably not loaded with that key and size combination!");
+			return;
+		}
+
+		font = key;
+		fontSize = size;
+	}
+
+	//Text Stuff
+	void SetText(std::string text)
+	{
+		this->text = text;
+	}
+
+	//Getters
+
+	std::string GetText()
+	{
+		return text;
 	}
 
 private:

@@ -25,6 +25,15 @@ public:
 		{
 			if (active[iterator->first])
 			{
+				if ((keyboard->IsKeyPressed(SDLK_LCTRL) || keyboard->IsKeyPressed(SDLK_RCTRL)) && keyboard->IsKeyPressed(SDLK_v))
+				{
+					//TODO: This may cause a memory leak SDL_GetClipboardText()
+					if (SDL_HasClipboardText())
+					{
+						text[iterator->first] += SDL_GetClipboardText();
+					}
+				}
+
 				if (event->type == SDL_TEXTINPUT)
 					text[iterator->first] += event->text.text;
 				if (keyboard->IsKeyPressed(SDLK_BACKSPACE) && text[iterator->first].size() > 0)

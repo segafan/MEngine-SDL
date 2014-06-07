@@ -9,10 +9,7 @@
 
 inline bool GetRenderFlagAvailable(SDL_RendererInfo *info, unsigned int flag)
 {
-	if ((info->flags & flag) == flag)
-		return true;
-	else
-		return false;
+	return ((info->flags & flag) == flag);
 }
 
 inline bool GetRenderFlagAvailable(int num, int flag)

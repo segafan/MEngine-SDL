@@ -14,13 +14,24 @@
 #undef DrawText
 #endif
 
+bool ContainsFlag(int flags, int flag)
+{
+	return ((flags & flag) == flag);
+}
+
 enum Align
 {
 	ALIGN_NONE = 0,
 
-	ALIGN_LEFT = 1,
-	ALIGN_RIGHT = 2,
-	ALIGN_CENTER = 3
+	ALIGN_CENTER = 1,
+	
+	ALIGN_LEFT_X = 2,
+	ALIGN_RIGHT_X = 4,
+	ALIGN_CENTER_X = 8,
+
+	ALIGN_UP_Y = 16,
+	ALIGN_DOWN_Y = 32,
+	ALIGN_CENTER_Y = 64
 };
 
 class FontManager
@@ -132,7 +143,7 @@ public:
 
 	//Drawing with SDL_Rect
 
-	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, SDL_Color color, Align align)
+	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, SDL_Color color, int align)
 	{
 		if (text == "")
 			return;
@@ -170,40 +181,45 @@ public:
 			return;
 		}
 
-		//TODO: Do align_X align_X and both
-		if (align == ALIGN_CENTER || ALIGN_RIGHT)
-		{
-			SDL_Rect tempPos = *pos;
+		//Align
+		
+		SDL_Rect tempPos = *pos;
 
-			//Recalculate coordinates
-			if (align == ALIGN_CENTER)
-			{
-				tempPos.x = tempPos.x - (tempPos.w / 2);
-				tempPos.y = tempPos.y - (tempPos.h / 2);
-			}
-			if (align == ALIGN_RIGHT)
-				tempPos.x = tempPos.x - tempPos.w;
-			
-			SDL_RenderCopy(renderer, texture, NULL, &tempPos);
+		//Recalculate coordinates
+		if (ContainsFlag(align, ALIGN_CENTER))
+		{
+			tempPos.x = tempPos.x - (tempPos.w / 2);
+			tempPos.y = tempPos.y - (tempPos.h / 2);
 		}
-		else
-			SDL_RenderCopy(renderer, texture, NULL, pos);
+
+		if (ContainsFlag(align, ALIGN_CENTER_X))
+			tempPos.x = tempPos.x - (tempPos.w / 2);
+		if (ContainsFlag(align, ALIGN_CENTER_Y))
+			tempPos.y = tempPos.y - (tempPos.h / 2);
+
+		if (ContainsFlag(align, ALIGN_RIGHT_X))
+			tempPos.x = tempPos.x - tempPos.w;
+
+		if (ContainsFlag(align, ALIGN_DOWN_Y))
+			tempPos.y = tempPos.y - tempPos.h;
+
+		SDL_RenderCopy(renderer, texture, NULL, &tempPos);
 
 		//Destroy Texture
 		SDL_DestroyTexture(texture);
 	}
-	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color, Align align)
+	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color, int align)
 	{
 		DrawText(key, size, text, pos, color.ToSDLColor(), align);
 	}
 
 	//Drawing with own Rect
 
-	void DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color, Align align)
+	void DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color, int align)
 	{
 		DrawText(key, size, text, pos->ToSDLRect(), color, align);
 	}
-	void DrawText(std::string key, int size, std::string text, Rect *pos, Color color, Align align)
+	void DrawText(std::string key, int size, std::string text, Rect *pos, Color color, int align)
 	{
 		DrawText(key, size, text, pos->ToSDLRect(), color.ToSDLColor(), align);
 	}

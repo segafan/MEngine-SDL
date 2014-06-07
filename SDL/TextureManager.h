@@ -42,6 +42,7 @@ public:
 		if (texture == NULL)
 		{
 			logger->LogLine("Texture couldn't be loaded! Key: ", key, " Error: ", SDL_GetError());
+			return;
 		}
 
 		//Push to global
