@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#include "Util.h"
 #include "Rect.h"
 #include "Logger.h"
 
@@ -13,11 +14,6 @@
 #ifdef DrawText
 #undef DrawText
 #endif
-
-bool ContainsFlag(int flags, int flag)
-{
-	return ((flags & flag) == flag);
-}
 
 enum Align
 {

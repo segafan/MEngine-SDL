@@ -52,7 +52,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2test.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_net.lib;SDL2_mixer.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2test.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_net.lib;SDL2_mixer.lib;SDL2_image.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -89,7 +89,7 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Rect.h" />
-    <ClInclude Include="Screen.h" />
+    <ClInclude Include="Display.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="TextInput.h" />
     <ClInclude Include="TextureManager.h" />
@@ -100,6 +100,7 @@
     <ClInclude Include="RenderSupport.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Util.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vertex.h" />

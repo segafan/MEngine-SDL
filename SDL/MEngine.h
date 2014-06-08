@@ -12,12 +12,12 @@
 
 //Define NULL
 #ifndef NULL
-#define NULL nullptr
+#define NULL 0
 #endif
 
 //Define null
 #ifndef null
-#define null nullptr
+#define null 0
 #endif
 
 #define GetArraySizeInElements(a) (sizeof(a)/sizeof(a[0]))

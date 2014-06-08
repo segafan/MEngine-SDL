@@ -14,7 +14,7 @@ public:
 
 		//Position stuff
 		pos.SetPosition(0, 0, 100, 30);
-		relPos = &global->screen.GetSize();
+		relPos = &global->display.GetSize();
 		finalPos = pos + *relPos;
 
 		//Enabled and visible

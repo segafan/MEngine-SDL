@@ -2,7 +2,7 @@
 #define GLOBAL_H
 
 #include "Input.h"
-#include "Screen.h"
+#include "Display.h"
 #include "Logger.h"
 #include "StateManager.h"
 #include "AudioManager.h"
@@ -11,18 +11,18 @@
 class Global
 {
 public:
-	Global(SDL_Window *window, SDL_Renderer *renderer, Logger *logger)
+	Global(Display* display, Logger *logger)
 		: input()
-		, screen(window, renderer)
+		, display(*display)
 		, logger(*logger)
 		, state()
 		, audio(logger)
-		, gfx(window, renderer, logger)
+		, gfx(display->GetWindow(), display->GetRenderer(), logger)
 	{
 	}
 
 	Input input;
-	WindowScreen screen;
+	Display& display;
 	Logger& logger;
 	StateManager state;
 	AudioManager audio;

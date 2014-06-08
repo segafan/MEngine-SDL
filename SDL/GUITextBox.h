@@ -23,7 +23,7 @@ public:
 
 		//Position stuff
 		pos.SetPosition(0, 0, 200, 30);
-		relPos = &global->screen.GetSize();
+		relPos = &global->display.GetSize();
 		finalPos = pos + *relPos;
 
 		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY(), 0, 0);
@@ -75,11 +75,11 @@ public:
 
 	void Draw()
 	{
-		global->screen.SetRenderColor(255, 255, 255);
-		SDL_RenderFillRect(global->screen.GetRenderer(), finalPos.ToSDLRect());
-		global->screen.SetRenderColor(0, 0, 0);
-		SDL_RenderDrawRect(global->screen.GetRenderer(), finalPos.ToSDLRect());
-		global->screen.SetRenderColor(255, 255, 0);
+		global->display.SetRenderColor(255, 255, 255);
+		SDL_RenderFillRect(global->display.GetRenderer(), finalPos.ToSDLRect());
+		global->display.SetRenderColor(0, 0, 0);
+		SDL_RenderDrawRect(global->display.GetRenderer(), finalPos.ToSDLRect());
+		global->display.SetRenderColor(255, 255, 0);
 
 		global->gfx.DrawText(font, fontSize, text, &textPos, MapRGB(0, 0, 0), ALIGN_CENTER_Y);
 	}

@@ -10,20 +10,13 @@ int main(int argc, char *argv[])
 
 	Logger *logger = new Logger;
 
-	//Create Window
-	SDL_Window *window = CreateAndLogWindow("SDL", 1024, 768, SDL_WINDOW_SHOWN, logger);
+	//Create Display
+	Display* display = new Display();
 
-	if (window == NULL)
+	if (!display->Create2D("SDL", 1024, 768, SDL_WINDOW_SHOWN, true, false, 60.0f, logger))
 		return 1;
 
-	//Create Renederer
-	SDL_Renderer *renderer = NULL;
-	renderer = CreateAndLogRenderer(window, logger, true, false, 60);
-
-	if (renderer == NULL)
-		return 1;
-
-	Global *global = new Global(window, renderer, logger);
+	Global *global = new Global(display, logger);
 
 	Timer *timer = new Timer();
 	timer->Start();
@@ -33,9 +26,7 @@ int main(int argc, char *argv[])
 
 	bool running = true;
 
-	SDL_RenderSetLogicalSize(renderer, 1024, 768);
-
-	global->screen.SetRenderColor(255, 255, 0);
+	global->display.SetRenderColor(255, 255, 0);
 
 	while (running)
 	{
@@ -56,7 +47,7 @@ int main(int argc, char *argv[])
 
 			//Screenshot Creation
 			if (global->input.keyboard.IsKeyPressedOnce(SDLK_F2))
-				CreateScreenshot(window, renderer);
+				CreateScreenshot(display->GetWindow(), display->GetRenderer());
 
 			//Update			
 
@@ -64,11 +55,11 @@ int main(int argc, char *argv[])
 
 			//Draw
 
-			global->screen.RenderClear();
+			global->display.Clear();
 			
 			
 
-			global->screen.RenderPresent();
+			global->display.Present();
 
 			//FPS StufF
 
@@ -76,6 +67,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	delete display;
 	delete global;
 	delete timer;
 	delete logger;
