@@ -4,12 +4,9 @@
 #include <ctime>
 #include <cstdlib>
 
-inline bool isRandomSafe()
+inline bool IsRandomSafe()
 {
-	if (sizeof(time_t) > 4)
-		return true;
-	else
-		return false;
+	return (sizeof(time_t) > 4);
 }
 
 inline void InitRandom()
@@ -31,12 +28,7 @@ inline int RandomNumber(int max)
 
 inline bool RandomBool()
 {
-	int random = RandomNumber(0, 1);
-	
-	if (random == 0)
-		return true;
-	else
-		return false;
+	return (RandomNumber(0, 1) == 0);
 }
 
 #endif
