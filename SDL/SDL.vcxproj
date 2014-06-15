@@ -90,6 +90,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Server.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="TextInput.h" />
     <ClInclude Include="TextureManager.h" />

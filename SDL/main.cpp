@@ -1,4 +1,5 @@
 #include "MEngine.h"
+#include "Server.h"
 
 int main(int argc, char *argv[])
 {
@@ -26,6 +27,9 @@ int main(int argc, char *argv[])
 
 	bool running = true;
 
+	Server server;
+	server.StartServer(1234);
+
 	global->display.SetRenderColor(255, 255, 0);
 
 	while (running)
@@ -51,7 +55,7 @@ int main(int argc, char *argv[])
 
 			//Update			
 
-			
+			server.Update();
 
 			//Draw
 
