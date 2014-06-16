@@ -6,6 +6,11 @@
 
 #include <SDL.h>
 
+std::string FormatRecv(const std::string& text)
+{
+	return text.substr(0, text.find_last_of('/'));	
+}
+
 inline bool ContainsFlag(int flags, int flag)
 {
 	return ((flags & flag) == flag);

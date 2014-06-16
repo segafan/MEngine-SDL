@@ -5,6 +5,8 @@
 #include <vector>
 #include <SDL_net.h>
 
+#include "Util.h"
+
 struct TCPConnection
 {
 public:
@@ -136,8 +138,8 @@ public:
 					{
 						clients[i].timeout = SDL_GetTicks();
 						
-						char tempText[150];
-						if (SDLNet_TCP_Recv(clients[i].socket, tempText, 150) <= 0)
+						char tempText[255];
+						if (SDLNet_TCP_Recv(clients[i].socket, tempText, 255) <= 0)
 						{
 							if (clients[i].socket != 0)
 							{
@@ -155,8 +157,11 @@ public:
 						}
 						else
 						{
+							//Remove unusable end of the text got from recv()
 							std::string stringText = tempText;
-							std::cout << stringText << std::endl;
+
+							//stringText = stringText.substr(0, stringText.find_last_of('/'));
+							std::cout << FormatRecv(stringText) << std::endl;
 							//TODO: Process Data or save it for further processing
 						}
 					}
