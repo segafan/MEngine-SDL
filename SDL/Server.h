@@ -1,12 +1,19 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include <map>
 #include <vector>
 #include <SDL_net.h>
 
 struct TCPConnection
 {
 public:
+	TCPConnection()
+	{
+		this->socket = 0;
+		this->timeout = SDL_GetTicks();
+		this->ID = 0;
+	}
 	TCPConnection(TCPsocket socket, Uint32 timeout, int ID)
 	{
 		this->socket = socket;
@@ -27,7 +34,7 @@ public:
 		server = 0;
 
 		playerNum = 0;
-		maxPlayerNum = 2;
+		maxPlayerNum = 20;
 
 		socketSet = SDLNet_AllocSocketSet(maxPlayerNum);
 
@@ -82,14 +89,17 @@ public:
 			//If not reached max players then connect
 			if (playerNum < maxPlayerNum)
 			{
-				SDLNet_TCP_AddSocket(socketSet, tempSocket);
-				clients.push_back(TCPConnection(tempSocket, SDL_GetTicks(), currentID));
+				if (clients[currentID].socket == NULL)
+				{
+					SDLNet_TCP_AddSocket(socketSet, tempSocket);
+					clients[currentID] = (TCPConnection(tempSocket, SDL_GetTicks(), currentID));
 
-				//TODO: Log this
-				std::cout << "Client connected!" << std::endl;
+					//TODO: Log this
+					std::cout << "Client " << currentID << " Connected!" << std::endl;
 
-				currentID++;
-				playerNum++;
+					currentID++;
+					playerNum++;
+				}
 			}
 			else
 			{
@@ -97,6 +107,8 @@ public:
 				std::cout << "Reached Max Players client couldn't connect!" << std::endl;
 
 				//TODO: Send disconnect data!
+				std::string text = "dc Reached Max Players!";
+				SDLNet_TCP_Send(tempSocket, text.c_str(), text.size());
 
 				SDLNet_TCP_Close(tempSocket);
 				tempSocket = 0;
@@ -107,19 +119,25 @@ public:
 
 		//Update current sockets
 
+		typedef std::map<int, TCPConnection>::iterator it_type;
+		
 		//Get Data
 		while (SDLNet_CheckSockets(socketSet, 0) > 0)
 		{
-			for (unsigned int i = 0; i < clients.size(); i++)
+			for (it_type it = clients.begin(); it != clients.end(); it++)
 			{
+				//Set i to the number it's iterating
+				int i = it->first;
+
 				if (SDLNet_SocketReady(clients[i].socket))
 				{
+					//std::cout << "DATA!" << std::endl;
 					if (clients[i].socket != 0)
 					{
 						clients[i].timeout = SDL_GetTicks();
 						
-						char* tempText = "";
-						if (SDLNet_TCP_Recv(clients[i].socket, tempText, 1500) <= 0)
+						char tempText[150];
+						if (SDLNet_TCP_Recv(clients[i].socket, tempText, 150) <= 0)
 						{
 							if (clients[i].socket != 0)
 							{
@@ -127,9 +145,9 @@ public:
 								SDLNet_TCP_Close(clients[i].socket);
 							}
 							clients[i].socket = 0;
-							clients.erase(clients.begin() + i);
+							clients.erase(i + 1);
 							
-							std::cout << "Client Disconnected!" << std::endl;
+							std::cout << "Client " << i << " Disconnected!" << std::endl;
 
 							playerNum--;
 							
@@ -137,6 +155,8 @@ public:
 						}
 						else
 						{
+							std::string stringText = tempText;
+							std::cout << stringText << std::endl;
 							//TODO: Process Data or save it for further processing
 						}
 					}
@@ -158,7 +178,7 @@ private:
 	int currentID;
 
 	SDLNet_SocketSet socketSet;
-	std::vector<TCPConnection> clients;
+	std::map<int, TCPConnection> clients;
 };
 
 #endif

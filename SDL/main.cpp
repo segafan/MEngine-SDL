@@ -1,5 +1,6 @@
 #include "MEngine.h"
 #include "Server.h"
+#include "Client.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,7 +29,10 @@ int main(int argc, char *argv[])
 	bool running = true;
 
 	Server server;
-	server.StartServer(1234);
+	server.StartServer(12345);
+	server.Update();
+	Client client;
+	client.Connect("127.0.0.1", 12345);
 
 	global->display.SetRenderColor(255, 255, 0);
 
@@ -53,8 +57,9 @@ int main(int argc, char *argv[])
 			if (global->input.keyboard.IsKeyPressedOnce(SDLK_F2))
 				CreateScreenshot(display->GetWindow(), display->GetRenderer());
 
-			//Update			
+			//Update
 
+			client.Update();
 			server.Update();
 
 			//Draw
