@@ -131,16 +131,20 @@ public:
 				//Set i to the number it's iterating
 				int i = it->first;
 
+				//Check for data on the socket
 				if (SDLNet_SocketReady(clients[i].socket))
 				{
-					//std::cout << "DATA!" << std::endl;
+					//Check if socket exists
 					if (clients[i].socket != 0)
 					{
 						clients[i].timeout = SDL_GetTicks();
 						
+						//TODO: Maybe 255 for maxlen won't be enough
+						//Recive Data
 						char tempText[255];
 						if (SDLNet_TCP_Recv(clients[i].socket, tempText, 255) <= 0)
 						{
+							//If socket Disconnected Delete socket
 							if (clients[i].socket != 0)
 							{
 								SDLNet_TCP_DelSocket(socketSet, clients[i].socket);
@@ -157,6 +161,8 @@ public:
 						}
 						else
 						{
+							//Data Recived
+
 							//TODO: This uses char* or char[] test if it's good
 							//Remove unusable end of the text got from recv()
 							std::cout << FormatRecv(tempText) << std::endl;
