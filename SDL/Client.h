@@ -12,16 +12,24 @@ class Client
 public:
 	Client()
 	{
+		ID = -1;
+
 		server = 0;
-		ID = 0;
+		socketSet = SDLNet_AllocSocketSet(1);
 	}
 
 	~Client()
 	{
 		if (server != 0)
 		{
+			SDLNet_TCP_DelSocket(socketSet, server);
 			SDLNet_TCP_Close(server);
 			server = 0;
+		}
+		if (socketSet != 0)
+		{
+			SDLNet_FreeSocketSet(socketSet);
+			socketSet = 0;
 		}
 	}
 
@@ -30,6 +38,7 @@ public:
 		if (SDLNet_ResolveHost(&ip, host.c_str(), port) == 0)
 		{
 			server = SDLNet_TCP_Open(&ip);
+			SDLNet_TCP_AddSocket(socketSet, server);
 
 			//TODO: Log this
 			if (server != 0)
@@ -43,13 +52,42 @@ public:
 
 	void Update()
 	{
-		std::string textNormal = "hi! how are you! 0123456789 abcdefjhigklmopqrstuvwxyz";
-		textNormal += "/";
+		//Get Data
+		while (SDLNet_CheckSockets(socketSet, 0) > 0)
+		{
+			if (SDLNet_SocketReady(server))
+			{
+				if (server != 0)
+				{
+					char text[255];
+					if (SDLNet_TCP_Recv(server, text, 255) <= 0)
+					{
+						if (server != 0)
+						{
+							SDLNet_TCP_DelSocket(socketSet, server);
+							SDLNet_TCP_Close(server);
+						}
+						server = 0;
+
+						std::cout << "Server Disconnected!" << std::endl;
+					}
+					else
+					{
+						std::cout << text << std::endl;
+						//TODO: Process Data or save it for further processing
+					}
+				}
+			}
+		}
+
+
+		//Send Data
+		std::string textNormal = "hi! how are you! 0123456789 abcdefjhigklmopqrstuvwxyz/";
+
 		const char* text = textNormal.c_str();
-		std::cout << text << std::endl;
 		if (server != 0)
 		{
-			if (SDLNet_TCP_Send(server, text, strlen(text)) <= 0)
+			if (SDLNet_TCP_Send(server, text, strlen(text) + 1) <= 0)
 				std::cout << "Disconnected" << std::endl;
 		}
 	}
@@ -60,7 +98,7 @@ private:
 	IPaddress ip;
 	TCPsocket server;
 
-	SDLNet_SocketSet set;
+	SDLNet_SocketSet socketSet;
 };
 
 #endif

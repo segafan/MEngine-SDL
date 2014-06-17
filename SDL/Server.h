@@ -110,7 +110,7 @@ public:
 
 				//TODO: Send disconnect data!
 				std::string text = "dc Reached Max Players!";
-				SDLNet_TCP_Send(tempSocket, text.c_str(), text.size());
+				SDLNet_TCP_Send(tempSocket, text.c_str(), text.size() + 1);
 
 				SDLNet_TCP_Close(tempSocket);
 				tempSocket = 0;
@@ -157,11 +157,10 @@ public:
 						}
 						else
 						{
+							//TODO: This uses char* or char[] test if it's good
 							//Remove unusable end of the text got from recv()
-							std::string stringText = tempText;
+							std::cout << FormatRecv(tempText) << std::endl;
 
-							//stringText = stringText.substr(0, stringText.find_last_of('/'));
-							std::cout << FormatRecv(stringText) << std::endl;
 							//TODO: Process Data or save it for further processing
 						}
 					}
@@ -171,6 +170,7 @@ public:
 
 		//Send Data
 		//TODO: Send data
+		
 	}
 
 private:
