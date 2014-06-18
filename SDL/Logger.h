@@ -7,6 +7,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "Util.h"
+
 #if (_MSC_VER >= 1400)
 #pragma warning(push)
 #pragma warning(disable: 4996)
@@ -55,22 +57,6 @@ inline std::string GetDate(void)
 #if (_MSC_VER >= 1400)
 #pragma warning(pop)
 #endif
-
-inline int TextToNumber(const char * str)
-{
-	int val = 0;
-	while (*str) 
-	{
-		val = val * 10 + (*str++ - '0');
-	}
-	return val;
-}
-
-template <typename T>
-inline std::string NumberToString(T num)
-{
-	return static_cast<std::ostringstream*>(&(std::ostringstream() << num))->str();
-}
 
 inline bool FileExits(std::string filename)
 {

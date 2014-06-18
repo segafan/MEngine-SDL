@@ -6,6 +6,22 @@
 
 #include <SDL.h>
 
+inline int TextToNumber(const char * str)
+{
+	int val = 0;
+	while (*str)
+	{
+		val = val * 10 + (*str++ - '0');
+	}
+	return val;
+}
+
+template <typename T>
+inline std::string NumberToString(T num)
+{
+	return static_cast<std::ostringstream*>(&(std::ostringstream() << num))->str();
+}
+
 std::string FormatRecv(const std::string& text)
 {
 	return text.substr(0, text.find_last_of('/'));	

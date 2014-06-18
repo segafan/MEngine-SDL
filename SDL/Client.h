@@ -87,7 +87,7 @@ public:
 		const char* text = textNormal.c_str();
 		if (server != 0)
 		{
-			if (SDLNet_TCP_Send(server, text, strlen(text) + 1) <= 0)
+			if (SDLNet_TCP_Send(server, text, 255) <= 0)
 				std::cout << "Disconnected" << std::endl;
 		}
 	}
