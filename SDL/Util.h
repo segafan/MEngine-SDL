@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 inline int TextToNumber(const char * str)
 {

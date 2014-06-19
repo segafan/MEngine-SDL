@@ -1,7 +1,7 @@
 #ifndef COLOR_H
 #define COLOR_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 class Color
 {

@@ -1,7 +1,7 @@
 #ifndef TEXTINPUT_H
 #define TEXTINPUT_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include <map>
 #include <string>

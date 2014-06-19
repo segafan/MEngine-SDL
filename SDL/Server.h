@@ -3,7 +3,7 @@
 
 #include <map>
 #include <vector>
-#include <SDL_net.h>
+#include <SDL2/SDL_net.h>
 
 #include "Util.h"
 
