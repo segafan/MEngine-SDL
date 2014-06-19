@@ -44,6 +44,25 @@ public:
 	}
 	~Server()
 	{
+		StopServer();
+	}
+
+	bool StartServer(const unsigned int& port)
+	{
+		if (SDLNet_ResolveHost(&ip, NULL, port) == 0)
+		{
+			server = SDLNet_TCP_Open(&ip);
+			//TODO: Log this
+			std::cout << "Server Started!" << std::endl;
+		}
+		else
+			server = 0;
+
+		return (server != 0);
+	}
+
+	void StopServer()
+	{
 		for (unsigned int i = 0; i < clients.size(); i++)
 		{
 			if (clients[i].socket != 0)
@@ -65,20 +84,6 @@ public:
 			SDLNet_TCP_Close(server);
 			server = 0;
 		}
-	}
-
-	bool StartServer(const unsigned int& port)
-	{
-		if (SDLNet_ResolveHost(&ip, NULL, port) == 0)
-		{
-			server = SDLNet_TCP_Open(&ip);
-			//TODO: Log this
-			std::cout << "Server Started!" << std::endl;
-		}
-		else
-			server = 0;
-
-		return (server != 0);
 	}
 
 	void Update()
@@ -110,7 +115,7 @@ public:
 
 				//TODO: Send disconnect data!
 				std::string text = "dc Reached Max Players!";
-				SDLNet_TCP_Send(tempSocket, text.c_str(), text.size() + 1);
+				SDLNet_TCP_Send(tempSocket, text.c_str(), 255);
 
 				SDLNet_TCP_Close(tempSocket);
 				tempSocket = 0;
@@ -145,17 +150,7 @@ public:
 						if (SDLNet_TCP_Recv(clients[i].socket, tempText, 255) <= 0)
 						{
 							//If socket Disconnected Delete socket
-							if (clients[i].socket != 0)
-							{
-								SDLNet_TCP_DelSocket(socketSet, clients[i].socket);
-								SDLNet_TCP_Close(clients[i].socket);
-							}
-							clients[i].socket = 0;
-							clients.erase(i + 1);
-							
-							std::cout << "Client " << i << " Disconnected!" << std::endl;
-
-							playerNum--;
+							DisconnectClient(i);
 							
 							continue;
 						}
@@ -180,6 +175,40 @@ public:
 		//Send Data
 		//TODO: Send data
 		
+	}
+	
+	//TODO: Disconnect message
+	void DisconnectClient(const int& ID)
+	{
+		if (clients[ID].socket != 0)
+		{
+			SDLNet_TCP_DelSocket(socketSet, clients[ID].socket);
+			SDLNet_TCP_Close(clients[ID].socket);
+		}
+		clients[ID].socket = 0;
+		clients.erase(ID + 1);
+
+		std::cout << "Client " << ID << " Disconnected!" << std::endl;
+
+		playerNum--;
+	}
+
+	void SendToAll(const std::string& data)
+	{
+		std::string text = (data + "/").c_str();
+
+		typedef std::map<int, TCPConnection>::iterator it_type;
+
+		for (it_type it = clients.begin(); it != clients.end(); it++)
+		{
+			int i = it->first;
+
+			if (clients[i].socket != 0)
+			{
+				if (SDLNet_TCP_Send(clients[i].socket, &text, 255) <= 0)
+					DisconnectClient(i);
+			}
+		}
 	}
 
 private:

@@ -73,7 +73,7 @@ public:
 					}
 					else
 					{
-						std::cout << text << std::endl;
+						std::cout << FormatRecv(text) << std::endl;
 						//TODO: Process Data or save it for further processing
 					}
 				}
