@@ -7,6 +7,7 @@
 
 #include "Util.h"
 
+//TODO:Switch Networking to SFML Networking
 struct TCPConnection
 {
 public:
@@ -27,6 +28,8 @@ public:
 	Uint32 timeout;
 	int ID;
 };
+
+typedef std::map<int, TCPConnection> ClientArray;
 
 class Server
 {
@@ -126,7 +129,7 @@ public:
 
 		//Update current sockets
 
-		typedef std::map<int, TCPConnection>::iterator it_type;
+		typedef ClientArray::iterator it_type;
 		
 		//Get Data
 		while (SDLNet_CheckSockets(socketSet, 0) > 0)
@@ -197,7 +200,7 @@ public:
 	{
 		std::string text = (data + "/").c_str();
 
-		typedef std::map<int, TCPConnection>::iterator it_type;
+		typedef ClientArray::iterator it_type;
 
 		for (it_type it = clients.begin(); it != clients.end(); it++)
 		{
@@ -211,6 +214,12 @@ public:
 		}
 	}
 
+	//Getters
+
+	ClientArray& GetClients() { return clients; }
+
+	unsigned int GetPlayerNum() { return playerNum; }
+
 private:
 	IPaddress ip;
 	TCPsocket server;
@@ -221,7 +230,7 @@ private:
 	int currentID;
 
 	SDLNet_SocketSet socketSet;
-	std::map<int, TCPConnection> clients;
+	ClientArray clients;
 };
 
 #endif
