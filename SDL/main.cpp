@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
 	Server server;
 	server.StartServer(12345);
 	server.Update();
+
 	Client client;
 	client.Connect("127.0.0.1", 12345);
 
@@ -58,6 +59,8 @@ int main(int argc, char *argv[])
 				CreateScreenshot(display->GetWindow(), display->GetRenderer());
 
 			//Update
+
+			client.Send("Client 0 Here!");
 
 			client.Update();
 			server.Update();

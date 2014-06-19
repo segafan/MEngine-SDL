@@ -82,12 +82,15 @@ public:
 
 
 		//Send Data
-		std::string textNormal = "hi! how are you! 0123456789 abcdefjhigklmopqrstuvwxyz/";
+	}
 
-		const char* text = textNormal.c_str();
+	void Send(const std::string& data)
+	{
+		//TODO: Don't send it push it to a vector array and then send data from the array
+		std::string text = (data + "/").c_str();
 		if (server != 0)
 		{
-			if (SDLNet_TCP_Send(server, text, 255) <= 0)
+			if (SDLNet_TCP_Send(server, &text, 255) <= 0)
 				std::cout << "Disconnected" << std::endl;
 		}
 	}
