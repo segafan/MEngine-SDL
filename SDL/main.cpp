@@ -1,6 +1,4 @@
 #include "MEngine.h"
-#include "Server.h"
-#include "Client.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,13 +26,6 @@ int main(int argc, char *argv[])
 
 	bool running = true;
 
-	Server server;
-	server.StartServer(12345);
-	server.Update();
-
-	Client client;
-	client.Connect("127.0.0.1", 12345);
-
 	global->display.SetRenderColor(255, 255, 0);
 
 	while (running)
@@ -60,10 +51,7 @@ int main(int argc, char *argv[])
 
 			//Update
 
-			client.Send("Client 0 Here!");
 
-			client.Update();
-			server.Update();
 
 			//Draw
 
