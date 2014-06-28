@@ -8,6 +8,17 @@
 #include "Logger.h"
 #include "RenderSupport.h"
 
+//Check if C++11 is supported
+#if _MSC_VER >= 1600 || __cplusplus > 199711L
+#define CPP11_SUPPORT
+#elif _MSC_VER < 1600 || __cplusplus <= 199711L
+#endif
+
+//If no C++11 Support add some
+#ifndef CPP11_SUPPORT
+#define nullptr 0
+#endif
+
 //Define used Operating System
 //TODO: Test this
 #ifdef _WIN64
@@ -35,6 +46,8 @@
 	#define OS_FREEBSD
 #elif  __posix__ || __posix
 	#define OS_POSIX
+#elif CPP11_SUPPORT
+	#define OS_OTHER_CPP11
 #else
 	#define OS_OTHER
 #endif

@@ -28,47 +28,19 @@ public:
 		return !keys[key];
 	}
 
-	bool IsKeyPressedOnce(SDL_Keycode key)
+	bool OnKeyPress(SDL_Keycode key)
 	{
-		if (IsKeyPressed(key))
-		{
-			if (repeat[key] == 0)
-				keysPressedOnce[key] = true;
-			else
-				keysPressedOnce[key] = false;
-
-			repeat[key]++;
-		}
-		else if (IsKeyReleased(key))
-		{
-			repeat[key] = 0;
-			keysPressedOnce[key] = false;
-		}
-
-		return keysPressedOnce[key];
+		return keysPressed[key];
 	}
 
-	bool IsKeyPressedOnce(SDL_Keycode key, unsigned int interval)
+	void Clear()
 	{
-		if (IsKeyPressed(key))
+		typedef std::map<int, bool>::iterator it_type;
+
+		for (it_type it = keysPressed.begin(); it != keysPressed.end(); it++)
 		{
-			if (repeat[key] == 0)
-				keysPressedOnce[key] = true;
-			else
-				keysPressedOnce[key] = false;
-
-			if (repeat[key] % interval == 0)
-				keysPressedOnce[key] = true;
-
-			repeat[key]++;
+			keysPressed[it->first] = false;
 		}
-		else if (IsKeyReleased(key))
-		{
-			repeat[key] = 0;
-			keysPressedOnce[key] = false;
-		}
-
-		return keysPressedOnce[key];
 	}
 
 	void Update()
@@ -77,6 +49,9 @@ public:
 		if (event->type == SDL_KEYDOWN)
 		{
 			keys[event->key.keysym.sym] = true;
+
+			if (!(event->key.repeat > 0))
+			keysPressed[event->key.keysym.sym] = true;
 		}
 		if (event->type == SDL_KEYUP)
 		{
@@ -86,6 +61,7 @@ public:
 private:
 	SDL_Event *event;
 	std::map<int, bool> keys;
+	std::map<int, bool> keysPressed;
 
 	std::map<int, bool> keysPressedOnce;
 	std::map<int, int> repeat;

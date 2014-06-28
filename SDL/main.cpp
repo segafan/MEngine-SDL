@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
 		if (FPS.Tick())
 		{
 			//Input
+			global->input.keyboard.Clear();
 			while (SDL_PollEvent(&global->input.event))
 			{
 				if (global->input.event.type == SDL_QUIT)
@@ -45,13 +46,14 @@ int main(int argc, char *argv[])
 				global->input.text.Update();
 			}
 
+
 			//Screenshot Creation
-			if (global->input.keyboard.IsKeyPressedOnce(SDLK_F2))
+			if (global->input.keyboard.OnKeyPress(SDLK_F2))
 				CreateScreenshot(display->GetWindow(), display->GetRenderer());
 
 			//Update
 
-
+			
 
 			//Draw
 
