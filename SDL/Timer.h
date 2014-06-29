@@ -4,55 +4,53 @@
 #include <SDL2/SDL.h>
 #include "Time.h"
 
+//TODO: Add Pause and Resume and Interval
 class Timer
 {
 public:
 	Timer()
 	{
-		started = false;
+		m_started = false;
+
+		m_startTime = 0;
 	}
 	~Timer()
 	{
 
 	}
 
-	void Reset()
-	{
-		startTime = Time::GetTime();
-		time = 0;
-	}
-
 	void Start()
 	{
-		if (!started)
+		if (!m_started)
 		{
-			startTime = Time::GetTime();
-			std::cout << "Timer Started: " << startTime << std::endl;
-
-			started = true;
+			m_started = true;
+			m_startTime = Time::GetTime();
 		}
 	}
-
 	void Stop()
 	{
-		if (started)
-		{
-			started = false;
-		}
+		if (m_started)
+			m_started = false;
+	}
+
+	void Restart()
+	{
+		Stop();
+		Start();
 	}
 
 	double GetTicks()
 	{
-		if (started)
-			time = Time::GetTime() - startTime;
-
-		return time;
+		if (m_started)
+			return Time::GetTime() - m_startTime;
+		else
+			return 0;
 	}
-private:
-	double startTime;
-	double time;
 
-	bool started;
+private:
+	bool m_started;
+
+	double m_startTime;
 };
 
 #endif

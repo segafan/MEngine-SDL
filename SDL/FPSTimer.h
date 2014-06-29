@@ -8,15 +8,13 @@
 class FPSTimer
 {
 public:
-	FPSTimer(float FramesPerSecond)
-	{
-		FPS = FramesPerSecond;
-		frameTime = (1.0f / FPS) + 0.00001;
-	}
 	FPSTimer()
 	{
-		FPS = 60;
-		frameTime = (1.0f / FPS) + 0.00001;
+		SetFPS(60.0f);
+	}
+	FPSTimer(float FramesPerSecond)
+	{
+		SetFPS(FramesPerSecond);
 	}
 	~FPSTimer()
 	{
@@ -25,32 +23,40 @@ public:
 
 	void SetFPS(float FramesPerSecond)
 	{
-		FPS = FramesPerSecond;
-	}
+		m_FPS = FramesPerSecond;
 
-	void Reset()
-	{
-		timer.Reset();
+		if (m_FPS > 0)
+			m_frameTime = (double)(1.0f / m_FPS) + 0.00001;
+		else
+			m_frameTime = 0.0f;
 	}
 
 	void Start()
 	{
-		timer.Start();
+		m_timer.Start();
+	}
+	void Stop()
+	{
+		m_timer.Stop();
+	}
+
+	void Restart()
+	{
+		m_timer.Restart();
 	}
 
 	bool Tick()
 	{
-		if (FPS == 0)
+		if (m_FPS <= 0)
 			return true;
 
-		if (frameTime <= timer.GetTicks())
+		if (m_frameTime <= m_timer.GetTicks())
 		{
-			timer.Reset();
+			m_timer.Restart();
 			return true;
 		}
-		else if (frameTime - 1 > timer.GetTicks())
+		else if (m_frameTime - 0.001 > m_timer.GetTicks())
 		{
-			//TODO: test if frameTime - 1 is good and do something better than this
 			SDL_Delay(1);
 			return false;
 		}
@@ -59,10 +65,10 @@ public:
 	}
 
 private:
-	Timer timer;
-	float FPS;
+	Timer m_timer;
+	float m_FPS;
 
-	double frameTime;
+	double m_frameTime;
 };
 
 inline void FPSCounter(Timer *timer)
@@ -70,10 +76,10 @@ inline void FPSCounter(Timer *timer)
 	static unsigned int frames = 0;
 	frames++;
 
-	if ((timer->GetTicks() >= 1))
+	if ((timer->GetTicks() >= 1.0f))
 	{
 		std::cout << "FPS " << frames << std::endl;
-		timer->Reset();
+		timer->Restart();
 		frames = 0;
 	}
 }
