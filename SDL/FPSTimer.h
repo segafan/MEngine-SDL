@@ -11,10 +11,12 @@ public:
 	FPSTimer()
 	{
 		SetFPS(60.0f);
+		m_unprocessedTime = 0;
 	}
 	FPSTimer(float FramesPerSecond)
 	{
 		SetFPS(FramesPerSecond);
+		m_unprocessedTime = 0;
 	}
 	~FPSTimer()
 	{
@@ -50,18 +52,19 @@ public:
 		if (m_FPS <= 0)
 			return true;
 
-		if (m_frameTime <= m_timer.GetTicks())
+		m_unprocessedTime += m_timer.GetTicks();
+		m_timer.Restart();
+
+		if (m_unprocessedTime >= m_frameTime)
 		{
-			m_timer.Restart();
+			m_unprocessedTime -= m_frameTime;
 			return true;
 		}
-		else if (m_frameTime - 0.001 > m_timer.GetTicks())
+		else
 		{
 			SDL_Delay(1);
 			return false;
 		}
-		else
-			return false;
 	}
 
 private:
@@ -69,6 +72,7 @@ private:
 	float m_FPS;
 
 	double m_frameTime;
+	double m_unprocessedTime;
 };
 
 inline void FPSCounter(Timer *timer)
