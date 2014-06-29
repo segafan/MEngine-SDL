@@ -49,7 +49,7 @@ public:
 			keys[event->key.keysym.sym] = true;
 
 			if (!(event->key.repeat > 0))
-			keysPressed[event->key.keysym.sym] = true;
+				keysPressed[event->key.keysym.sym] = true;
 		}
 		if (event->type == SDL_KEYUP)
 		{

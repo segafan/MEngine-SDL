@@ -229,7 +229,7 @@ inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
 	return vsync;
 }
 
-inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bool targetTexture, bool vsync, float FPS)
+inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, bool targetTexture, bool vsync, float FPS, Logger *logger)
 {
 	if (window == NULL)
 	{

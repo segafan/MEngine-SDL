@@ -53,7 +53,7 @@ public:
 		}
 
 		renderer = NULL;
-		renderer = CreateAndLogRenderer(window, logger, TargetTexture, VSYNC, FPS);
+		renderer = CreateAndLogRenderer(window, TargetTexture, VSYNC, FPS, logger);
 
 		if (renderer == NULL)
 		{

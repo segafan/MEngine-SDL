@@ -117,11 +117,14 @@ public:
 
 	void Open()
 	{
-		out.open(GetLogName().c_str());
 		if (!out.is_open())
-			std::cout << "Couldn't Open Log!" << std::endl;
-		else
-			std::cout << "Logging Started!" << std::endl << std::endl;
+		{
+			out.open(GetLogName().c_str());
+			if (!out.is_open())
+				std::cout << "Couldn't Open Log!" << std::endl;
+			else
+				std::cout << "Logging Started!" << std::endl << std::endl;
+		}
 	}
 
 	//Log
