@@ -237,7 +237,8 @@ inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, Logger *logger, bo
 		return NULL;
 	}
 
-	vsync = IsVSyncGoodToUse(window, logger, FPS);
+	//TODO: After creating a new FPSTimer keep this or delete this
+	//vsync = IsVSyncGoodToUse(window, logger, FPS);
 
 	LogAllRenderInfo(logger);
 

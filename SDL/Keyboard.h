@@ -13,9 +13,7 @@ public:
 		this->event = event;
 
 		keys[event->key.keysym.sym] = false;
-		
-		repeat[event->key.keysym.sym] = 0;
-		keysPressedOnce[event->key.keysym.sym] = false;
+		keysPressed[event->key.keysym.sym] = false;
 	}
 
 	bool IsKeyPressed(SDL_Keycode key)
@@ -62,9 +60,6 @@ private:
 	SDL_Event *event;
 	std::map<int, bool> keys;
 	std::map<int, bool> keysPressed;
-
-	std::map<int, bool> keysPressedOnce;
-	std::map<int, int> repeat;
 };
 
 #endif

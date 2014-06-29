@@ -11,12 +11,12 @@ public:
 	FPSTimer(float FramesPerSecond)
 	{
 		FPS = FramesPerSecond;
-		frameTime = (1000.0f / FPS) + 0.00001;
+		frameTime = (1.0f / FPS) + 0.00001;
 	}
 	FPSTimer()
 	{
 		FPS = 60;
-		frameTime = (1000.0f / FPS) + 0.00001;
+		frameTime = (1.0f / FPS) + 0.00001;
 	}
 	~FPSTimer()
 	{
@@ -70,7 +70,7 @@ inline void FPSCounter(Timer *timer)
 	static unsigned int frames = 0;
 	frames++;
 
-	if ((timer->GetTicks() >= 1000))
+	if ((timer->GetTicks() >= 1))
 	{
 		std::cout << "FPS " << frames << std::endl;
 		timer->Reset();

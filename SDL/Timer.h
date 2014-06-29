@@ -2,13 +2,13 @@
 #define TIMER_H
 
 #include <SDL2/SDL.h>
+#include "Time.h"
 
 class Timer
 {
 public:
 	Timer()
 	{
-		interval = 1;
 		started = false;
 	}
 	~Timer()
@@ -18,7 +18,7 @@ public:
 
 	void Reset()
 	{
-		startTime = SDL_GetTicks();
+		startTime = Time::GetTime();
 		time = 0;
 	}
 
@@ -26,7 +26,7 @@ public:
 	{
 		if (!started)
 		{
-			startTime = SDL_GetTicks();
+			startTime = Time::GetTime();
 			std::cout << "Timer Started: " << startTime << std::endl;
 
 			started = true;
@@ -41,29 +41,16 @@ public:
 		}
 	}
 
-	void SetInterval(float intervalMilliseconds)
+	double GetTicks()
 	{
 		if (started)
-		{
-			interval = intervalMilliseconds;
-			std::cout << "Interval Set: " << interval << std::endl;
-		}
-		else
-			std::cout << "Timer needs to be started before Interval can be set!" << std::endl;
-	}
+			time = Time::GetTime() - startTime;
 
-	unsigned int GetTicks()
-	{
-		if (started)
-			time = SDL_GetTicks() - startTime;
-
-		return (unsigned int)(time / interval);
+		return time;
 	}
 private:
-	unsigned int startTime;
-	unsigned int time;
-
-	float interval;
+	double startTime;
+	double time;
 
 	bool started;
 };

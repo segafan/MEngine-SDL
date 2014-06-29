@@ -131,5 +131,8 @@
     <ClInclude Include="Client.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

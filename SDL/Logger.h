@@ -81,13 +81,14 @@ inline std::string GetLogName()
 
 	while (true)
 	{
-		std::string logname = (logStart + NumberToString(date) + "-" + NumberToString(logNumber) + logEnd);
+		std::string logname = (logStart + date + "-" + NumberToString(logNumber) + logEnd);
 			
 		if (!FileExits(logname))
 			break;
 
 		if (logNumber > 500)
 		{
+			//TODO ADD a,b,c... if it's more than 500
 			logNumber = 1;
 			break;
 		}
