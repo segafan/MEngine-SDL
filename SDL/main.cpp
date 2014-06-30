@@ -18,9 +18,6 @@ int main(int argc, char *argv[])
 
 	Global *global = new Global(display, logger);
 
-	Timer *timer = new Timer();
-	timer->Start();
-	
 	FPSTimer FPS(60.0f);
 	FPS.Start();
 
@@ -32,6 +29,9 @@ int main(int argc, char *argv[])
 	{
 		if (FPS.Tick())
 		{
+			//FPS Counter
+			FPSCounter();
+
 			//Input
 			global->input.keyboard.Clear();
 			while (SDL_PollEvent(&global->input.event))
@@ -62,16 +62,11 @@ int main(int argc, char *argv[])
 			
 
 			global->display.Present();
-
-			//FPS StufF
-
-			FPSCounter(timer);
 		}
 	}
 
 	delete display;
 	delete global;
-	delete timer;
 	delete logger;
 
 	SDL_StopTextInput();

@@ -75,15 +75,16 @@ private:
 	double m_unprocessedTime;
 };
 
-inline void FPSCounter(Timer *timer)
+inline void FPSCounter()
 {
+	static double startTime = Time::GetTime();
 	static unsigned int frames = 0;
 	frames++;
 
-	if ((timer->GetTicks() >= 1.0f))
+	if ((Time::GetTime() - startTime >= 1.0f))
 	{
 		std::cout << "FPS " << frames << std::endl;
-		timer->Restart();
+		startTime = Time::GetTime();
 		frames = 0;
 	}
 }
