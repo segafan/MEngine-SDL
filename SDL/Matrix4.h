@@ -76,7 +76,6 @@ public:
 		values[3][0] = 0.0f; values[3][1] = 0.0f; values[3][2] = 0.0f; values[3][3] = 1.0f;
 	}
 
-
 	Matrix4 InitCameraTransform(const Vector3& target, const Vector3& up)
 	{
 		Vector3 n = target;

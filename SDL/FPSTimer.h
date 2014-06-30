@@ -5,6 +5,8 @@
 
 //TODO: Add better Time System & Create a Time.h
 
+inline void FPSCounter();
+
 class FPSTimer
 {
 public:
@@ -57,6 +59,8 @@ public:
 
 		if (m_unprocessedTime >= m_frameTime)
 		{
+			FPSCounter();
+
 			m_unprocessedTime -= m_frameTime;
 			return true;
 		}
