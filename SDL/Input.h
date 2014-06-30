@@ -23,4 +23,30 @@ public:
 	TextInput text;
 };
 
+static bool PollEvent(Input* input)
+{
+	//TODO: Do something so this is not static
+	static bool clearSinglePressData = true;
+
+	if (clearSinglePressData)
+	{
+		input->keyboard.Clear();
+		clearSinglePressData = false;
+	}
+
+	if (SDL_PollEvent(&input->event) > 0)
+	{
+		input->mouse.Update();
+		input->keyboard.Update();
+		input->text.Update();
+
+		return true;
+	}
+	else
+	{
+		clearSinglePressData = true;
+		return false;
+	}
+}
+
 #endif

@@ -30,17 +30,12 @@ int main(int argc, char *argv[])
 		if (FPS.Tick())
 		{
 			//Input
-			global->input.keyboard.Clear();
-			while (SDL_PollEvent(&global->input.event))
+			while (PollEvent(&global->input))
 			{
 				if (global->input.event.type == SDL_QUIT)
 					running = false;
 				if (global->input.keyboard.IsKeyPressed(SDLK_ESCAPE))
 					running = false;
-
-				global->input.mouse.Update();
-				global->input.keyboard.Update();
-				global->input.text.Update();
 			}
 
 			//Screenshot Creation
@@ -49,7 +44,7 @@ int main(int argc, char *argv[])
 
 			//Update
 
-
+			std::cout << global->input.mouse.GetPosition()->GetX() << "   ,     " << global->input.mouse.GetPosition()->GetY() << std::endl;
 
 			//Draw
 
