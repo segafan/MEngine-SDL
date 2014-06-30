@@ -37,7 +37,7 @@ public:
 				if (event->type == SDL_TEXTINPUT)
 					text[iterator->first] += event->text.text;
 				if (keyboard->IsKeyPressed(SDLK_BACKSPACE) && text[iterator->first].size() > 0)
-					text[iterator->first].pop_back();
+					text[iterator->first] = text[iterator->first].substr(0, text[iterator->first].size() - 1);
 			}
 		}
 	}

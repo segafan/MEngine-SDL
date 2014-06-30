@@ -7,6 +7,7 @@
 #include "Util.h"
 #include "Logger.h"
 #include "RenderSupport.h"
+#include "Random.h"
 
 //Check if C++11 is supported
 #if _MSC_VER >= 1600 || __cplusplus > 199711L
@@ -21,13 +22,17 @@
 
 //Define used Operating System
 //TODO: Test this
-#ifdef _WIN64
+#if defined(_WIN64)
 	#define OS_WINDOWS
 	#define OS_WINDOWS_64
-#elif _WIN32
+#elif defined(_WIN32)
 	#define OS_WINDOWS
 	#define OS_WINDOWS_32
-#elif __APPLE__ || __MACH__
+#elif defined(__linux__) || (__linux)
+	#define OS_LINUX
+#elif defined(__unix__) || defined(__unix)
+	#define OS_UNIX
+#elif defined(__APPLE__) || defined(__MACH__)
 	#include "TargetConditionals.h"
 	#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		#define OS_IOS
@@ -36,18 +41,12 @@
 	#else
 		#define OS_APPLE_UNKNOWN
 	#endif
-#elif __ANDROID__ || __ANDROID_API__ || ANDROID || TARGET_OS_ANDROID
+#elif defined(__ANDROID__) || defined(__ANDROID_API__) || defined(ANDROID) || defined(TARGET_OS_ANDROID)
 	#define OS_ANDROID
-#elif __linux__ || __linux
-	#define OS_LINUX
-#elif __unix__ || __unix
-	#define OS_UNIX
-#elif __FreeBSD__
+#elif defined(__FreeBSD__)
 	#define OS_FREEBSD
-#elif  __posix__ || __posix
+#elif  defined(__posix__) || defined(__posix)
 	#define OS_POSIX
-#elif CPP11_SUPPORT
-	#define OS_OTHER_CPP11
 #else
 	#define OS_OTHER
 #endif
@@ -147,17 +146,19 @@ static void LogSubSystemInfo(Logger *logger, SDL_Window *window)
 
 static void LogOSInfo(Logger *logger)
 {
-#ifdef OS_WINDOWS_32
+#if defined(OS_WINDOWS_32)
 	logger->LogLineWithoutTime("Windows 32-bit");
-#elif OS_WINDOWS_64
+#elif defined(OS_WINDOWS_64)
 	logger->LogLineWithoutTime("Windows 64-bit");
-#elif OS_UNIX
+#elif defined(OS_UNIX)
 	logger->LogLineWithoutTime("Unix");
-#elif OS_MAC
+#elif defined(OS_MAC)
 	logger->LogLineWithoutTime("Mac OSX");
-#elif OS_LINUX
+#elif defined(OS_LINUX)
 	logger->LogLineWithoutTime("Linux");
-#elif OS_FREEBSD
+#elif defined(OS_POSIX)
+	logger->LogLineWithoutTime("Posix");
+#elif defined(OS_FREEBSD)
 	logger->LogLineWithoutTime("FreeBSD");
 #else
 	logger->LogLineWithoutTime("Other OS");
