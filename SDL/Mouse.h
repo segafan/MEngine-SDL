@@ -97,13 +97,17 @@ public:
 		}
 	}
 
-	Rect* GetPosition()
+	Rect& GetPosition()
 	{
-		return &rect;
+		return rect;
 	}
 
-	int x, y;
+	int GetX() { return x; }
+	int GetY() { return x; }
+
 private:
+	int x, y;
+
 	Rect rect;
 
 	SDL_Event *event;

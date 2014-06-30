@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
 			//Update
 
-			std::cout << global->input.mouse.GetPosition()->GetX() << "   ,     " << global->input.mouse.GetPosition()->GetY() << std::endl;
+			
 
 			//Draw
 
