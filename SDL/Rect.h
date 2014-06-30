@@ -195,6 +195,12 @@ public:
 		this->h = h;
 	}
 
+	inline void SetSize(int w, int h)
+	{
+		this->w = w;
+		this->h = h;
+	}
+
 	inline void TranslateX(int x)
 	{
 		this->x += x;
