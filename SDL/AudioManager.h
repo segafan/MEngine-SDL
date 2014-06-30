@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef AUDIOMANAGER_H
 #define AUDIOMANAGER_H
 

@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #include "MEngine.h"
 
 int main(int argc, char *argv[])

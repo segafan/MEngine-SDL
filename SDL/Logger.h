@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef LOGGER_H
 #define LOGGER_H
 

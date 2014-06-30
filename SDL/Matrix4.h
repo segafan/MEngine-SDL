@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef MATRIX4_H
 #define MATRIX4_H
 

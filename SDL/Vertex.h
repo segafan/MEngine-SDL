@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef VERTEX_H
 #define VERTEX_H
 

@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef GUITEXTBOX_H
 #define GUITEXTBOX_H
 

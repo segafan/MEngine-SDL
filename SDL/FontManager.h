@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef FONTMANAGER_H
 #define FONTMANAGER_H
 

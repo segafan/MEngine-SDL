@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef GRAPHICSMANAGER_H
 #define GRAPHICSMANAGER_H
 

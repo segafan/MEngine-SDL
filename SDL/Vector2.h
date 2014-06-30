@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef VECTOR2_H
 #define VECTOR2_H
 

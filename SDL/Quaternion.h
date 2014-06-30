@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef QUATERNION_H
 #define QUATERNION_H
 

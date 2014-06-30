@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef GUIBUTTON_H
 #define GUIBUTTON_H
 

@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef DISPLAY_H
 #define DISPLAY_H
 

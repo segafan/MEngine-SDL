@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef GLOBAL_H
 #define GLOBAL_H
 

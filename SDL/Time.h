@@ -1,7 +1,9 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef TIME_H
 #define TIME_H
 
-#include "System.h"
+#include "Config.h"
 
 #if defined(OS_WINDOWS)
 #include <Windows.h>

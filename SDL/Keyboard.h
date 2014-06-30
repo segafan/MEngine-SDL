@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 

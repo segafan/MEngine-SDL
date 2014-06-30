@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef TEXTINPUT_H
 #define TEXTINPUT_H
 

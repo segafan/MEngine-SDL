@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef RENDERSUPPORT_H
 #define RENDERSUPPORT_H
 

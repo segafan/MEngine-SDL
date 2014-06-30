@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef STATEMANAGER_H
 #define STATEMANAGER_H
 

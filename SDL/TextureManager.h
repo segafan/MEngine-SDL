@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef TEXTUREMANAGER_H
 #define TEXTUREMANAGER_H
 

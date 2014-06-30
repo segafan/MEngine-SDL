@@ -1,3 +1,5 @@
+//========= Copyright Marcell Games, All rights reserved. ============//
+
 #ifndef FPSTIMER_H
 #define FPSTIMER_H
 
