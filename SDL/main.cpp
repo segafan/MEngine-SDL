@@ -60,8 +60,6 @@ int main(int argc, char *argv[])
 	delete global;
 	delete logger;
 
-	SDL_StopTextInput();
-
 	Quit();
 
 	return 0;

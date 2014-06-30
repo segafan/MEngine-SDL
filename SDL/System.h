@@ -73,7 +73,7 @@ static int Init()
 	catch (char* error)
 	{
 		std::cout << error << " Error: " << SDL_GetError() << std::endl;
-		return 1;
+		return -1;
 	}
 
 	return 0;
@@ -81,6 +81,8 @@ static int Init()
 
 static void Quit()
 {
+	SDL_StopTextInput();
+
 	SDL_Quit();
 	IMG_Quit();
 	Mix_CloseAudio();
