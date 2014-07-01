@@ -81,6 +81,71 @@ public:
 		textures[key] = NULL;
 	}
 	
+	void AddTextureScript(const std::string& filepath)
+	{
+		std::ifstream in;
+		in.open(filepath);
+
+		int lineNum = 1;
+
+		if (in.is_open())
+		{
+			while (!in.eof())
+			{
+				std::string line;
+				std::getline(in, line);
+
+				std::vector<std::string> linedata = SplitString(line, ' ');
+
+				for (int i = 0; i < linedata.size(); i++)
+				{
+					std::string data = linedata[i];
+
+					if (data[0] == NULL)
+						continue;
+					else if (data[0] == '#' || (data[0] == '/' && data[1] == '/'))
+					{
+						break;
+					}
+					else if (data == "i")
+					{
+						if (!(linedata.size() - 1 < i + 1))
+						{
+							std::string imagepath = linedata[i + 1];
+
+							if (!(linedata.size() - 1 < i + 2))
+							{
+								std::string imagekey = linedata[i + 2];
+
+								AddTexture(imagepath, imagekey);
+								break;
+							}
+							else
+								logger->LogLine("Syntax error, invalid image key in graphics script ", filepath, " at line ", lineNum);
+						}
+						else
+							logger->LogLine("Syntax error, invalid image path in graphics script ", filepath, " at line ", lineNum);
+
+					}
+					else if (data == "a")
+					{
+						//TODO: Add animation class and Implement this
+					}
+					else if (data == "f")
+					{
+						//TODO: DO THIS (FONT LOADING)
+					}
+					else
+						logger->LogLine("Syntax error, invalid command in graphics script ", filepath, " at line ", lineNum);
+				}
+
+				lineNum++;
+			}
+		}
+		else
+			logger->LogLine("Couldn't load Texture Script: ", filepath);
+	}
+
 	SDL_Texture* GetTexture(std::string key)
 	{
 		if (textures[key] == NULL)

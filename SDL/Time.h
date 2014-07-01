@@ -26,7 +26,7 @@ static std::chrono::system_clock::time_point m_epoch = std::chrono::high_resolut
 
 namespace Time
 {
-	double GetTime()
+	inline double GetTime()
 	{
 #if defined(OS_WINDOWS)
 		if (!g_timerInitialized)
