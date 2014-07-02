@@ -177,6 +177,7 @@ public:
 		else
 			logger->LogLine("Couldn't load graphics script: ", filepath);
 	}
+
 private:
 	Logger *logger;
 
