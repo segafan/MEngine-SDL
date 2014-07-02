@@ -18,6 +18,7 @@ public:
 		fontBasepath = "";
 	}
 
+	//TODO: Clean up
 	void AddGraphicScript(const std::string& filepath)
 	{
 		std::ifstream in;
@@ -174,7 +175,7 @@ public:
 			}
 		}
 		else
-			logger->LogLine("Couldn't load Texture Script: ", filepath);
+			logger->LogLine("Couldn't load graphics script: ", filepath);
 	}
 private:
 	Logger *logger;
