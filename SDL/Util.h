@@ -29,7 +29,7 @@ inline std::string NumberToString(T num)
 	return ostr.str();
 }
 
-std::vector<std::string> &SplitString(const std::string &s, char delim, std::vector<std::string> &elems) 
+inline std::vector<std::string> &SplitString(const std::string &s, char delim, std::vector<std::string> &elems)
 {
 	std::stringstream ss(s);
 	std::string item;
@@ -41,14 +41,14 @@ std::vector<std::string> &SplitString(const std::string &s, char delim, std::vec
 }
 
 
-std::vector<std::string> SplitString(const std::string &s, char delim)
+inline std::vector<std::string> SplitString(const std::string &s, char delim)
 {
 	std::vector<std::string> elems;
 	SplitString(s, delim, elems);
 	return elems;
 }
 
-bool IsNumber(const std::string& s)
+inline bool IsNumber(const std::string& s)
 {
 	std::string::const_iterator it = s.begin();
 	while (it != s.end() && std::isdigit(*it)) ++it;
