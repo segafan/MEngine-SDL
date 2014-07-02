@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 		return 1;
 
 	Global *global = new Global(display, logger);
+	global->gfx.AddGraphicScript("resources/gfxscript.txt");
 
 	FPSTimer FPS(60.0f);
 	FPS.Start();
@@ -52,7 +53,7 @@ int main(int argc, char *argv[])
 
 			global->display.Clear();
 			
-			
+
 
 			global->display.Present();
 		}
