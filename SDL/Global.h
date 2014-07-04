@@ -10,19 +10,23 @@
 #include "AudioManager.h"
 #include "GraphicsManager.h"
 
+#include "Camera.h"
+
 class Global
 {
 public:
 	Global(Display* display, Logger *logger)
-		: input()
+		: camera()
+		, input()
 		, display(*display)
 		, logger(*logger)
 		, state()
 		, audio(logger)
-		, gfx(display->GetWindow(), display->GetRenderer(), logger)
+		, gfx(display->GetWindow(), display->GetRenderer(), camera, logger)
 	{
 	}
 
+	Camera camera;
 	Input input;
 	Display& display;
 	Logger& logger;

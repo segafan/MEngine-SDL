@@ -11,10 +11,12 @@
 #include "Rect.h"
 #include "Logger.h"
 
+#include "Camera.h"
+
 class TextureManager
 {
 public:
-	TextureManager(SDL_Window* window, SDL_Renderer* renderer, Logger *logger)
+	TextureManager(SDL_Window* window, SDL_Renderer* renderer, Camera& camera, Logger *logger) : camera(camera)
 	{
 		this->logger = logger;
 
@@ -120,60 +122,61 @@ public:
 	//Drawing using SDL_Rect
 	void DrawTexture(std::string key, SDL_Rect *pos)
 	{
-		SDL_RenderCopy(renderer, GetTexture(key), NULL, pos);
+		SDL_RenderCopy(renderer, GetTexture(key), NULL, (Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect());
 	}
 	void DrawTexture(std::string key, SDL_Rect *srcpos, SDL_Rect *pos)
 	{
-		SDL_RenderCopy(renderer, GetTexture(key), srcpos, pos);
+		SDL_RenderCopy(renderer, GetTexture(key), srcpos, (Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect());
 	}
 
 	void DrawTextureRotated(std::string key, SDL_Rect *pos, double angle)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos, angle, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, (Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
 	void DrawTextureRotated(std::string key, SDL_Rect *srcpos, SDL_Rect *pos, double angle)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, pos, angle, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, (Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
 
 	void DrawTextureFlip(std::string key, SDL_Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos, 0, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, (Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect(), 0, NULL, flip);
 	}
 	void DrawTextureFlip(std::string key, SDL_Rect *srcpos, SDL_Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, pos, 0, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, (Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect(), 0, NULL, flip);
 	}
 
 	//Drawing using own Rect class
 
 	void DrawTexture(std::string key, Rect *pos)
 	{
-		SDL_RenderCopy(renderer, GetTexture(key), NULL, pos->ToSDLRect());
+		SDL_RenderCopy(renderer, GetTexture(key), NULL, (*pos + camera.GetView()).ToSDLRect());
 	}
 	void DrawTexture(std::string key, Rect *srcpos, Rect *pos)
 	{
-		SDL_RenderCopy(renderer, GetTexture(key), srcpos->ToSDLRect(), pos->ToSDLRect());
+		SDL_RenderCopy(renderer, GetTexture(key), srcpos->ToSDLRect(), (*pos + camera.GetView()).ToSDLRect());
 	}
 
 	void DrawTextureRotated(std::string key, Rect *pos, double angle)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, (*pos + camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
 	void DrawTextureRotated(std::string key, Rect *srcpos, Rect *pos, double angle)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->ToSDLRect(), pos->ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->ToSDLRect(), (*pos + camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
 
 	void DrawTextureFlip(std::string key, Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, pos->ToSDLRect(), 0, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, (*pos + camera.GetView()).ToSDLRect(), 0, NULL, flip);
 	}
 	void DrawTextureFlip(std::string key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip)
 	{
-		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->ToSDLRect(), pos->ToSDLRect(), 0, NULL, flip);
+		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->ToSDLRect(), (*pos + camera.GetView()).ToSDLRect(), 0, NULL, flip);
 	}
 private:
+	Camera& camera;
 	Logger *logger;
 
 	SDL_Window* window;

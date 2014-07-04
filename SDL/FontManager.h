@@ -12,6 +12,8 @@
 #include "Rect.h"
 #include "Logger.h"
 
+#include "Camera.h"
+
 //TOOD: This may create bugs & errors if it does redefine DrawText at the end of the file
 #ifdef DrawText
 #undef DrawText
@@ -35,7 +37,7 @@ enum Align
 class FontManager
 {
 public:
-	FontManager(SDL_Window *window, SDL_Renderer *renderer, Logger *logger)
+	FontManager(SDL_Window *window, SDL_Renderer *renderer, Camera& camera, Logger *logger) : camera(camera)
 	{
 		this->logger = logger;
 		this->window = window;
@@ -181,7 +183,7 @@ public:
 
 		//Align
 		
-		SDL_Rect tempPos = *pos;
+		SDL_Rect tempPos = *(Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect();
 
 		//Recalculate coordinates
 		if (ContainsFlag(align, ALIGN_CENTER))
@@ -208,20 +210,22 @@ public:
 	}
 	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color, int align)
 	{
-		DrawText(key, size, text, pos, color.ToSDLColor(), align);
+		DrawText(key, size, text, (Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect(), color.ToSDLColor(), align);
 	}
 
 	//Drawing with own Rect
 
 	void DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color, int align)
 	{
-		DrawText(key, size, text, pos->ToSDLRect(), color, align);
+		DrawText(key, size, text, (*pos + camera.GetView()).ToSDLRect(), color, align);
 	}
 	void DrawText(std::string key, int size, std::string text, Rect *pos, Color color, int align)
 	{
-		DrawText(key, size, text, pos->ToSDLRect(), color.ToSDLColor(), align);
+		DrawText(key, size, text, (*pos + camera.GetView()).ToSDLRect(), color.ToSDLColor(), align);
 	}
 private:
+	Camera& camera;
+
 	std::map<std::string, std::map<int, TTF_Font*> > fonts;
 
 	std::map<std::string, std::map<int, bool> > errorShown;
