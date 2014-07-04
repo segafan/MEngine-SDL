@@ -35,12 +35,7 @@ public:
 
 	void Clear()
 	{
-		typedef std::map<int, bool>::iterator it_type;
-
-		for (it_type it = keysPressed.begin(); it != keysPressed.end(); it++)
-		{
-			keysPressed[it->first] = false;
-		}
+		keysPressed.clear();
 	}
 
 	void Update()

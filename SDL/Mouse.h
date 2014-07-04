@@ -21,6 +21,8 @@ public:
 		this->event = event;
 
 		buttons[event->button.button] = false;
+		buttonsUp[event->button.button] = false;
+		buttonsDown[event->button.button] = false;
 
 		scroll = 0;
 
@@ -45,6 +47,15 @@ public:
 		return !buttons[button];
 	}
 
+	bool OnButtonPress(Uint8 button)
+	{
+		return buttonsDown[button];
+	}
+	bool OnButtonRelease(Uint8 button)
+	{
+		return buttonsUp[button];
+	}
+
 	bool IsWheelScrolled(Scroll scroll)
 	{
 		if (scroll == SDL_MOUSESCROLL_UP)
@@ -66,6 +77,12 @@ public:
 			SDL_ShowCursor(0);
 	}
 
+	void Clear()
+	{
+		buttonsUp.clear();
+		buttonsDown.clear();
+	}
+
 	void Update()
 	{
 		//Mouse Position
@@ -76,9 +93,15 @@ public:
 
 		//Mouse Buttons
 		if (event->type == SDL_MOUSEBUTTONDOWN)
+		{
 			buttons[event->button.button] = true;
+			buttonsDown[event->button.button] = true;
+		}
 		if (event->type == SDL_MOUSEBUTTONUP)
+		{
 			buttons[event->button.button] = false;
+			buttonsUp[event->button.button] = true;
+		}
 
 		//Scrolling
 		scrollUp = false;
@@ -120,6 +143,8 @@ private:
 	int scroll;
 
 	std::map<int, bool> buttons;
+	std::map<int, bool> buttonsUp;
+	std::map<int, bool> buttonsDown;
 };
 
 #endif

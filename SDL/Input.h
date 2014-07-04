@@ -33,6 +33,7 @@ static bool PollEvent(Input* input)
 	if (clearSinglePressData)
 	{
 		input->keyboard.Clear();
+		input->mouse.Clear();
 		clearSinglePressData = false;
 	}
 
