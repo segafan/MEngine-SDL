@@ -45,6 +45,28 @@ public:
 		return &rect;
 	}
 
+	const std::string ToString()
+	{
+		std::string toString = "";
+
+		toString += "( ";
+		toString += NumberToString(x);
+		toString += " , ";
+		toString += NumberToString(y);
+		toString += " , ";
+		toString += NumberToString(w);
+		toString += " , ";
+		toString += NumberToString(h);
+		toString += " )";
+
+		return toString;
+	}
+
+	void Print()
+	{
+		std::cout << ToString() << std::endl;
+	}
+
 	inline void SetPosition(int x, int y, int w, int h)
 	{
 		this->x = x;

@@ -3,10 +3,10 @@
 + Done
 
 [-] Add DrawTextureScaled()
-[-] #define DEBUGMODE in MEngine.h OR create a switchable DEBUGMODE
+[?] #define DEBUG_MODE in MEngine.h OR create a switchable DEBUGMODE
 [-] Add timer or TimerManager in Global
 [?] Keyboard IsKeyPressedOnce() Bug / Rewrite so it Updates in the Update() and just returns data in IsKeyPressedOnce();
-[-] make some GUI stuff
+[?] make some GUI stuff
 [-] organize stuff in System.h / and everywhere
 [-] make modules
 [-] rewrite it so it has .cpp files
@@ -16,15 +16,13 @@
 [-] Code::Blocks port & Linux/Mac OS X port
 [-] Refactor
 [-] Do the //TODO: stuff in code
-[-] FPS Timer Frame Skip
+[?] FPS Timer Frame Skip <--- Needs some inproving and optimizing but it's mostly done
 [-] Animation class
 [-] Improve Align in text drawing
-[-] Fix a bug with DrawText at CreateTextureFromSurface()
+[-] Fix a bug with DrawText at CreateTextureFromSurface() <--- This bug only happend once and i couldn't reproduce it since it's probably OK now
 [-] Bitmap fonts
 [-] Rework Font Drawing
-[-] Create Log types (Error,Info,Message,etc.)
-[-] IsNumber function
-[-] Camera
+[-] Create Log types (Error, Info, Message, etc.)
 [-] Remove CreateRect and things like this
 [-] Log GetRenderFlags()
 [-] Try to use const more and static less
@@ -34,9 +32,10 @@
 i ./resources/textures/image.png IMAGE
 use i for image and a for animation and so on
 [-] Create own image format
-[-] Text Input System
+[-] Better Text Input System
 [-] Networking
 [-] Add Background Image to GUIButton
 [-] Rect Swap() SwapX() SwapY()
-[-] Better Camera
-[-] Rect Print() ToString()
+[-] Better Camera using Matrices
+[-] Touch Input
+[-] Joystick Input and Gamepad Input

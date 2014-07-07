@@ -56,7 +56,7 @@ public:
 			{
 				hover = true;
 				//TODO: Which button needs to be pressed
-				if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
+				if (global->input.mouse.OnButtonPress(SDL_BUTTON_LEFT))
 					clicked = true;
 			}
 		}
@@ -76,11 +76,11 @@ public:
 	}
 	
 	//Bool Functions
-	bool IsClicked()
+	bool OnClick()
 	{
 		return clicked;
 	}
-	bool IsHover()
+	bool OnHover()
 	{
 		return hover;
 	}

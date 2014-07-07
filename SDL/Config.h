@@ -33,4 +33,10 @@
 	#define OS_OTHER
 #endif
 
+//Get if debug mode is used
+//TODO: Needs some work to be cross platfrom
+#if defined(_DEBUG)
+	#define DEBUG_MODE
+#endif
+
 #endif

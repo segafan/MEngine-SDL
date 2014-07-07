@@ -17,6 +17,24 @@ public:
 		SetPosition(x, y);
 	}
 
+	const std::string ToString()
+	{
+		std::string toString = "";
+
+		toString += "( ";
+		toString += NumberToString(x);
+		toString += " , ";
+		toString += NumberToString(y);
+		toString += " )";
+
+		return toString;
+	}
+
+	void Print()
+	{
+		std::cout << ToString() << std::endl;
+	}
+
 	float Length()
 	{
 		return (float)sqrt((float)(x * x) + (y * y));

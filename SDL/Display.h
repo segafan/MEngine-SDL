@@ -221,6 +221,21 @@ public:
 		}
 	}
 
+	void PushRenderColor()
+	{
+		renderColorStack.push_back(color);
+	}
+	void PopRenderColor()
+	{
+		if (renderColorStack.size() > 0)
+		{
+			SetRenderColor(renderColorStack[renderColorStack.size() - 1]);
+			renderColorStack.pop_back();
+		}
+		else
+			logger->LogLine("Can't pop back render color because no render color is pushed to stack");
+	}
+
 	Color& GetRenderColor()
 	{
 		return color;
@@ -243,6 +258,8 @@ private:
 
 	int ScreenWidth;
 	int ScreenHeight;
+
+	std::vector<Color> renderColorStack;
 
 	Color color;
 	Rect ScreenPos;
