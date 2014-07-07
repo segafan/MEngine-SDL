@@ -16,6 +16,6 @@ Using SDL 2.0.3
 * Android
 * iOS
 
-The Game Engine is under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License
+The Game Engine is under the **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License**
 
-If you want to use the engine for a commercial application please contect me!
+If you want to use the engine for a commercial application please contact me!
