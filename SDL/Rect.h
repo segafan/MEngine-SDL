@@ -24,6 +24,11 @@ public:
 		Rect tempRect(this->x + rect.x, this->y + rect.y, w, h);
 		return tempRect;
 	}
+	Rect operator- (Rect& rect)
+	{
+		Rect tempRect(this->x - rect.x, this->y - rect.y, w, h);
+		return tempRect;
+	}
 
 	SDL_Rect& operator= (const SDL_Rect c)
 	{

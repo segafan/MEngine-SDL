@@ -37,3 +37,6 @@ use i for image and a for animation and so on
 [-] Text Input System
 [-] Networking
 [-] Add Background Image to GUIButton
+[-] Rect Swap() SwapX() SwapY()
+[-] Better Camera
+[-] Rect Print() ToString()

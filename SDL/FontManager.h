@@ -183,7 +183,7 @@ public:
 
 		//Align
 		
-		SDL_Rect tempPos = *(Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect();
+		SDL_Rect tempPos = *(Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect();
 
 		//Recalculate coordinates
 		if (ContainsFlag(align, ALIGN_CENTER))
@@ -210,18 +210,18 @@ public:
 	}
 	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color, int align)
 	{
-		DrawText(key, size, text, (Rect(pos->x, pos->y, pos->w, pos->h) + camera.GetView()).ToSDLRect(), color.ToSDLColor(), align);
+		DrawText(key, size, text, (Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect(), color.ToSDLColor(), align);
 	}
 
 	//Drawing with own Rect
 
 	void DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color, int align)
 	{
-		DrawText(key, size, text, (*pos + camera.GetView()).ToSDLRect(), color, align);
+		DrawText(key, size, text, (*pos - camera.GetView()).ToSDLRect(), color, align);
 	}
 	void DrawText(std::string key, int size, std::string text, Rect *pos, Color color, int align)
 	{
-		DrawText(key, size, text, (*pos + camera.GetView()).ToSDLRect(), color.ToSDLColor(), align);
+		DrawText(key, size, text, (*pos - camera.GetView()).ToSDLRect(), color.ToSDLColor(), align);
 	}
 private:
 	Camera& camera;
