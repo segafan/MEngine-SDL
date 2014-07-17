@@ -37,6 +37,11 @@ public:
 		m_view.SetY(y - (m_view.GetH() / 2));
 	}
 
+	int& GetX(){ m_view.GetX(); }
+	int& GetY(){ m_view.GetY(); }
+	int& GetW(){ m_view.GetW(); }
+	int& GetH(){ m_view.GetH(); }
+
 	Rect& GetView() { return m_view; }
 
 	void SetView(Rect view) { m_view = view; }

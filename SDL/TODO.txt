@@ -39,3 +39,8 @@ use i for image and a for animation and so on
 [-] Better Camera using Matrices
 [-] Touch Input
 [-] Joystick Input and Gamepad Input
+[-] Add SetLogicalRenderSize()
+[-] More TextureManager example: one for tiles, one for buttons, one for player textures etc.
+[-] Enable/Disable Camera than drawing
+[-] FontManager should contain Fonts which store fonts int multiple sizes
+[-] SwapValues()

@@ -89,7 +89,7 @@ public:
 		SDL_GetMouseState(&x, &y);
 
 		//Mouse Rect
-		rect.SetPosition(x, y, 4, 4);
+		rect.SetPosition(x, y, 1, 1);
 
 		//Mouse Buttons
 		if (event->type == SDL_MOUSEBUTTONDOWN)

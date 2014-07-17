@@ -71,7 +71,7 @@ public:
 		if (text.count(key) == 0)
 		{
 			//TODO: Log this
-			std::cout << "There isn't a Text Input with this key, so can't set active! key: " << key << std::endl;
+			std::cout << "There isn't a Text Input with this key, so can't set it active! key: " << key << std::endl;
 			
 			//Create it so it won't show this message later
 			text[key] = "";

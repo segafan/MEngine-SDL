@@ -177,7 +177,7 @@ public:
 		//Query Texture for w and h
 		if (SDL_QueryTexture(texture, NULL, NULL, &pos->w, &pos->h) == -1)
 		{
-			logger->LogLine("Couldn't query texture from surface(made from Font)! Key: ", key, " Size: ", NumberToString(size), " Text: ", text);
+			logger->LogLine("Couldn't query texture made from surface(made from Font)! Key: ", key, " Size: ", NumberToString(size), " Text: ", text);
 			return;
 		}
 
@@ -210,18 +210,18 @@ public:
 	}
 	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color, int align)
 	{
-		DrawText(key, size, text, (Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect(), color.ToSDLColor(), align);
+		DrawText(key, size, text, pos, color.ToSDLColor(), align);
 	}
 
 	//Drawing with own Rect
 
 	void DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color, int align)
 	{
-		DrawText(key, size, text, (*pos - camera.GetView()).ToSDLRect(), color, align);
+		DrawText(key, size, text, pos->ToSDLRect(), color, align);
 	}
 	void DrawText(std::string key, int size, std::string text, Rect *pos, Color color, int align)
 	{
-		DrawText(key, size, text, (*pos - camera.GetView()).ToSDLRect(), color.ToSDLColor(), align);
+		DrawText(key, size, text, pos->ToSDLRect(), color.ToSDLColor(), align);
 	}
 private:
 	Camera& camera;

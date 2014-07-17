@@ -10,7 +10,7 @@
 #elif defined(_WIN32)
 	#define OS_WINDOWS
 	#define OS_WINDOWS_32
-#elif defined(__linux__) || (__linux)
+#elif defined(__linux__) || defined(__linux)
 	#define OS_LINUX
 #elif defined(__unix__) || defined(__unix)
 	#define OS_UNIX
