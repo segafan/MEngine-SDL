@@ -16,7 +16,7 @@
 class TextureManager
 {
 public:
-	TextureManager(SDL_Window* window, SDL_Renderer* renderer, Camera& camera, Logger *logger) : camera(camera)
+	TextureManager(Display* display, Camera& camera, Logger *logger) : camera(camera)
 	{
 		textures.reserve(maxSize);
 		errorShown.reserve(maxSize);
@@ -29,8 +29,8 @@ public:
 
 		this->logger = logger;
 
-		this->window = window;
-		this->renderer = renderer;
+		this->window = display->GetWindow();
+		this->renderer = display->GetRenderer();
 	}
 	~TextureManager()
 	{

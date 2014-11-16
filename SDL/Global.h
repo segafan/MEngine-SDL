@@ -22,7 +22,7 @@ public:
 		, logger(*logger)
 		, state()
 		, audio(logger)
-		, gfx(display->GetWindow(), display->GetRenderer(), camera, logger)
+		, gfx(display, camera, logger)
 	{
 	}
 

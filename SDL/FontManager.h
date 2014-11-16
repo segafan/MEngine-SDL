@@ -37,11 +37,11 @@ enum Align
 class FontManager
 {
 public:
-	FontManager(SDL_Window *window, SDL_Renderer *renderer, Camera& camera, Logger *logger) : camera(camera)
+	FontManager(Display* display, Camera& camera, Logger *logger) : camera(camera)
 	{
 		this->logger = logger;
-		this->window = window;
-		this->renderer = renderer;
+		this->window = display->GetWindow();
+		this->renderer = display->GetRenderer();
 	}
 	~FontManager()
 	{

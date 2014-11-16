@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_syswm.h>
 
+#include "Config.h"
 #include "Util.h"
 #include "Logger.h"
 #include "RenderSupport.h"

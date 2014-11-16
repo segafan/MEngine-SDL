@@ -9,7 +9,7 @@
 class GraphicsManager : public FontManager, public TextureManager
 {
 public:
-	GraphicsManager(SDL_Window *window, SDL_Renderer *renderer, Camera& camera, Logger *logger) : FontManager(window, renderer, camera, logger), TextureManager(window, renderer, camera, logger)
+	GraphicsManager(Display* display, Camera& camera, Logger *logger) : FontManager(display, camera, logger), TextureManager(display, camera, logger)
 	{
 		this->logger = logger;
 
