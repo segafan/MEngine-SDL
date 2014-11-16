@@ -44,3 +44,6 @@ use i for image and a for animation and so on
 [-] Enable/Disable Camera than drawing
 [-] FontManager should contain Fonts which store fonts int multiple sizes
 [-] SwapValues()
+[-] Enable/Disable relative to camera
+[-] Make game engine parts disableable
+[-] Serialize Stuff like Textures and fonts and etc. with numbers and #define DIRT_TEXTURE 1 <--- Use it like this beacuse std::vectors are faster than std::map

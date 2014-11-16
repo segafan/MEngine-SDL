@@ -21,6 +21,9 @@ public:
 	//TODO: Clean up
 	void AddGraphicScript(const std::string& filepath)
 	{
+		std::cout << "Warning! The Graphics Script System was written for an older version of the engine! It MAY not work properly!" << std::endl
+			<< "Update coming soon!" << std::endl;
+
 		std::ifstream in;
 		in.open(filepath);
 
@@ -118,7 +121,8 @@ public:
 							{
 								std::string imagekey = linedata[i + 2];
 
-								AddTexture(imageBasepath + imagepath, imagekey);
+								//TODO: Rework this
+								AddTexture(imageBasepath + imagepath, TextToNumber(imagekey.c_str()));
 
 								i += 2;
 								continue;
