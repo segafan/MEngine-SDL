@@ -3,8 +3,6 @@
 #ifndef TEXTUREMANAGER_H
 #define TEXTUREMANAGER_H
 
-#include <vector>
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -13,20 +11,17 @@
 
 #include "Camera.h"
 
+#ifdef CPP11_SUPPORT
+#include <unordered_map>
+#else
+#include <map>
+#endif
+
 class TextureManager
 {
 public:
 	TextureManager(Display* display, Camera& camera, Logger *logger) : camera(camera)
 	{
-		textures.reserve(maxSize);
-		errorShown.reserve(maxSize);
-
-		for (int i = 0; i < maxSize; i++)
-		{
-			textures.push_back(NULL);
-			errorShown.push_back(false);
-		}
-
 		this->logger = logger;
 
 		this->window = display->GetWindow();
@@ -38,7 +33,7 @@ public:
 	}
 
 	//Add & Destroy Textures
-	void AddTexture(const std::string& filepath, const int& key)
+	void AddTexture(const std::string& filepath, std::string key)
 	{
 		//Check if the texture exists
 		if (textures[key] != NULL)
@@ -61,7 +56,7 @@ public:
 		//Push to global
 		textures[key] = texture;
 	}
-	void AddTexture(SDL_Texture* texture, const int& key)
+	void AddTexture(SDL_Texture* texture, std::string  key)
 	{
 		//Check if the texture exists
 		if (textures[key] != NULL)
@@ -80,7 +75,7 @@ public:
 		//Push to global
 		textures[key] = texture;
 	}
-	void RemoveTexture(const int& key)
+	void RemoveTexture(std::string key)
 	{
 		if (textures[key] == NULL)
 		{
@@ -93,9 +88,11 @@ public:
 		errorShown[key] = false;
 	}
 
-	SDL_Texture* GetTexture(const int& key)
+	SDL_Texture* GetTexture(std::string key)
 	{
-		if (textures[key] == NULL)
+		SDL_Texture* texture = textures[key];
+
+		if (texture == NULL)
 		{
 			//TODO: May not work on Linux (the if statment)
 			if (errorShown[key] == 0 || errorShown[key] == false)
@@ -107,7 +104,7 @@ public:
 			return NULL;
 		}
 
-		return textures[key];
+		return texture;
 	}
 
 	void Clear()
@@ -129,58 +126,58 @@ public:
 	//TODO: Add more options to Draw
 
 	//Drawing using SDL_Rect
-	void DrawTexture(const int& key, SDL_Rect *pos)
+	void DrawTexture(std::string key, SDL_Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), NULL, (Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect());
 	}
-	void DrawTexture(const int& key, SDL_Rect *srcpos, SDL_Rect *pos)
+	void DrawTexture(std::string key, SDL_Rect *srcpos, SDL_Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), srcpos, (Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect());
 	}
 
-	void DrawTextureRotated(const int& key, SDL_Rect *pos, double angle)
+	void DrawTextureRotated(std::string key, SDL_Rect *pos, double angle)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, (Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
-	void DrawTextureRotated(const int& key, SDL_Rect *srcpos, SDL_Rect *pos, double angle)
+	void DrawTextureRotated(std::string key, SDL_Rect *srcpos, SDL_Rect *pos, double angle)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, (Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
 
-	void DrawTextureFlip(const int& key, SDL_Rect *pos, SDL_RendererFlip flip)
+	void DrawTextureFlip(std::string key, SDL_Rect *pos, SDL_RendererFlip flip)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, (Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect(), 0, NULL, flip);
 	}
-	void DrawTextureFlip(const int& key, SDL_Rect *srcpos, SDL_Rect *pos, SDL_RendererFlip flip)
+	void DrawTextureFlip(std::string key, SDL_Rect *srcpos, SDL_Rect *pos, SDL_RendererFlip flip)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos, (Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect(), 0, NULL, flip);
 	}
 
 	//Drawing using own Rect class
 
-	void DrawTexture(const int& key, Rect *pos)
+	void DrawTexture(std::string key, Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), NULL, (*pos - camera.GetView()).ToSDLRect());
 	}
-	void DrawTexture(const int& key, Rect *srcpos, Rect *pos)
+	void DrawTexture(std::string key, Rect *srcpos, Rect *pos)
 	{
 		SDL_RenderCopy(renderer, GetTexture(key), srcpos->ToSDLRect(), (*pos - camera.GetView()).ToSDLRect());
 	}
 
-	void DrawTextureRotated(const int& key, Rect *pos, double angle)
+	void DrawTextureRotated(std::string key, Rect *pos, double angle)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, (*pos - camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
-	void DrawTextureRotated(const int& key, Rect *srcpos, Rect *pos, double angle)
+	void DrawTextureRotated(std::string key, Rect *srcpos, Rect *pos, double angle)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->ToSDLRect(), (*pos - camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
 	}
 
-	void DrawTextureFlip(const int& key, Rect *pos, SDL_RendererFlip flip)
+	void DrawTextureFlip(std::string key, Rect *pos, SDL_RendererFlip flip)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), NULL, (*pos - camera.GetView()).ToSDLRect(), 0, NULL, flip);
 	}
-	void DrawTextureFlip(const int& key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip)
+	void DrawTextureFlip(std::string key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip)
 	{
 		SDL_RenderCopyEx(renderer, GetTexture(key), srcpos->ToSDLRect(), (*pos - camera.GetView()).ToSDLRect(), 0, NULL, flip);
 	}
@@ -191,11 +188,15 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
-	const int maxSize = 255;
+#ifdef CPP11_SUPPORT
+	std::unordered_map<std::string, SDL_Texture*> textures;
 
-	std::vector<SDL_Texture*> textures;
+	std::unordered_map<std::string, bool> errorShown;
+#else
+	std::map<std::string, SDL_Texture*> textures;
 
-	std::vector<bool> errorShown;
+	std::map<std::string, bool> errorShown;
+#endif
 };
 
 #endif
