@@ -21,13 +21,11 @@ public:
 
 	Rect operator+ (Rect& rect)
 	{
-		Rect tempRect(this->x + rect.x, this->y + rect.y, w, h);
-		return tempRect;
+		return Rect(this->x + rect.x, this->y + rect.y, w, h);
 	}
 	Rect operator- (Rect& rect)
 	{
-		Rect tempRect(this->x - rect.x, this->y - rect.y, w, h);
-		return tempRect;
+		return Rect(this->x - rect.x, this->y - rect.y, w, h);;
 	}
 
 	SDL_Rect& operator= (const SDL_Rect c)
@@ -113,7 +111,7 @@ public:
 	}
 	bool Intersects(int x, int y, int w, int h)
 	{
-		return Intersects(CreateRect(x,y,w,h));
+		return Intersects(CreateRect(x, y, w, h));
 	}
 
 
@@ -145,8 +143,7 @@ public:
 
 	Point Position()
 	{
-		Point point(x, y);
-		return point;
+		return Point(x, y);
 	}
 
 	int CenterX()
@@ -160,8 +157,7 @@ public:
 
 	Point Center()
 	{
-		Point point(x + (w / 2), y + (h / 2));
-		return point;
+		return Point(x + (w / 2), y + (h / 2));
 	}
 
 	inline int Left()

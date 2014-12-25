@@ -12,6 +12,10 @@ public:
 	{
 		SetColor(0, 0, 0, 255);
 	}
+	Color(unsigned short r, unsigned short g, unsigned short b)
+	{
+		SetColor(r, g, b, 255);
+	}
 	Color(unsigned short r, unsigned short g, unsigned short b, unsigned short a)
 	{
 		SetColor(r, g, b, a);
@@ -55,13 +59,11 @@ private:
 
 inline Color MapRGB(Uint8 r, Uint8 g, Uint8 b)
 {
-	Color color(r, g, b, 255);
-	return color;
+	return Color(r, g, b, 255);
 }
 inline Color MapRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-	Color color(r, g, b, a);
-	return color;
+	return Color(r, g, b, a);
 }
 
 

@@ -321,8 +321,10 @@ inline bool CreateScreenshot(SDL_Window* SDLWindow, SDL_Renderer* SDLRenderer)
 
 				std::string screenshotName = GetScreenshotName();
 
-				IMG_SavePNG(saveSurface, screenshotName.c_str());
-				std::cout << "Created Screenshot: " << screenshotName << "!" << std::endl;
+				if (IMG_SavePNG(saveSurface, screenshotName.c_str()) == 0)
+					std::cout << "Created Screenshot: " << screenshotName << "!" << std::endl;
+				else
+					std::cout << "Screenshot couldn't be saved!" << std::endl;
 
 				SDL_FreeSurface(saveSurface);
 

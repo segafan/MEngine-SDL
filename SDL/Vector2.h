@@ -46,70 +46,70 @@ public:
 	
 	Vector2 operator+ (Vector2& vector)
 	{
-		return CreateVector(x + vector.GetX(), y + vector.GetY());
+		return Vector2(x + vector.GetX(), y + vector.GetY());
 	}
 	Vector2 operator- (Vector2& vector)
 	{
-		return CreateVector(x - vector.GetX(), y - vector.GetY());
+		return Vector2(x - vector.GetX(), y - vector.GetY());
 	}
 	Vector2 operator* (Vector2& vector)
 	{
-		return CreateVector(x * vector.GetX(), y * vector.GetY());
+		return Vector2(x * vector.GetX(), y * vector.GetY());
 	}
 	Vector2 operator/ (Vector2& vector)
 	{
-		return CreateVector(x / vector.GetX(), y / vector.GetY());
+		return Vector2(x / vector.GetX(), y / vector.GetY());
 	}
 
 	Vector2 operator+ (float value)
 	{
-		return CreateVector(x + value, y + value);
+		return Vector2(x + value, y + value);
 	}
 	Vector2 operator- (float value)
 	{
-		return CreateVector(x - value, y - value);
+		return Vector2(x - value, y - value);
 	}
 	Vector2 operator* (float value)
 	{
-		return CreateVector(x * value, y * value);
+		return Vector2(x * value, y * value);
 	}
 	Vector2 operator/ (float value)
 	{
-		return CreateVector(x / value, y / value);
+		return Vector2(x / value, y / value);
 	}
 
 	Vector2 Add(Vector2& vector)
 	{
-		return CreateVector(x + vector.GetX(), y + vector.GetY());
+		return Vector2(x + vector.GetX(), y + vector.GetY());
 	}
 	Vector2 Sub(Vector2& vector)
 	{
-		return CreateVector(x - vector.GetX(), y - vector.GetY());
+		return Vector2(x - vector.GetX(), y - vector.GetY());
 	}
 	Vector2 Mul(Vector2& vector)
 	{
-		return CreateVector(x * vector.GetX(), y * vector.GetY());
+		return Vector2(x * vector.GetX(), y * vector.GetY());
 	}
 	Vector2 Div(Vector2& vector)
 	{
-		return CreateVector(x / vector.GetX(), y / vector.GetY());
+		return Vector2(x / vector.GetX(), y / vector.GetY());
 	}
 
 	Vector2 Add(float value)
 	{
-		return CreateVector(x + value, y + value);
+		return Vector2(x + value, y + value);
 	}
 	Vector2 Sub(float value)
 	{
-		return CreateVector(x - value, y - value);
+		return Vector2(x - value, y - value);
 	}
 	Vector2 Mul(float value)
 	{
-		return CreateVector(x * value, y * value);
+		return Vector2(x * value, y * value);
 	}
 	Vector2 Div(float value)
 	{
-		return CreateVector(x / value, y / value);
+		return Vector2(x / value, y / value);
 	}
 
 	Vector2& Normalize()
@@ -128,7 +128,7 @@ public:
 		float cosine = (float)cos(radian);
 		float sine   = (float)sin(radian);
 
-		return CreateVector((float)(x * cosine - y * sine),(float)(x * sine + y * cosine));
+		return Vector2((float)(x * cosine - y * sine),(float)(x * sine + y * cosine));
 	}
 
 	Vector2& Clone()
@@ -180,8 +180,7 @@ public:
 
 	static Vector2 CreateVector(float x, float y)
 	{
-		Vector2 vector(x, y);
-		return vector;
+		return Vector2(x, y);
 	}
 
 	float x, y;
