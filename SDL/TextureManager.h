@@ -109,16 +109,21 @@ public:
 
 	void Clear()
 	{
-		for (int i = 0; i < textures.size(); i++)
+#ifdef CPP11_SUPPORT
+		typedef std::unordered_map<std::string, SDL_Texture*>::iterator it_type;
+#else
+		typedef std::map<std::string, SDL_Texture*>::iterator it_type;
+#endif
+		for (it_type iterator = textures.begin(); iterator != textures.end(); iterator++)
 		{
-			if (textures[i] != NULL)
+			if (textures[iterator->first] != NULL)
 			{
-				std::cout << "Destroyed texture: " << i << std::endl;
-				SDL_DestroyTexture(textures[i]);
-				textures[i] = NULL;
+				std::cout << "Destroyed texture: " << iterator->first << std::endl;
+				SDL_DestroyTexture(textures[iterator->first]);
+				textures[iterator->first] = NULL;
 			}
 		}
-		
+
 		textures.clear();
 	}
 
