@@ -10,7 +10,31 @@
 
 #include <SDL2/SDL.h>
 
-inline int TextToNumber(const char * str)
+//Check if C++11 is supported
+#if _MSC_VER >= 1600 || __cplusplus > 199711L
+#define CPP11_SUPPORT
+#elif _MSC_VER < 1600 || __cplusplus <= 199711L
+#endif
+
+//If no C++11 Support add some
+#ifndef CPP11_SUPPORT
+#define nullptr 0
+#endif
+
+//Text To Number
+#ifdef CPP11_SUPPORT
+
+#include <string>
+
+//TODO: Add more text to number types
+inline int TextToNumber(std::string text)
+{
+	return std::stoi(text);
+}
+
+#else
+
+inline int TextToNumber(const char* str)
 {
 	int val = 0;
 	while (*str)
@@ -20,6 +44,61 @@ inline int TextToNumber(const char * str)
 	return val;
 }
 
+#endif
+
+
+//Number To String
+#ifdef CPP11_SUPPORT
+
+#include <string>
+
+inline std::string NumberToString(unsigned int num)
+{
+	return std::to_string(num);
+}
+
+inline std::string NumberToString(int num)
+{
+	return std::to_string(num);
+}
+
+inline std::string NumberToString(unsigned long num)
+{
+	return std::to_string(num);
+}
+
+inline std::string NumberToString(long num)
+{
+	return std::to_string(num);
+}
+
+inline std::string NumberToString(float num)
+{
+	return std::to_string(num);
+}
+
+inline std::string NumberToString(double num)
+{
+	return std::to_string(num);
+}
+
+inline std::string NumberToString(long double num)
+{
+	return std::to_string(num);
+}
+
+inline std::string NumberToString(unsigned long long num)
+{
+	return std::to_string(num);
+}
+
+inline std::string NumberToString(long long  num)
+{
+	return std::to_string(num);
+}
+
+#else
+
 template <typename T>
 inline std::string NumberToString(T num)
 {
@@ -28,6 +107,8 @@ inline std::string NumberToString(T num)
 
 	return ostr.str();
 }
+
+#endif
 
 inline std::vector<std::string> &SplitString(const std::string &s, char delim, std::vector<std::string> &elems)
 {

@@ -12,17 +12,6 @@
 #include "RenderSupport.h"
 #include "Random.h"
 
-//Check if C++11 is supported
-#if _MSC_VER >= 1600 || __cplusplus > 199711L
-#define CPP11_SUPPORT
-#elif _MSC_VER < 1600 || __cplusplus <= 199711L
-#endif
-
-//If no C++11 Support add some
-#ifndef CPP11_SUPPORT
-#define nullptr 0
-#endif
-
 static int Init()
 {
 	//TODO: Log this
@@ -280,7 +269,7 @@ inline std::string GetScreenshotName()
 
 	while (true)
 	{
-		std::string screenshotname = (screenshotStart + NumberToString(date) + "-" + NumberToString(screenshotNumber) + screenshotEnd);
+		std::string screenshotname = (screenshotStart + date + "-" + NumberToString(screenshotNumber) + screenshotEnd);
 
 		if (!FileExits(screenshotname.c_str()))
 			break;
@@ -288,7 +277,7 @@ inline std::string GetScreenshotName()
 		screenshotNumber++;
 	}
 
-	std::string fullscreenshotName = (screenshotStart + NumberToString(date) + "-" + NumberToString(screenshotNumber) + screenshotEnd);
+	std::string fullscreenshotName = (screenshotStart + date + "-" + NumberToString(screenshotNumber) + screenshotEnd);
 
 	return fullscreenshotName;
 }

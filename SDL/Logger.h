@@ -98,7 +98,7 @@ inline std::string GetLogName()
 		logNumber++;
 	}
 	
-	std::string fullLogName = (logStart + NumberToString(date) + "-" + NumberToString(logNumber) + logEnd);
+	std::string fullLogName = (logStart + date + "-" + NumberToString(logNumber) + logEnd);
 
 	std::cout << "Available Log Name: " << fullLogName << std::endl;
 
