@@ -110,6 +110,26 @@ inline std::string NumberToString(T num)
 
 #endif
 
+inline void SwapValues(int& a, int& b)
+{
+	if (a != b)
+	{
+		a = a + b;
+		b = a - b;
+		a = a - b;
+	}
+}
+
+inline void SwapValues(float& a, float& b)
+{
+	if (a != b)
+	{
+		a = a + b;
+		b = a - b;
+		a = a - b;
+	}
+}
+
 inline std::vector<std::string> &SplitString(const std::string &s, char delim, std::vector<std::string> &elems)
 {
 	std::stringstream ss(s);
@@ -120,7 +140,6 @@ inline std::vector<std::string> &SplitString(const std::string &s, char delim, s
 	}
 	return elems;
 }
-
 
 inline std::vector<std::string> SplitString(const std::string &s, char delim)
 {
