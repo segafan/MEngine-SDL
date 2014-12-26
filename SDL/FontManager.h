@@ -3,8 +3,6 @@
 #ifndef FONTMANAGER_H
 #define FONTMANAGER_H
 
-#include <map>
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
@@ -17,6 +15,12 @@
 //TOOD: This may create bugs & errors if it does redefine DrawText at the end of the file
 #ifdef DrawText
 #undef DrawText
+#endif
+
+#ifdef CPP11_SUPPORT
+#include <unordered_map>
+#else
+#include <map>
 #endif
 
 enum Align
@@ -98,7 +102,9 @@ public:
 
 	TTF_Font* GetFont(std::string key, int size)
 	{
-		if (fonts[key][size] == NULL)
+		TTF_Font* font = fonts[key][size];
+
+		if (font == NULL)
 		{
 			if (errorShown[key][size] == 0 || errorShown[key][size] == false)
 			{
@@ -109,15 +115,20 @@ public:
 			return NULL;
 		}
 
-		return fonts[key][size];
+		return font;
 	}
 
 	void Clear()
 	{
+#ifdef CPP11_SUPPORT
+		typedef std::unordered_map<std::string, std::unordered_map<int, TTF_Font*> >::iterator it_type;
+
+		typedef std::unordered_map<int, TTF_Font*>::iterator it_type2;
+#else
 		typedef std::map<std::string, std::map<int, TTF_Font*> >::iterator it_type;
 
 		typedef std::map<int, TTF_Font*>::iterator it_type2;
-
+#endif
 		//Search for Font type
 		for (it_type iterator = fonts.begin(); iterator != fonts.end(); iterator++)
 		{
@@ -226,9 +237,15 @@ public:
 private:
 	Camera& camera;
 
+#ifdef CPP11_SUPPORT
+	std::unordered_map<std::string, std::unordered_map<int, TTF_Font*> > fonts;
+
+	std::unordered_map<std::string, std::unordered_map<int, bool> > errorShown;
+#else
 	std::map<std::string, std::map<int, TTF_Font*> > fonts;
 
 	std::map<std::string, std::map<int, bool> > errorShown;
+#endif
 
 	Logger *logger;
 

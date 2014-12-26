@@ -3,12 +3,16 @@
 #ifndef AUDIOMANAGER_H
 #define AUDIOMANAGER_H
 
-#include <map>
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
 #include "Logger.h"
+
+#ifdef CPP11_SUPPORT
+#include <unordered_map>
+#else
+#include <map>
+#endif
 
 //TODO: Add RemoveMusic ans SoundEffect
 class AudioManager
@@ -186,9 +190,11 @@ public:
 	{
 		Mix_HaltMusic();
 		Mix_HaltChannel(-1);
-
+#ifdef CPP11_SUPPORT
+		typedef std::unordered_map<std::string, Mix_Music*>::iterator it_type_music;
+#else
 		typedef std::map<std::string, Mix_Music*>::iterator it_type_music;
-
+#endif
 		for (it_type_music iterator = music.begin(); iterator != music.end(); iterator++)
 		{
 			if (music[iterator->first] != NULL)
@@ -200,9 +206,11 @@ public:
 		}
 
 		music.clear();
-
+#ifdef CPP11_SUPPORT
+		typedef std::unordered_map<std::string, Mix_Chunk*>::iterator it_type_effect;
+#else
 		typedef std::map<std::string, Mix_Chunk*>::iterator it_type_effect;
-
+#endif
 		for (it_type_effect iterator = soundEffect.begin(); iterator != soundEffect.end(); iterator++)
 		{
 			if (soundEffect[iterator->first] != NULL)
@@ -218,8 +226,13 @@ public:
 private:
 	Logger *logger;
 
+#ifdef CPP11_SUPPORT
+	std::unordered_map<std::string, Mix_Music*> music;
+	std::unordered_map<std::string, Mix_Chunk*> soundEffect;
+#else
 	std::map<std::string, Mix_Music*> music;
 	std::map<std::string, Mix_Chunk*> soundEffect;
+#endif
 };
 
 #endif
