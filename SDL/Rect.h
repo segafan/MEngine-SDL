@@ -117,11 +117,11 @@ public:
 
 	bool Contains(Rect& rect)
 	{
-		return (rect.GetX() > x && rect.GetW() < w && rect.GetY() > y && rect.GetH() < h)
+		return (rect.GetX() > x && rect.GetW() < w && rect.GetY() > y && rect.GetH() < h);
 	}
 	bool Contains(Point& point)
 	{
-		return(point.getX() > x && point.getX() < w && point.getY() > y && point.getY() < h)
+		return(point.getX() > x && point.getX() < w && point.getY() > y && point.getY() < h);
 	}
 	bool Contains(int x, int y, int w, int h)
 	{

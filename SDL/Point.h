@@ -29,7 +29,7 @@ public:
 
 	bool Intersects(Point point)
 	{
-		return (x == point.getX() && y == point.getY())
+		return (x == point.getX() && y == point.getY());
 	}
 	bool Intersects(int x, int y)
 	{
