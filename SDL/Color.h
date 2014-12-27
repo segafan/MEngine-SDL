@@ -66,5 +66,18 @@ inline Color MapRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 	return Color(r, g, b, a);
 }
 
+//Define some basic colors
+#define COLOR_WHITE MapRGB(255, 255, 255)
+#define COLOR_BLACK MapRGB(0, 0, 0)
+
+#define COLOR_RED MapRGB(255, 0, 0)
+#define COLOR_GREEN MapRGB(0, 255, 0)
+#define COLOR_BLUE MapRGB(0, 0, 255)
+
+#define COLOR_YELLOW MapRGB(255, 255, 0)
+#define COLOR_MAGENTA MapRGB(255, 0, 255)
+#define COLOR_CYAN MapRGB(0, 255, 255)
+
+//TODO: Add some more complex colors
 
 #endif
