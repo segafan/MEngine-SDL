@@ -25,10 +25,7 @@ public:
 
 	bool IsState(std::string state)
 	{
-		if (this->state == state)
-			return true;
-		else
-			return false;
+		return (this->state == state);
 	}
 private:
 	std::string state;

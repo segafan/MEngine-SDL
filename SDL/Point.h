@@ -29,10 +29,7 @@ public:
 
 	bool Intersects(Point point)
 	{
-		if(x == point.getX() && y == point.getY())
-			return true;
-		else
-			return false;
+		return (x == point.getX() && y == point.getY())
 	}
 	bool Intersects(int x, int y)
 	{
