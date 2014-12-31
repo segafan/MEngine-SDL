@@ -106,6 +106,7 @@ public:
 		}
 
 		LOG_PURE("OpenGL Version: " << glGetString(GL_VERSION));
+		LOG_PURE("GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 		glEnable(GL_DEPTH_TEST);
 

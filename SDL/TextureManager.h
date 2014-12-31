@@ -20,10 +20,8 @@
 class TextureManager
 {
 public:
-	TextureManager(Display* display, Camera& camera, Logger *logger) : camera(camera)
+	TextureManager(Display* display, Camera& camera) : camera(camera)
 	{
-		this->logger = logger;
-
 		this->window = display->GetWindow();
 		this->renderer = display->GetRenderer();
 	}
@@ -188,7 +186,6 @@ public:
 	}
 private:
 	Camera& camera;
-	Logger *logger;
 
 	SDL_Window* window;
 	SDL_Renderer* renderer;

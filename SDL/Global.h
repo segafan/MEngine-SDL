@@ -15,21 +15,19 @@
 class Global
 {
 public:
-	Global(Display* display, Logger *logger)
+	Global(Display* display)
 		: camera()
 		, input()
 		, display(*display)
-		, logger(*logger)
 		, state()
-		, audio(logger)
-		, gfx(display, camera, logger)
+		, audio()
+		, gfx(display, camera)
 	{
 	}
 
 	Camera camera;
 	Input input;
 	Display& display;
-	Logger& logger;
 	StateManager state;
 	AudioManager audio;
 	GraphicsManager gfx;

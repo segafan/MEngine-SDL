@@ -9,10 +9,8 @@
 class GraphicsManager : public FontManager, public TextureManager
 {
 public:
-	GraphicsManager(Display* display, Camera& camera, Logger *logger) : FontManager(display, camera, logger), TextureManager(display, camera, logger)
+	GraphicsManager(Display* display, Camera& camera) : FontManager(display, camera), TextureManager(display, camera)
 	{
-		this->logger = logger;
-
 		imageBasepath = "";
 		animationBasepath = "";
 		fontBasepath = "";
@@ -179,8 +177,6 @@ public:
 	}
 
 private:
-	Logger *logger;
-
 	std::string imageBasepath;
 	std::string fontBasepath;
 	std::string animationBasepath;

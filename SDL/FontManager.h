@@ -41,9 +41,8 @@ enum Align
 class FontManager
 {
 public:
-	FontManager(Display* display, Camera& camera, Logger *logger) : camera(camera)
+	FontManager(Display* display, Camera& camera) : camera(camera)
 	{
-		this->logger = logger;
 		this->window = display->GetWindow();
 		this->renderer = display->GetRenderer();
 	}
@@ -246,8 +245,6 @@ private:
 
 	std::map<std::string, std::map<int, bool> > errorShown;
 #endif
-
-	Logger *logger;
 
 	SDL_Window *window;
 	SDL_Renderer *renderer;

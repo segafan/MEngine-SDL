@@ -10,7 +10,6 @@ int main(int argc, char *argv[])
 	//TODO: Move this to a better place & do it so it shows keyboard only when needed
 	SDL_StartTextInput();
 
-	Logger *logger = Logger::Instance();
 	Logger::Instance()->Open();
 
 	//Create Display
@@ -19,7 +18,7 @@ int main(int argc, char *argv[])
 	if (!display->Create2D("SDL", 1024, 768, SDL_WINDOW_SHOWN, true, false, 60.0f))
 		return 1;
 
-	Global *global = new Global(display, logger);
+	Global *global = new Global(display);
 
 	FPSTimer FPS(60.0f);
 	FPS.Start();

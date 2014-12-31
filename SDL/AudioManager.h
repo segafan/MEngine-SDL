@@ -18,9 +18,9 @@
 class AudioManager
 {
 public:
-	AudioManager(Logger *logger)
+	AudioManager()
 	{
-		this->logger = logger;
+		
 	}
 	~AudioManager()
 	{
@@ -224,7 +224,6 @@ public:
 		soundEffect.clear();
 	}
 private:
-	Logger *logger;
 
 #ifdef CPP11_SUPPORT
 	std::unordered_map<std::string, Mix_Music*> music;
