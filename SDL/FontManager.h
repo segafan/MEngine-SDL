@@ -81,7 +81,7 @@ public:
 
 		if (font == NULL)
 		{
-			LOG_ERROR("Font couldn't be added, because it's NULL! Key: " << key << " Size: " << size << " Error: ", SDL_GetError());
+			LOG_ERROR("Font couldn't be added, because it's NULL! Key: " << key << " Size: " << size << " Error: " << SDL_GetError());
 			return;
 		}
 
