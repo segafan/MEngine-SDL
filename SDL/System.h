@@ -125,7 +125,7 @@ static void LogOSInfo()
 #endif
 }
 
-inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
+inline bool IsVSyncGoodToUse(SDL_Window* window, float FPS)
 {
 	bool vsync = false;
 
@@ -157,7 +157,7 @@ inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
 
 		if (closestMode.refresh_rate >= (int)FPS)
 		{
-			logger->LOG_PURE("Found another Display Mode which has better refresh rate!");
+			LOG_PURE("Found another Display Mode which has better refresh rate!");
 
 			if (mode.w == closestMode.w && mode.h == closestMode.h)
 			{
@@ -194,7 +194,7 @@ inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
 		}
 	}
 
-	logger->NewLine();
+	Logger::Instance()->NewLine();
 
 	return vsync;
 }
