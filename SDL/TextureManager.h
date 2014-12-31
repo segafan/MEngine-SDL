@@ -38,7 +38,7 @@ public:
 		//Check if the texture exists
 		if (textures[key] != NULL)
 		{
-			logger->LogLine("There is already a texture with this key! Key: ", key);
+			LOG_DEBUG("There is already a texture with this key! Key: " << key);
 			return;
 		}
 
@@ -49,7 +49,7 @@ public:
 		//Checking if Loading was succesfull
 		if (texture == NULL)
 		{
-			logger->LogLine("Texture couldn't be loaded! Key: ", key, " Error: ", SDL_GetError());
+			LOG_ERROR("Texture couldn't be loaded! Key: " << key << " Error: " << SDL_GetError());
 			return;
 		}
 
@@ -61,14 +61,14 @@ public:
 		//Check if the texture exists
 		if (textures[key] != NULL)
 		{
-			logger->LogLine("There is already a texture with this key! Key: ", key);
+			LOG_DEBUG("There is already a texture with this key! Key: " << key);
 			return;
 		}
 
 		//Checking if Loading was succesfull
 		if (texture == NULL)
 		{
-			logger->LogLine("Texture doesn't exist! Key: ", key, " Error: ", SDL_GetError());
+			LOG_ERROR("Texture couldn't be added! It's NULL! Key: " << key << " Error: " << SDL_GetError());
 			return;
 		}
 
@@ -79,7 +79,7 @@ public:
 	{
 		if (textures[key] == NULL)
 		{
-			logger->LogLine("The texture can't be removed because it doesn't exist! Key:", key);
+			LOG_DEBUG("The texture can't be removed because it doesn't exist! Key: " << key);
 			return;
 		}
 
@@ -97,7 +97,7 @@ public:
 			//TODO: May not work on Linux (the if statment)
 			if (errorShown[key] == 0 || errorShown[key] == false)
 			{
-				logger->LogLine("You can't get the texture because it doesn't exist! Key: ", key);
+				LOG_ERROR("You can't get the texture because it doesn't exist! Key: " << key);
 				errorShown[key] = true;
 			}
 

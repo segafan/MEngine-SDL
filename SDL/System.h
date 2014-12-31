@@ -64,16 +64,16 @@ static void LogSDLInfo(Logger *logger)
 	SDL_VERSION(&compiled);
 	SDL_GetVersion(&linked);
 
-	logger->LogVersion("Compiled SDL: ", compiled.major, compiled.minor, compiled.patch);
-	logger->LogVersion("Linked SDL: ", linked.major, linked.minor, linked.patch);
+	LOG_PURE("Compiled SDL: " << (int)compiled.major << "." << (int)compiled.minor << "." << (int)compiled.patch);
+	LOG_PURE("Linked SDL: " << (int)linked.major << "." << (int)linked.minor << "." << (int)linked.patch);
 
 	logger->NewLine();
 }
 
 static void LogSystemInfo(Logger *logger)
 {
-	logger->LogLineWithoutTime("Logical CPU Cores: ", NumberToString(SDL_GetCPUCount()).c_str());
-	logger->LogLineWithoutTime("RAM: ", NumberToString(SDL_GetSystemRAM()).c_str(), " MB");
+	LOG_PURE("Logical CPU Cores: " << NumberToString(SDL_GetCPUCount()).c_str());
+	LOG_PURE("RAM: " << NumberToString(SDL_GetSystemRAM()).c_str() << " MB");
 	logger->NewLine();
 }
 
@@ -96,10 +96,10 @@ static void LogSubSystemInfo(Logger *logger, SDL_Window *window)
 			case SDL_SYSWM_MIR:		  subsystem = "Mir";					break;
 			case SDL_SYSWM_WINRT:	  subsystem = "Win RT";					break;
 		}
-		logger->LogLineWithoutTime("Subsystem: ", subsystem);
+		LOG_PURE("Subsystem: " << subsystem);
 	}
 	else
-		logger->LogLineWithoutTime("Couldn't get used Subsystem");
+		LOG_PURE("Couldn't get used Subsystem");
 
 	logger->NewLine();
 
@@ -108,21 +108,21 @@ static void LogSubSystemInfo(Logger *logger, SDL_Window *window)
 static void LogOSInfo(Logger *logger)
 {
 #if defined(OS_WINDOWS_32)
-	logger->LogLineWithoutTime("Windows 32-bit");
+	LOG_PURE("Windows 32-bit");
 #elif defined(OS_WINDOWS_64)
-	logger->LogLineWithoutTime("Windows 64-bit");
+	LOG_PURE("Windows 64-bit");
 #elif defined(OS_UNIX)
-	logger->LogLineWithoutTime("Unix");
+	LOG_PURE("Unix");
 #elif defined(OS_MAC)
-	logger->LogLineWithoutTime("Mac OSX");
+	LOG_PURE("Mac OSX");
 #elif defined(OS_LINUX)
-	logger->LogLineWithoutTime("Linux");
+	LOG_PURE("Linux");
 #elif defined(OS_POSIX)
-	logger->LogLineWithoutTime("Posix");
+	LOG_PURE("Posix");
 #elif defined(OS_FREEBSD)
-	logger->LogLineWithoutTime("FreeBSD");
+	LOG_PURE("FreeBSD");
 #else
-	logger->LogLineWithoutTime("Other OS");
+	LOG_PURE("Other OS");
 #endif
 }
 
@@ -136,14 +136,16 @@ inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
 
 	//Log window refresh rate
 	if (mode.refresh_rate == 0)
-		logger->LogLineWithoutTime("Window refresh rate: ", "Unknown!");
+	{
+		LOG_PURE("Window refresh rate: " << "Unknown!");
+	}
 	else
-		logger->LogLineWithoutTime("Window refresh rate: ", mode.refresh_rate);
+		LOG_PURE("Window refresh rate: " << mode.refresh_rate);
 
 	//Check if it's == FPS
 	if (mode.refresh_rate >= (int)FPS)
 	{
-		logger->LogLineWithoutTime("Activating VSync if available, because it would help in FPS caping!");
+		LOG_PURE("Activating VSync if available, because it would help in FPS caping!");
 		vsync = true;
 	}
 	else
@@ -156,7 +158,7 @@ inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
 
 		if (closestMode.refresh_rate >= (int)FPS)
 		{
-			logger->LogLineWithoutTime("Found another Display Mode which has better refresh rate!");
+			logger->LOG_PURE("Found another Display Mode which has better refresh rate!");
 
 			if (mode.w == closestMode.w && mode.h == closestMode.h)
 			{
@@ -164,31 +166,31 @@ inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
 				{
 					if (SDL_SetWindowDisplayMode(window, &closestMode) == 0)
 					{
-						logger->LogLineWithoutTime("The Display mode of the window has been set!");
-						logger->LogLineWithoutTime("Window refresh rate is now: ", closestMode.refresh_rate);
+						LOG_PURE("The Display mode of the window has been set!");
+						LOG_PURE("Window refresh rate is now: " << closestMode.refresh_rate);
 						vsync = true;
 					}
 					else
 					{
-						logger->LogLineWithoutTime("Couldn't bind Display Mode to Window!");
+						LOG_PURE("Couldn't bind Display Mode to Window!");
 						vsync = false;
 					}
 				}
 				else
 				{
-					logger->LogLineWithoutTime("The Display Mode has other pixel format so it cannot be used!");
+					LOG_PURE("The Display Mode has other pixel format so it cannot be used!");
 					vsync = false;
 				}
 			}
 			else
 			{
-				logger->LogLineWithoutTime("The Display Mode has other resolution so it cannot be used!");
+				LOG_PURE("The Display Mode has other resolution so it cannot be used!");
 				vsync = false;
 			}
 		}
 		else
 		{
-			logger->LogLineWithoutTime("Didn't find a display mode to use VSync!");
+			LOG_PURE("Didn't find a display mode to use VSync!");
 			vsync = false;
 		}
 	}
@@ -225,7 +227,7 @@ inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, bool targetTexture
 
 	if (renderer == NULL)
 	{
-		logger->LogLine("Error creating Renderer! Error: ", SDL_GetError());
+		LOG_ERROR("Error creating Renderer! Error: " << SDL_GetError());
 	}
 
 	LogUsedRenderInfo(renderer, logger);
@@ -244,7 +246,7 @@ inline SDL_Window* CreateAndLogWindow(const char* title, int x, int y, int w, in
 
 	if (window == NULL)
 	{
-		logger->LogLine("Error creating Window! Error: ", SDL_GetError());
+		LOG_ERROR("Error creating Window! Error: " << SDL_GetError());
 		return NULL;
 	}
 

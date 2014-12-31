@@ -57,7 +57,7 @@ public:
 	{
 		if (fonts[key][size] != NULL)
 		{
-			logger->LogLine("There is already a font with this key! Key: ", key);
+			LOG_DEBUG("There is already a font with this key! Key: " << key);
 			return;
 		}
 
@@ -66,7 +66,7 @@ public:
 
 		if (font == NULL)
 		{
-			logger->LogLine("Font couldn't be loaded! Key: ", key, " Size: ", NumberToString(size), " Error: ", SDL_GetError());
+			LOG_ERROR("Font couldn't be loaded! Key: " << key << " Size: " << size << " Error: " << SDL_GetError());
 			return;
 		}
 
@@ -76,13 +76,13 @@ public:
 	{
 		if (fonts[key][size] != NULL)
 		{
-			logger->LogLine("There is already a font with this key! Key: ", key);
+			LOG_DEBUG("There is already a font with this key! Key: " << key);
 			return;
 		}
 
 		if (font == NULL)
 		{
-			logger->LogLine("Font couldn't be added! Key: ", key, " Size: ", NumberToString(size), " Error: ", SDL_GetError());
+			LOG_ERROR("Font couldn't be added, because it's NULL! Key: " << key << " Size: " << size << " Error: ", SDL_GetError());
 			return;
 		}
 
@@ -92,7 +92,7 @@ public:
 	{
 		if (fonts[key][size] == NULL)
 		{
-			logger->LogLine("Font couldn't be removed because it doesn't exist! Key: ", key, " Size: ", NumberToString(size));
+			LOG_DEBUG("Font couldn't be removed because it doesn't exist! Key: " << key << " Size: " << size);
 			return;
 		}
 
@@ -108,7 +108,7 @@ public:
 		{
 			if (errorShown[key][size] == 0 || errorShown[key][size] == false)
 			{
-				logger->LogLine("You can't get this font because it doesn't exist! Key: ", key, " Size: ", NumberToString(size));
+				LOG_ERROR("You can't get this font because it doesn't exist! Key: " << key << " Size: " << size);
 				errorShown[key][size] = true;
 			}
 
@@ -168,7 +168,7 @@ public:
 
 		if (surface == NULL)
 		{
-			logger->LogLine("Couldn't create surface from Font! Key: ", key, " Size: ", NumberToString(size), " Text: ", text);
+			LOG_ERROR("Couldn't create surface from Font! Key: " << key << " Size: " << size << " Text: " << text << " Error: " << TTF_GetError());
 			return;
 		}
 
@@ -178,7 +178,7 @@ public:
 
 		if (texture == NULL)
 		{
-			logger->LogLine("Couldn't create texture from surface(made from Font)! Key: ", key, " Size: ", NumberToString(size), " Text: ", text);
+			LOG_ERROR("Couldn't create texture from surface(made from Font)! Key: " << key << " Size: " << size << " Text: " << text << " Error: " << SDL_GetError());
 			return;
 		}
 
@@ -188,7 +188,7 @@ public:
 		//Query Texture for w and h
 		if (SDL_QueryTexture(texture, NULL, NULL, &pos->w, &pos->h) == -1)
 		{
-			logger->LogLine("Couldn't query texture made from surface(made from Font)! Key: ", key, " Size: ", NumberToString(size), " Text: ", text);
+			LOG_ERROR("Couldn't query texture made from surface(made from Font)! Key: " << key << " Size: " << size << " Text: " << text << " Error: " << SDL_GetError());
 			return;
 		}
 

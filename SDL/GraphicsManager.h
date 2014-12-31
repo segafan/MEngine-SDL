@@ -66,7 +66,7 @@ public:
 									continue;
 								}
 								else
-									logger->LogLine("Syntax error, invalid basepath in graphics script ", filepath, " at line ", lineNum);
+									LOG_ERROR("Syntax error, invalid basepath in graphics script " << filepath << " at line " << lineNum);
 							}
 							else if (basepathType == "a")
 							{
@@ -83,7 +83,7 @@ public:
 									continue;
 								}
 								else
-									logger->LogLine("Syntax error, invalid basepath in graphics script ", filepath, " at line ", lineNum);
+									LOG_ERROR("Syntax error, invalid basepath in graphics script " << filepath << " at line " << lineNum);
 							}
 							else if (basepathType == "f")
 							{
@@ -100,13 +100,13 @@ public:
 									continue;
 								}
 								else
-									logger->LogLine("Syntax error, invalid basepath in graphics script ", filepath, " at line ", lineNum);
+									LOG_ERROR("Syntax error, invalid basepath in graphics script " << filepath << " at line " << lineNum);
 							}
 							else
-								logger->LogLine("Syntax error, invalid basepath type in graphics script ", filepath, " at line ", lineNum);
+								LOG_ERROR("Syntax error, invalid basepath type in graphics script " << filepath << " at line " << lineNum);
 						}
 						else
-							logger->LogLine("Syntax error, invalid basepath in graphics script ", filepath, " at line ", lineNum);
+							LOG_ERROR("Syntax error, invalid basepath in graphics script " << filepath << " at line " << lineNum);
 					}
 					else if (data == "i")
 					{
@@ -124,10 +124,10 @@ public:
 								continue;
 							}
 							else
-								logger->LogLine("Syntax error, invalid image key in graphics script ", filepath, " at line ", lineNum);
+								LOG_ERROR("Syntax error, invalid image key in graphics script " << filepath << " at line " << lineNum);
 						}
 						else
-							logger->LogLine("Syntax error, invalid image path in graphics script ", filepath, " at line ", lineNum);
+							LOG_ERROR("Syntax error, invalid image path in graphics script " << filepath << " at line " << lineNum);
 
 					}
 					else if (data == "a")
@@ -156,26 +156,26 @@ public:
 										continue;
 									}
 									else
-										logger->LogLine("Syntax error, invalid font size not a number in graphics script ", filepath, " at line ", lineNum);
+										LOG_ERROR("Syntax error, invalid font size not a number in graphics script " << filepath << " at line " << lineNum);
 								}
 								else
-									logger->LogLine("Syntax error, invalid font size in graphics script ", filepath, " at line ", lineNum);
+									LOG_ERROR("Syntax error, invalid font size in graphics script " << filepath << " at line " << lineNum);
 							}
 							else
-								logger->LogLine("Syntax error, invalid font key in graphics script ", filepath, " at line ", lineNum);
+								LOG_ERROR("Syntax error, invalid font key in graphics script " << filepath << " at line " << lineNum);
 						}
 						else
-							logger->LogLine("Syntax error, invalid font path in graphics script ", filepath, " at line ", lineNum);
+							LOG_ERROR("Syntax error, invalid font path in graphics script " << filepath << " at line " << lineNum);
 					}
 					else
-						logger->LogLine("Syntax error, invalid command in graphics script ", filepath, " at line ", lineNum);
+						LOG_ERROR("Syntax error, invalid command in graphics script " << filepath << " at line " << lineNum);
 				}
 
 				lineNum++;
 			}
 		}
 		else
-			logger->LogLine("Couldn't load graphics script: ", filepath);
+			LOG_ERROR("Couldn't load graphics script: " << filepath);
 	}
 
 private:

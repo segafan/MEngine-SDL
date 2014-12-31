@@ -63,7 +63,7 @@ public:
 			return false;
 		}
 
-		logger->LogLineWithoutTime("Using 2D");
+		LOG_PURE("Using 2D");
 		logger->NewLine();
 
 		this->logger = logger;
@@ -109,7 +109,7 @@ public:
 
 		glEnable(GL_DEPTH_TEST);
 
-		logger->LogLineWithoutTime("Using 3D");
+		LOG_PURE("Using 3D");
 		logger->NewLine();
 
 		this->logger = logger;

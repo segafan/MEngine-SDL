@@ -32,7 +32,7 @@ public:
 	{
 		if (music[key] != NULL)
 		{
-			logger->LogLine("There is already a music with that key! Key: ", key);
+			LOG_DEBUG("There is already a music with that key! Key: " << key);
 			return;
 		}
 
@@ -41,7 +41,7 @@ public:
 
 		if (tempMusic == NULL)
 		{
-			logger->LogLine("Music couldn't be loaded! Key: ", key, " Error: ", SDL_GetError());
+			LOG_ERROR("Music couldn't be loaded! Key: "<< key << " Error: " << SDL_GetError());
 			return;
 		}
 
@@ -51,7 +51,7 @@ public:
 	{
 		if (music[key] == NULL)
 		{
-			logger->LogLine("The music can't be removed because it doesn't exist! Key:", key);
+			LOG_DEBUG("The music can't be removed because it doesn't exist! Key: " << key);
 			return;
 		}
 
@@ -67,7 +67,7 @@ public:
 	{
 		if (music[key] == NULL)
 		{
-			logger->LogLine("Music couldn't be played because it doesn't exist! Key: ", key);
+			LOG_ERROR("Music couldn't be played because it doesn't exist! Key: " << key);
 			return;
 		}
 
@@ -105,7 +105,7 @@ public:
 	{
 		if (soundEffect[key] != NULL)
 		{
-			logger->LogLine("There is already a soundEffect with that key! Key: ", key);
+			LOG_DEBUG("There is already a soundEffect with that key! Key: " << key);
 			return;
 		}
 
@@ -114,7 +114,7 @@ public:
 
 		if (tempEffect == NULL)
 		{
-			logger->LogLine("SoundEffect couldn't be loaded! Key: ", key, " Error: ", SDL_GetError());
+			LOG_ERROR("SoundEffect couldn't be loaded! Key: "<< key << " Error: " << SDL_GetError());
 			return;
 		}
 
@@ -124,7 +124,7 @@ public:
 	{
 		if (soundEffect[key] == NULL)
 		{
-			logger->LogLine("The SoundEffect can't be removed because it doesn't exist! Key:", key);
+			LOG_DEBUG("The SoundEffect can't be removed because it doesn't exist! Key: " << key);
 			return;
 		}
 
@@ -140,7 +140,7 @@ public:
 	{
 		if (soundEffect[key] == NULL)
 		{
-			logger->LogLine("SoundEffect couldn't be played because it doesn't exist! Key: ", key);
+			LOG_ERROR("SoundEffect couldn't be played because it doesn't exist! Key: " << key);
 			return;
 		}
 
@@ -156,7 +156,7 @@ public:
 
 		if (soundEffect[key] == NULL)
 		{
-			logger->LogLine("SoundEffect's volume couldn't be changed because it doesn't exist! Key: ", key);
+			LOG_DEBUG("SoundEffect's volume couldn't be changed because it doesn't exist! Key: " << key);
 			return;
 		}
 

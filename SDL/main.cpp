@@ -10,7 +10,8 @@ int main(int argc, char *argv[])
 	//TODO: Move this to a better place & do it so it shows keyboard only when needed
 	SDL_StartTextInput();
 
-	Logger *logger = new Logger;
+	Logger *logger = Logger::Instance();
+	Logger::Instance()->Open();
 
 	//Create Display
 	Display* display = new Display();
@@ -60,7 +61,8 @@ int main(int argc, char *argv[])
 
 	delete display;
 	delete global;
-	delete logger;
+	
+	Logger::ResetInstance();
 
 	Quit();
 
