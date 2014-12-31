@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	//Create Display
 	Display* display = new Display();
 
-	if (!display->Create2D("SDL", 1024, 768, SDL_WINDOW_SHOWN, true, false, 60.0f, logger))
+	if (!display->Create2D("SDL", 1024, 768, SDL_WINDOW_SHOWN, true, false, 60.0f))
 		return 1;
 
 	Global *global = new Global(display, logger);

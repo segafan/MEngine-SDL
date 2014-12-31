@@ -41,42 +41,40 @@ public:
 		window = NULL;
 	}
 
-	bool Create2D(std::string title, int w, int h, int flags, bool TargetTexture, bool VSYNC, float FPS, Logger* logger)
+	bool Create2D(std::string title, int w, int h, int flags, bool TargetTexture, bool VSYNC, float FPS)
 	{
 		is3D = false;
 
 		window = NULL;
-		window = CreateAndLogWindow(title.c_str(), w, h, flags, logger);
+		window = CreateAndLogWindow(title.c_str(), w, h, flags);
 
 		if (window == NULL)
 		{
-			logger->LogLine("Couldn't create Window!");
+			LOG_ERROR("Couldn't create Window! Error: " << SDL_GetError());
 			return false;
 		}
 
 		renderer = NULL;
-		renderer = CreateAndLogRenderer(window, TargetTexture, VSYNC, FPS, logger);
+		renderer = CreateAndLogRenderer(window, TargetTexture, VSYNC, FPS);
 
 		if (renderer == NULL)
 		{
-			logger->LogLine("Couldn't create Renderer!");
+			LOG_ERROR("Couldn't create Renderer! Error: " << SDL_GetError());
 			return false;
 		}
 
 		LOG_PURE("Using 2D");
-		logger->NewLine();
-
-		this->logger = logger;
+		Logger::Instance()->NewLine();
 
 		return true;
 	}
-	bool Create3D(std::string title, int w, int h, int flags, Logger* logger)
+	bool Create3D(std::string title, int w, int h, int flags)
 	{
 		is3D = true;
 
 		if (!ContainsFlag(flags, SDL_WINDOW_OPENGL))
 		{
-			logger->LogLine("Flag must contain SDL_WINDOW_OPENGL if using 3D!");
+			LOG_ERROR("Flag must contain SDL_WINDOW_OPENGL if using 3D!");
 			SDL_ShowSimpleMessageBox(0, "Error!", "Flag must contain SDL_WINDOW_OPENGL if using 3D!", NULL);
 			return false;
 		}
@@ -90,11 +88,11 @@ public:
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 		window = NULL;
-		window = CreateAndLogWindow(title.c_str(), w, h, flags, logger);
+		window = CreateAndLogWindow(title.c_str(), w, h, flags);
 
 		if (window == NULL)
 		{
-			logger->LogLine("Couldn't create Window!");
+			LOG_ERROR("Couldn't create Window! Error: " << SDL_GetError());
 			return false;
 		}
 
@@ -103,16 +101,16 @@ public:
 
 		if (glContext == NULL)
 		{
-			logger->LogLine("Couldn't create glContext!");
+			LOG_ERROR("Couldn't create glContext! Error: " << SDL_GetError());
 			return false;
 		}
+
+		LOG_PURE("OpenGL Version: " << glGetString(GL_VERSION));
 
 		glEnable(GL_DEPTH_TEST);
 
 		LOG_PURE("Using 3D");
-		logger->NewLine();
-
-		this->logger = logger;
+		Logger::Instance()->NewLine();
 
 		return true;
 	}
@@ -233,7 +231,7 @@ public:
 			renderColorStack.pop_back();
 		}
 		else
-			logger->LogLine("Can't pop back render color because no render color is pushed to stack");
+			LOG_DEBUG("Can't pop back render color because no render color is pushed to stack");
 	}
 
 	Color& GetRenderColor()
@@ -247,8 +245,6 @@ public:
 	}
 
 private:
-	Logger* logger;
-
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 

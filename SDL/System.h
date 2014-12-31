@@ -56,7 +56,7 @@ static void Quit()
 	SDLNet_Quit();
 }
 
-static void LogSDLInfo(Logger *logger)
+static void LogSDLInfo()
 {
 	SDL_version compiled;
 	SDL_version linked;
@@ -67,17 +67,17 @@ static void LogSDLInfo(Logger *logger)
 	LOG_PURE("Compiled SDL: " << (int)compiled.major << "." << (int)compiled.minor << "." << (int)compiled.patch);
 	LOG_PURE("Linked SDL: " << (int)linked.major << "." << (int)linked.minor << "." << (int)linked.patch);
 
-	logger->NewLine();
+	Logger::Instance()->NewLine();
 }
 
-static void LogSystemInfo(Logger *logger)
+static void LogSystemInfo()
 {
-	LOG_PURE("Logical CPU Cores: " << NumberToString(SDL_GetCPUCount()).c_str());
-	LOG_PURE("RAM: " << NumberToString(SDL_GetSystemRAM()).c_str() << " MB");
-	logger->NewLine();
+	LOG_PURE("Logical CPU Cores: " << SDL_GetCPUCount());
+	LOG_PURE("RAM: " << SDL_GetSystemRAM() << " MB");
+	Logger::Instance()->NewLine();
 }
 
-static void LogSubSystemInfo(Logger *logger, SDL_Window *window)
+static void LogSubSystemInfo(SDL_Window *window)
 {
 	SDL_SysWMinfo info;
 
@@ -101,11 +101,10 @@ static void LogSubSystemInfo(Logger *logger, SDL_Window *window)
 	else
 		LOG_PURE("Couldn't get used Subsystem");
 
-	logger->NewLine();
-
+	Logger::Instance()->NewLine();
 }
 
-static void LogOSInfo(Logger *logger)
+static void LogOSInfo()
 {
 #if defined(OS_WINDOWS_32)
 	LOG_PURE("Windows 32-bit");
@@ -200,27 +199,27 @@ inline bool IsVSyncGoodToUse(SDL_Window* window, Logger* logger, float FPS)
 	return vsync;
 }
 
-inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, bool targetTexture, bool vsync, float FPS, Logger *logger)
+inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, bool targetTexture, bool vsync, float FPS)
 {
 	if (window == NULL)
 	{
-		logger->LogLine("Couldn't create renderer because Window is NULL!");
+		LOG_ERROR("Couldn't create renderer because Window is NULL! Error: " << SDL_GetError());
 		return NULL;
 	}
 
 	//TODO: After creating a new FPSTimer keep this or delete this
 	//vsync = IsVSyncGoodToUse(window, logger, FPS);
 
-	LogAllRenderInfo(logger);
+	LogAllRenderInfo();
 
 	Uint32 flags = GetRenderFlags(window, targetTexture, vsync);
 	if (flags == 0)
 	{
-		logger->LogLine("No Render Flags Available!");
+		LOG_ERROR("No Render Flags Available! Error: " << SDL_GetError());
 		return NULL;
 	}
 
-	LogRenderFlags(flags, logger);
+	LogRenderFlags(flags);
 
 	SDL_Renderer *renderer = NULL;
 	renderer = SDL_CreateRenderer(window, -1, flags);
@@ -230,16 +229,16 @@ inline SDL_Renderer* CreateAndLogRenderer(SDL_Window *window, bool targetTexture
 		LOG_ERROR("Error creating Renderer! Error: " << SDL_GetError());
 	}
 
-	LogUsedRenderInfo(renderer, logger);
+	LogUsedRenderInfo(renderer);
 
 	return renderer;
 }
 
-inline SDL_Window* CreateAndLogWindow(const char* title, int x, int y, int w, int h, Uint32 flags, Logger* logger)
+inline SDL_Window* CreateAndLogWindow(const char* title, int x, int y, int w, int h, Uint32 flags)
 {
-	LogSDLInfo(logger);
-	LogSystemInfo(logger);
-	LogOSInfo(logger);
+	LogSDLInfo();
+	LogSystemInfo();
+	LogOSInfo();
 
 	SDL_Window *window = NULL;
 	window = SDL_CreateWindow(title, x, y, w, h, flags);
@@ -250,14 +249,14 @@ inline SDL_Window* CreateAndLogWindow(const char* title, int x, int y, int w, in
 		return NULL;
 	}
 
-	LogSubSystemInfo(logger, window);
+	LogSubSystemInfo(window);
 
 	return window;
 }
 
-inline SDL_Window* CreateAndLogWindow(const char* title, int w, int h, Uint32 flags, Logger* logger)
+inline SDL_Window* CreateAndLogWindow(const char* title, int w, int h, Uint32 flags)
 {
-	return CreateAndLogWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, flags, logger);
+	return CreateAndLogWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, flags);
 }
 
 inline std::string GetScreenshotName()

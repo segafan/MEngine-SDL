@@ -278,7 +278,7 @@ inline void GetUsedRenderInfo(SDL_Renderer *renderer)
 
 //Log
 
-static void LogRenderFlags(Uint32 flags, Logger *logger)
+static void LogRenderFlags(Uint32 flags)
 {
 	LOG_PURE("Used Render Flags:");
 
@@ -294,10 +294,10 @@ static void LogRenderFlags(Uint32 flags, Logger *logger)
 	if ((flags & SDL_RENDERER_PRESENTVSYNC) == SDL_RENDERER_PRESENTVSYNC)
 		LOG_PURE("		" << "PRESENTVSYNC");
 
-	logger->NewLine();
+	Logger::Instance()->NewLine();
 }
 
-static void LogRenderInfo(SDL_RendererInfo* info, Logger *logger)
+static void LogRenderInfo(SDL_RendererInfo* info)
 {
 	LOG_PURE("- " << info->name);
 
@@ -314,33 +314,33 @@ static void LogRenderInfo(SDL_RendererInfo* info, Logger *logger)
 		LOG_PURE("		" << "TARGETTEXTURE");
 }
 
-static void LogRenderInfo(int num, Logger *logger)
+static void LogRenderInfo(int num)
 {
 	SDL_RendererInfo info;
 	SDL_GetRenderDriverInfo(num, &info);
 
-	LogRenderInfo(&info,logger);
+	LogRenderInfo(&info);
 }
 
-static void LogAllRenderInfo(Logger *logger)
+static void LogAllRenderInfo()
 {
 	LOG_PURE("Available Render Drivers:");
 	for (int i = 0; i < SDL_GetNumRenderDrivers(); i++)
 	{
-		LogRenderInfo(i,logger);
+		LogRenderInfo(i);
 	}
-	logger->NewLine();
+	Logger::Instance()->NewLine();
 }
 
-static void LogUsedRenderInfo(SDL_Renderer *renderer, Logger *logger)
+static void LogUsedRenderInfo(SDL_Renderer *renderer)
 {
 	LOG_PURE("Used Render Driver:");
 	SDL_RendererInfo info;
 	SDL_GetRendererInfo(renderer, &info);
 
-	LogRenderInfo(&info,logger);
+	LogRenderInfo(&info);
 
-	logger->NewLine();
+	Logger::Instance()->NewLine();
 }
 
 #endif
