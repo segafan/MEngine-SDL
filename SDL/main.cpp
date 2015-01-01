@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 
 			//Screenshot Creation
 			if (global->input.keyboard.OnKeyPress(SDLK_F2))
-				CreateScreenshot(display->GetWindow(), display->GetRenderer());
+				CreateScreenshot(display);
 
 			//Update
 
