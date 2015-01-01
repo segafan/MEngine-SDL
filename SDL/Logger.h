@@ -105,6 +105,7 @@ private:
 #define LOG(Message_) Logger::Instance()->LogLine(static_cast<std::ostringstream&>(std::ostringstream().flush() << Message_).str());
 #define LOG_PURE(Message_) Logger::Instance()->LogLinePure(static_cast<std::ostringstream&>(std::ostringstream().flush() << Message_).str());
 #define LOG_DEBUG(Message_) Logger::Instance()->LogLine(static_cast<std::ostringstream&>(std::ostringstream().flush() << "[DEBUG]" << Message_).str());
+#define LOG_WARNING(Message_) Logger::Instance()->LogLine(static_cast<std::ostringstream&>(std::ostringstream().flush() << "[WARNING]" << Message_).str());
 #define LOG_ERROR(Message_) Logger::Instance()->LogLine(static_cast<std::ostringstream&>(std::ostringstream().flush() << "[ERROR] " << Message_ << " " << __FUNCTION__ << "() " << __FILE__ << " line " << __LINE__ ).str());
 
 #endif

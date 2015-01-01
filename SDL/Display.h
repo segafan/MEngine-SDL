@@ -179,7 +179,7 @@ public:
 		{
 			if (SDL_SetRenderDrawColor(renderer, (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a) != 0)
 			{
-				//TODO: Log error
+				LOG_ERROR("Couldn't set Render Draw Color! Error: " << SDL_GetError());
 			}
 		}
 	}
@@ -191,7 +191,7 @@ public:
 		{
 			if (SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a) != 0)
 			{
-				//TODO: Log error
+				LOG_ERROR("Couldn't set Render Draw Color! Error: " << SDL_GetError());
 			}
 		}
 	}
@@ -203,7 +203,7 @@ public:
 		{
 			if (SDL_SetRenderDrawColor(renderer, (Uint8)r, (Uint8)g, (Uint8)b, 255) != 0)
 			{
-				//TODO: Log error
+				LOG_ERROR("Couldn't set Render Draw Color! Error: " << SDL_GetError());
 			}
 		}
 	}
@@ -215,7 +215,7 @@ public:
 		{
 			if (SDL_SetRenderDrawColor(renderer, (Uint8)r, (Uint8)g, (Uint8)b, (Uint8)a) != 0)
 			{
-				//TODO: Log error
+				LOG_ERROR("Couldn't set Render Draw Color! Error: " << SDL_GetError());
 			}
 		}
 	}

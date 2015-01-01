@@ -27,7 +27,7 @@ public:
 
 static bool PollEvent(Input* input)
 {
-	//TODO: Do something so this is not static
+	//TODO: Do something so this is not static (probably move this into the Input class)
 	static bool clearSinglePressData = true;
 
 	if (clearSinglePressData)

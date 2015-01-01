@@ -29,10 +29,11 @@ public:
 			{
 				if ((keyboard->IsKeyPressed(SDLK_LCTRL) || keyboard->IsKeyPressed(SDLK_RCTRL)) && keyboard->IsKeyPressed(SDLK_v))
 				{
-					//TODO: This may cause a memory leak SDL_GetClipboardText()
 					if (SDL_HasClipboardText())
 					{
-						text[iterator->first] += SDL_GetClipboardText();
+						char* clipboard_text = SDL_GetClipboardText();
+						text[iterator->first] += clipboard_text;
+						SDL_free(clipboard_text);
 					}
 				}
 
@@ -48,15 +49,13 @@ public:
 	{
 		if (key == "")
 		{
-			//TODO: Log this
-			std::cout << "You must set a key in Text Input!" << std::endl;
+			LOG_ERROR("You must set a key in Text Input!");
 			return false;
 		}
 
 		if (text.count(key) != 0)
 		{
-			//TODO: Log this
-			std::cout << "There is already a Text Input with this key: " << key << std::endl;
+			LOG_DEBUG("There is already a Text Input with this key: " << key);
 			return false;
 		}
 
@@ -70,8 +69,7 @@ public:
 	{
 		if (text.count(key) == 0)
 		{
-			//TODO: Log this
-			std::cout << "There isn't a Text Input with this key, so can't set it active! key: " << key << std::endl;
+			LOG_ERROR("There isn't a Text Input with this key, so can't set it active! key: " << key);
 			
 			//Create it so it won't show this message later
 			text[key] = "";
@@ -86,8 +84,7 @@ public:
 	{
 		if (text.count(key) == 0)
 		{
-			//TODO: Log this
-			std::cout << "There isn't a Text Input with this key, so can't get text! key: " << key << std::endl;
+			LOG_ERROR("There isn't a Text Input with this key, so can't get text! key: " << key);
 			
 			//Create it so it won't show this message later
 			text[key] = "";
@@ -102,8 +99,7 @@ public:
 	{
 		if (text.count(key) == 0)
 		{
-			//TODO: Log this
-			std::cout << "There isn't a Text Input with this key, so can't set text! key: " << key << std::endl;
+			LOG_ERROR("There isn't a Text Input with this key, so can't set text! key: " << key);
 
 			//Create it so it won't show this message later
 			text[key] = "";

@@ -14,7 +14,7 @@
 #include <map>
 #endif
 
-//TODO: Add RemoveMusic ans SoundEffect
+//TODO: Add RemoveMusic and SoundEffect
 class AudioManager
 {
 public:
