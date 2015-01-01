@@ -9,6 +9,7 @@
 #include "Util.h"
 #include "Rect.h"
 #include "Logger.h"
+#include "Display.h"
 
 #include "Camera.h"
 

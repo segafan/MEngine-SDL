@@ -5,6 +5,9 @@
 
 #include "Point.h"
 
+#include "Util.h"
+#include <iostream>
+
 #include <SDL2/SDL.h>
 
 class Rect
