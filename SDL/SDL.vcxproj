@@ -71,8 +71,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Display.cpp" />
+    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>

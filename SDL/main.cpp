@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 		return 1;
 
 	Global *global = new Global(display);
-	global->gfx.AddTexture("resources/textures/bg.png", "BG");
+	
 	FPSTimer FPS(60.0f);
 	FPS.Start();
 
@@ -46,13 +46,13 @@ int main(int argc, char *argv[])
 
 			//Update
 
-			
+
 
 			//Draw
 
 			global->display.Clear();
 			
-			global->gfx.DrawTexture("BG", &Rect::CreateRect(0, 0, 1024, 768));
+			
 
 			global->display.Present();
 		}

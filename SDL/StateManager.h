@@ -3,32 +3,24 @@
 #ifndef STATEMANAGER_H
 #define STATEMANAGER_H
 
-#include <string>
+#include <vector>
 
 class StateManager
 {
 public:
-	StateManager()
-	{
-		state = "";
-	}
+	StateManager();
 
-	void SetState(std::string state)
-	{
-		this->state = state;
-	}
+	void SetState(int state);
 
-	std::string GetState()
-	{
-		return state;
-	}
+	int GetState();
 
-	bool IsState(std::string state)
-	{
-		return (this->state == state);
-	}
+	bool IsState(int state);
+
+	void PushState(int state);
+
+	void PopState();
 private:
-	std::string state;
+	std::vector<int> states;
 };
 
 #endif
