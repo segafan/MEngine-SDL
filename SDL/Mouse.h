@@ -4,6 +4,7 @@
 #define MOUSE_H
 
 #include <SDL2/SDL.h>
+#include <map>
 
 #include "Rect.h"
 
@@ -16,119 +17,30 @@ enum Scroll
 class Mouse
 {
 public:
-	Mouse(SDL_Event *event)
-	{
-		this->event = event;
+	Mouse(SDL_Event *event);
 
-		buttons[event->button.button] = false;
-		buttonsUp[event->button.button] = false;
-		buttonsDown[event->button.button] = false;
+	bool IsHover(Rect& pos);
 
-		scroll = 0;
+	bool IsButtonPressed(Uint8 button);
+	bool IsButtonReleased(Uint8 button);
 
-		scrollUp = false;
-		scrollDown = false;
+	bool OnButtonPress(Uint8 button);
+	bool OnButtonRelease(Uint8 button);
 
-		x = 0;
-		y = 0;
-	}
+	bool IsWheelScrolled(Scroll scroll);
 
-	bool IsHover(Rect& pos)
-	{
-		return pos.Intersects(rect);
-	}
+	int GetScroll();
 
-	bool IsButtonPressed(Uint8 button)
-	{
-		return buttons[button];
-	}
-	bool IsButtonReleased(Uint8 button)
-	{
-		return !buttons[button];
-	}
+	void SetMouseVisible(bool visible);
 
-	bool OnButtonPress(Uint8 button)
-	{
-		return buttonsDown[button];
-	}
-	bool OnButtonRelease(Uint8 button)
-	{
-		return buttonsUp[button];
-	}
+	void Clear();
 
-	bool IsWheelScrolled(Scroll scroll)
-	{
-		if (scroll == SDL_MOUSESCROLL_UP)
-			return scrollUp;
-		if (scroll == SDL_MOUSESCROLL_DOWN)
-			return scrollDown;
-	}
+	void Update();
 
-	int GetScroll()
-	{
-		return scroll;
-	}
+	Rect& GetPosition();
 
-	void SetMouseVisible(bool visible)
-	{
-		if (visible)
-			SDL_ShowCursor(1);
-		else
-			SDL_ShowCursor(0);
-	}
-
-	void Clear()
-	{
-		buttonsUp.clear();
-		buttonsDown.clear();
-	}
-
-	void Update()
-	{
-		//Mouse Position
-		SDL_GetMouseState(&x, &y);
-
-		//Mouse Rect
-		rect.SetPosition(x, y, 1, 1);
-
-		//Mouse Buttons
-		if (event->type == SDL_MOUSEBUTTONDOWN)
-		{
-			buttons[event->button.button] = true;
-			buttonsDown[event->button.button] = true;
-		}
-		if (event->type == SDL_MOUSEBUTTONUP)
-		{
-			buttons[event->button.button] = false;
-			buttonsUp[event->button.button] = true;
-		}
-
-		//Scrolling
-		scrollUp = false;
-		scrollDown = false;
-
-		if (event->type == SDL_MOUSEWHEEL)
-		{
-			if (event->button.x > 0)
-			{
-				scroll++;
-				scrollUp = true;
-			}
-			if (event->button.x < 0)
-			{
-				scroll--;
-				scrollDown = true;
-			}
-		}
-	}
-
-	Rect& GetPosition()
-	{
-		return rect;
-	}
-
-	int GetX() { return x; }
-	int GetY() { return x; }
+	int GetX();
+	int GetY();
 
 private:
 	int x, y;
