@@ -54,4 +54,10 @@
 
 #endif
 
+//Check if C++11 is supported
+#if _MSC_VER >= 1600 || __cplusplus > 199711L
+#define CPP11_SUPPORT
+#elif _MSC_VER < 1600 || __cplusplus <= 199711L
+#endif
+
 #endif

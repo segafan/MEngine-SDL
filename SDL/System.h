@@ -34,10 +34,10 @@ static int Init()
 		if (SDLNet_Init() != 0)
 			throw "Error SDLNet_Init()!";
 		
-		if (!IsRandomSafe())
+		if (!Random::IsSafe())
 			std::cout << "Random Number Generation is using 32 bit time values which may cause problems after 2036!" << std::endl;
 
-		InitRandom();
+		Random::Init();
 	}
 	catch (char* error)
 	{

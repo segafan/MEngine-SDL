@@ -8,18 +8,9 @@
 #include <sstream>
 #include <cctype>
 
+#include "Config.h"
+
 #include <SDL2/SDL.h>
-
-//Check if C++11 is supported
-#if _MSC_VER >= 1600 || __cplusplus > 199711L
-#define CPP11_SUPPORT
-#elif _MSC_VER < 1600 || __cplusplus <= 199711L
-#endif
-
-//If no C++11 Support add some
-#ifndef CPP11_SUPPORT
-#define nullptr 0
-#endif
 
 //Text To Number
 #ifdef CPP11_SUPPORT

@@ -87,7 +87,7 @@ void Logger::NewLine()
 Logger* Logger::Instance()
 {
 	if (!instance)
-		instance = new Logger();
+		instance = new Logger;
 
 	return instance;
 }
