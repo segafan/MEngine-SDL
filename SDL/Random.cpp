@@ -24,13 +24,12 @@ int Random::Number(int min, int max)
 
 int Random::Number(int max)
 {
-	std::uniform_int_distribution<std::mt19937::result_type> range(0, (unsigned)max);
+	std::uniform_int_distribution<std::mt19937::result_type> range(0, max);
 	return range(generator);
 }
 
 bool Random::Bool()
 {
-	
 	return (generator() % 2) == 0;
 }
 
