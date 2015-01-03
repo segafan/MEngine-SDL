@@ -270,7 +270,7 @@ inline std::string GetScreenshotName()
 
 	std::string date = GetDate();
 
-	static int screenshotNumber = 1;
+	int screenshotNumber = 1;
 
 	while (true)
 	{

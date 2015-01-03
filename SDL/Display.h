@@ -59,8 +59,7 @@ private:
 	Rect ScreenPos;
 };
 
-//TODO: Add screenshot creation if using OpenGL for 3D rendering
-inline bool CreateScreenshot(Display* display)
+inline bool CreateScreenshot2D(Display* display)
 {
 	SDL_Surface* saveSurface = NULL;
 	SDL_Surface* infoSurface = NULL;
@@ -116,6 +115,130 @@ inline bool CreateScreenshot(Display* display)
 		infoSurface = NULL;
 	}
 	return true;
+}
+
+#define SDL_LOCKIFMUST(s) (SDL_MUSTLOCK(s) ? SDL_LockSurface(s) : 0)
+#define SDL_UNLOCKIFMUST(s) { if(SDL_MUSTLOCK(s)) SDL_UnlockSurface(s); }
+
+static int FlipSurfaceVertical(SDL_Surface *surface)
+{
+	Uint8 *t;
+	register Uint8 *a, *b;
+	Uint8 *last;
+	register Uint16 pitch;
+
+	if (SDL_LOCKIFMUST(surface) < 0)
+		return -2;
+
+	if (surface->h < 2) 
+	{
+		SDL_UNLOCKIFMUST(surface);
+		return 0;
+	}
+
+	pitch = surface->pitch;
+	t = (Uint8*)malloc(pitch);
+
+	if (t == NULL) 
+	{
+		SDL_UNLOCKIFMUST(surface);
+		return -2;
+	}
+
+	memcpy(t, surface->pixels, pitch);
+
+	a = (Uint8*)surface->pixels;
+	last = a + pitch * (surface->h - 1);
+	b = last;
+
+	while (a < b) 
+	{
+		memcpy(a, b, pitch);
+		a += pitch;
+		memcpy(b, a, pitch);
+		b -= pitch;
+	}
+
+	memmove(b, b + pitch, last - b);
+
+	memcpy(last, t, pitch);
+
+	free(t);
+	SDL_UNLOCKIFMUST(surface);
+
+	return 0;
+}
+
+inline bool CreateScreenshot3D(Display* display)
+{
+	int x = 0;
+	int y = 0;
+	int w = display->GetW();
+	int h = display->GetH();
+
+	const int arraySize = w * h * 4;
+
+	unsigned char * pixels = new unsigned char[arraySize]; // 4 bytes for RGBA
+	glReadPixels(x, y, w, h, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+	for (int i = 0; i < arraySize; i += 4)
+	{
+		unsigned char red = pixels[i + 2];
+		unsigned char blue = pixels[i];
+
+		pixels[i + 2] = blue;
+		pixels[i] = red;
+	}
+	
+	SDL_Surface * surf = SDL_CreateRGBSurfaceFrom(pixels, w, h, 8 * 4, w * 4, 0, 0, 0, 0);
+
+	if (surf == NULL)
+	{
+		LOG_ERROR("Couldn't create surface from pixel data! Error: " << SDL_GetError());
+
+		delete[] pixels;
+
+		return false;
+	}
+
+	if (FlipSurfaceVertical(surf) != 0)
+	{
+		LOG_ERROR("Couldn't flip surface vertically! Error: " << SDL_GetError());
+
+		SDL_FreeSurface(surf);
+		surf = NULL;
+		delete[] pixels;
+		
+		return false;
+	}
+
+	const std::string& screenshotName = GetScreenshotName();
+
+	if (IMG_SavePNG(surf, screenshotName.c_str()) == 0)
+	{
+		LOG("Created Screenshot: " << screenshotName << "!");
+	}
+	else
+	{
+		LOG_ERROR("Screenshot couldn't be saved! Error: " << SDL_GetError());
+
+		SDL_FreeSurface(surf);
+		surf = NULL;
+		delete[] pixels;
+
+		return false;
+	}
+
+	SDL_FreeSurface(surf);
+	surf = NULL;
+	delete[] pixels;
+
+	return true;
+}
+
+inline bool CreateScreenshot(Display* display)
+{
+	return (display->Is3D() ? CreateScreenshot3D(display) : CreateScreenshot2D(display));
 }
 
 #endif

@@ -7,8 +7,7 @@ std::string GetLogName()
 
 	const std::string& date = GetDate();
 
-	//TODO: Make this thread-safe
-	static int logNumber = 1;
+	int logNumber = 1;
 
 	while (true)
 	{
