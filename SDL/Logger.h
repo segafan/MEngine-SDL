@@ -16,7 +16,7 @@
 #pragma warning(disable: 4996)
 #endif 
 
-inline std::string GetClockTime(void)
+inline std::string GetClockTime()
 {
 	time_t now;
 	char the_date[12];
@@ -33,13 +33,13 @@ inline std::string GetClockTime(void)
 	return std::string(the_date);
 }
 
-inline std::string GetPrintTime(void)
+inline std::string GetPrintTime()
 {
 	std::string time = ("[" + GetClockTime() + "] ");
 	return time;
 }
 
-inline std::string GetDate(void)
+inline std::string GetDate()
 {
 	time_t now;
 	char the_date[12];
@@ -60,16 +60,9 @@ inline std::string GetDate(void)
 #pragma warning(pop)
 #endif
 
-inline bool FileExits(std::string filename)
+inline bool FileExits(const std::string& filename)
 {
-	std::ifstream in(filename.c_str());
-
-	//TODO: This MAY cause problems!
-	bool isOpen = (bool)(in);
-
-	in.close();
-
-	return isOpen;
+	return std::ifstream(filename.c_str()).is_open();
 }
 
 class Logger

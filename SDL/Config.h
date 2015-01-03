@@ -34,9 +34,24 @@
 #endif
 
 //Get if debug mode is used
-//TODO: Needs some work to be cross platfrom
-#if defined(_DEBUG)
-	#define DEBUG_MODE
+//TODO: Test this on Linux
+//Check if using Visual Studio (it hasn't got the _NDEBUG)
+#ifdef _MSC_VER
+
+	#if defined(_DEBUG)
+		#define DEBUG_MODE
+	#else
+		#define RELEASE_MODE
+	#endif
+
+#else
+	
+	#if !defined(NDEBUG) && !defined(_NDEBUG)
+		#define DEBUG_MODE
+	#else
+		#define RELEASE_MODE
+	#endif
+
 #endif
 
 #endif

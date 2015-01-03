@@ -2,12 +2,13 @@
 
 std::string GetLogName()
 {
-	std::string logStart = "logs/log-";
-	std::string logEnd = ".txt";
+	const std::string& logStart = "logs/log-";
+	const std::string& logEnd = ".txt";
 
-	std::string date = GetDate();
+	const std::string& date = GetDate();
 
-	int logNumber = 1;
+	//TODO: Make this thread-safe
+	static int logNumber = 1;
 
 	while (true)
 	{
