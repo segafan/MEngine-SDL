@@ -93,8 +93,18 @@ bool Display::Create3D(std::string title, int w, int h, int flags)
 		return false;
 	}
 
+	GLenum status = glewInit();
+	if (status != GLEW_OK)
+	{
+		LOG_ERROR("GLEW failed to initalize!");
+	}
+
+	LOG_PURE("Vendor: " << glGetString(GL_VENDOR));
+	LOG_PURE("Renderer: " << glGetString(GL_RENDERER));
 	LOG_PURE("OpenGL Version: " << glGetString(GL_VERSION));
 	LOG_PURE("GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+	Logger::Instance()->NewLine();
 
 	glEnable(GL_DEPTH_TEST);
 
