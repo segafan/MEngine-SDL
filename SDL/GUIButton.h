@@ -104,8 +104,8 @@ public:
 	{
 		if (global->gfx.GetFont(key, size) == NULL)
 		{
-			global->logger.LogLine("Couldn't set font in button, ", "Font key: ", key, "Font Size: ", size);
-			global->logger.LogLine("It's probably not loaded with that key and size combination!");
+			LOG_ERROR("Couldn't set font in button, ", "Font key: ", key, "Font Size: ", size);
+			LOG_ERROR("It's probably not loaded with that key and size combination!");
 			return;
 		}
 		
