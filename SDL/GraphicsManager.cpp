@@ -106,7 +106,7 @@ void GraphicsManager::AddGraphicScript(const std::string& filepath)
 						{
 							std::string imagekey = linedata[i + 2];
 
-							AddTexture(imageBasepath + imagepath, imagekey);
+							AddTexture(imageBasepath + imagepath, TextToNumber(imagekey));
 
 							i += 2;
 							continue;

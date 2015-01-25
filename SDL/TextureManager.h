@@ -17,6 +17,10 @@
 #include <map>
 #endif
 
+#ifndef MAX_TEXTURE_NUM
+#define MAX_TEXTURE_NUM 100
+#endif
+
 class TextureManager
 {
 public:
@@ -24,11 +28,11 @@ public:
 	~TextureManager();
 
 	//Add & Destroy Textures
-	void AddTexture(const std::string& filepath, std::string key);
-	void AddTexture(SDL_Texture* texture, std::string  key);
-	void RemoveTexture(std::string key);
+	void AddTexture(const std::string& filepath, unsigned int key);
+	void AddTexture(SDL_Texture* texture, unsigned int  key);
+	void RemoveTexture(unsigned int key);
 
-	SDL_Texture* GetTexture(std::string key);
+	SDL_Texture* GetTexture(unsigned int key);
 
 	void Clear();
 
@@ -36,40 +40,33 @@ public:
 	//TODO: Add more options to Draw
 
 	//Drawing using SDL_Rect
-	void DrawTexture(std::string key, SDL_Rect *pos);
-	void DrawTexture(std::string key, SDL_Rect *srcpos, SDL_Rect *pos);
+	void DrawTexture(unsigned int key, SDL_Rect *pos);
+	void DrawTexture(unsigned int key, SDL_Rect *srcpos, SDL_Rect *pos);
 
-	void DrawTextureRotated(std::string key, SDL_Rect *pos, double angle);
-	void DrawTextureRotated(std::string key, SDL_Rect *srcpos, SDL_Rect *pos, double angle);
+	void DrawTextureRotated(unsigned int key, SDL_Rect *pos, double angle);
+	void DrawTextureRotated(unsigned int key, SDL_Rect *srcpos, SDL_Rect *pos, double angle);
 
-	void DrawTextureFlip(std::string key, SDL_Rect *pos, SDL_RendererFlip flip);
-	void DrawTextureFlip(std::string key, SDL_Rect *srcpos, SDL_Rect *pos, SDL_RendererFlip flip);
+	void DrawTextureFlip(unsigned int key, SDL_Rect *pos, SDL_RendererFlip flip);
+	void DrawTextureFlip(unsigned int key, SDL_Rect *srcpos, SDL_Rect *pos, SDL_RendererFlip flip);
 
 	//Drawing using own Rect class
 
-	void DrawTexture(std::string key, Rect *pos);
-	void DrawTexture(std::string key, Rect *srcpos, Rect *pos);
+	void DrawTexture(unsigned int key, Rect *pos);
+	void DrawTexture(unsigned int key, Rect *srcpos, Rect *pos);
 
-	void DrawTextureRotated(std::string key, Rect *pos, double angle);
-	void DrawTextureRotated(std::string key, Rect *srcpos, Rect *pos, double angle);
+	void DrawTextureRotated(unsigned int key, Rect *pos, double angle);
+	void DrawTextureRotated(unsigned int key, Rect *srcpos, Rect *pos, double angle);
 
-	void DrawTextureFlip(std::string key, Rect *pos, SDL_RendererFlip flip);
-	void DrawTextureFlip(std::string key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip);
+	void DrawTextureFlip(unsigned int key, Rect *pos, SDL_RendererFlip flip);
+	void DrawTextureFlip(unsigned int key, Rect *srcpos, Rect *pos, SDL_RendererFlip flip);
 private:
 	Camera& camera;
 
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
-#ifdef CPP11_SUPPORT
-	std::unordered_map<std::string, SDL_Texture*> textures;
-
-	std::unordered_map<std::string, bool> errorShown;
-#else
-	std::map<std::string, SDL_Texture*> textures;
-
-	std::map<std::string, bool> errorShown;
-#endif
+	std::vector<SDL_Texture*> textures;
+	std::vector<bool> errorShown;
 };
 
 #endif

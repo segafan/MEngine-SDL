@@ -23,6 +23,8 @@ public:
 
 	void Destroy();
 
+	bool IsEmpty();
+
 	void Draw(Display* display, Rect* pos);
 	void Draw(Display* display, Rect* src, Rect* pos);
 

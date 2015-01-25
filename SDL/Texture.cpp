@@ -60,6 +60,11 @@ void Texture::Destroy()
 	}
 }
 
+bool Texture::IsEmpty()
+{
+	return ((m_texture == NULL) || (m_texture == nullptr));
+}
+
 void Texture::Draw(Display* display, Rect* pos)
 {
 	SDL_RenderCopy(display->GetRenderer(), m_texture, NULL, (*pos - display->GetCamera().GetView()).ToSDLRect());
