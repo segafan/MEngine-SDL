@@ -16,16 +16,14 @@ class Global
 {
 public:
 	Global(Display* display)
-		: camera()
-		, input()
+		: input()
 		, display(*display)
 		, state()
 		, audio()
-		, gfx(display, camera)
+		, gfx(display)
 	{
 	}
 
-	Camera camera;
 	Input input;
 	Display& display;
 	StateManager state;

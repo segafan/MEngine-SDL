@@ -53,6 +53,8 @@ bool Display::Create2D(std::string title, int w, int h, int flags, bool TargetTe
 	LOG_PURE("Using 2D");
 	Logger::Instance()->NewLine();
 
+	camera.SetSize(GetW(), GetH());
+
 	return true;
 }
 
@@ -249,4 +251,14 @@ Color& Display::GetRenderColor()
 bool Display::Is3D()
 {
 	return is3D;
+}
+
+void Display::SetCamera(Camera& camera)
+{
+	this->camera = camera;
+}
+
+Camera& Display::GetCamera()
+{
+	return camera;
 }

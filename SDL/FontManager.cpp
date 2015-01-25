@@ -1,7 +1,7 @@
 #include "FontManager.h"
 
 
-FontManager::FontManager(Display* display, Camera& camera) : camera(camera)
+FontManager::FontManager(Display* display) : camera(display->GetCamera())
 {
 	this->window = display->GetWindow();
 	this->renderer = display->GetRenderer();

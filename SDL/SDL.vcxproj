@@ -84,6 +84,7 @@
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TextInput.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
@@ -110,6 +111,7 @@
     <ClInclude Include="Server.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="TextInput.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Keyboard.h" />

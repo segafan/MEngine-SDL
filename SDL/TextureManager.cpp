@@ -1,6 +1,6 @@
 #include "TextureManager.h"
 
-TextureManager::TextureManager(Display* display, Camera& camera) : camera(camera)
+TextureManager::TextureManager(Display* display) : camera(display->GetCamera())
 {
 	this->window = display->GetWindow();
 	this->renderer = display->GetRenderer();

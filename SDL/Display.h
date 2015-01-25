@@ -12,6 +12,7 @@
 #include "Color.h"
 #include "Logger.h"
 #include "System.h"
+#include "Camera.h"
 
 class Display
 {
@@ -40,6 +41,9 @@ public:
 	void PushRenderColor();
 	void PopRenderColor();
 
+	void SetCamera(Camera& camera);
+	Camera& GetCamera();
+
 	Color& GetRenderColor();
 
 	bool Is3D();
@@ -49,6 +53,8 @@ private:
 	SDL_Renderer *renderer;
 
 	SDL_GLContext glContext;
+
+	Camera camera;
 
 	bool is3D;
 

@@ -42,7 +42,7 @@ enum Align
 class FontManager
 {
 public:
-	FontManager(Display* display, Camera& camera);
+	FontManager(Display* display);
 	~FontManager();
 
 	//Add & Destroy Fonts

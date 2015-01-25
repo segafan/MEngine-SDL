@@ -20,7 +20,7 @@
 class TextureManager
 {
 public:
-	TextureManager(Display* display, Camera& camera);
+	TextureManager(Display* display);
 	~TextureManager();
 
 	//Add & Destroy Textures

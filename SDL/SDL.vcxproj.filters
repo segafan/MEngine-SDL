@@ -34,6 +34,12 @@
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{36280dab-16d8-4511-ac07-efdebf9a3e15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Data Types">
+      <UniqueIdentifier>{62fdd0bf-0364-4927-8407-459755729629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data Types">
+      <UniqueIdentifier>{55e72d01-b787-4ce0-a98a-ce2a921d087b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Data Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Data Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -47,3 +47,8 @@ use i for image and a for animation and so on
 [-] Enable/Disable relative to camera
 [-] Make game engine parts disableable
 [-] Serialize Stuff like Textures and fonts and etc. with numbers and #define DIRT_TEXTURE 1 <--- Use it like this beacuse std::vectors are faster than std::map
+[-] Create Texture, Music and stuff...
+[-] Create Template ResourceManager
+[-] Make a #define 2D to use 2D and a 3D to use 3D
+[-] Use SFML for Audio (It has audio record built in)
+[-] Use SFML for Networking (It's better and easier to use)

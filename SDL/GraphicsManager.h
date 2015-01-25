@@ -9,7 +9,7 @@
 class GraphicsManager : public FontManager, public TextureManager
 {
 public:
-	GraphicsManager(Display* display, Camera& camera);
+	GraphicsManager(Display* display);
 
 	//TODO: Clean up
 	void AddGraphicScript(const std::string& filepath);

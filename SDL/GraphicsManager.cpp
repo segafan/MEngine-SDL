@@ -1,6 +1,6 @@
 #include "GraphicsManager.h"
 
-GraphicsManager::GraphicsManager(Display* display, Camera& camera) : FontManager(display, camera), TextureManager(display, camera)
+GraphicsManager::GraphicsManager(Display* display) : FontManager(display), TextureManager(display)
 {
 	imageBasepath = "";
 	animationBasepath = "";
