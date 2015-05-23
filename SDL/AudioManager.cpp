@@ -176,34 +176,26 @@ void AudioManager::Clear()
 {
 	Mix_HaltMusic();
 	Mix_HaltChannel(-1);
-#ifdef CPP11_SUPPORT
-	typedef std::unordered_map<std::string, Mix_Music*>::iterator it_type_music;
-#else
-	typedef std::map<std::string, Mix_Music*>::iterator it_type_music;
-#endif
-	for (it_type_music iterator = music.begin(); iterator != music.end(); iterator++)
+
+	for (auto iterator = music.begin(); iterator != music.end(); iterator++)
 	{
-		if (music[iterator->first] != NULL)
+		if (iterator->second != NULL)
 		{
 			std::cout << "Destroyed music: " << iterator->first << std::endl;
-			Mix_FreeMusic(music[iterator->first]);
-			music[iterator->first] = NULL;
+			Mix_FreeMusic(iterator->second);
+			iterator->second = NULL;
 		}
 	}
 
 	music.clear();
-#ifdef CPP11_SUPPORT
-	typedef std::unordered_map<std::string, Mix_Chunk*>::iterator it_type_effect;
-#else
-	typedef std::map<std::string, Mix_Chunk*>::iterator it_type_effect;
-#endif
-	for (it_type_effect iterator = soundEffect.begin(); iterator != soundEffect.end(); iterator++)
+
+	for (auto iterator = soundEffect.begin(); iterator != soundEffect.end(); iterator++)
 	{
-		if (soundEffect[iterator->first] != NULL)
+		if (iterator->second != NULL)
 		{
 			std::cout << "Destroyed soundEffect: " << iterator->first << std::endl;
-			Mix_FreeChunk(soundEffect[iterator->first]);
-			soundEffect[iterator->first] = NULL;
+			Mix_FreeChunk(iterator->second);
+			iterator->second = NULL;
 		}
 	}
 

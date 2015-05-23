@@ -81,28 +81,19 @@ TTF_Font* FontManager::GetFont(std::string key, int size)
 
 void FontManager::Clear()
 {
-#ifdef CPP11_SUPPORT
-	typedef std::unordered_map<std::string, std::unordered_map<int, TTF_Font*> >::iterator it_type;
-
-	typedef std::unordered_map<int, TTF_Font*>::iterator it_type2;
-#else
-	typedef std::map<std::string, std::map<int, TTF_Font*> >::iterator it_type;
-
-	typedef std::map<int, TTF_Font*>::iterator it_type2;
-#endif
 	//Search for Font type
-	for (it_type iterator = fonts.begin(); iterator != fonts.end(); iterator++)
+	for (auto iterator = fonts.begin(); iterator != fonts.end(); iterator++)
 	{
 		//Search for Font size
-		for (it_type2 iterator2 = iterator->second.begin(); iterator2 != iterator->second.end(); iterator2++)
+		for (auto iterator2 = iterator->second.begin(); iterator2 != iterator->second.end(); iterator2++)
 		{
 			//Search if the sont exists
-			if (fonts[iterator->first][iterator2->first] != NULL)
+			if (iterator2->second != NULL)
 			{
 				//Destroy Font
 				std::cout << "Destroyed font: " << iterator->first << " Size: " << iterator2->first << std::endl;
-				TTF_CloseFont(fonts[iterator->first][iterator2->first]);
-				fonts[iterator->first][iterator2->first] = NULL;
+				TTF_CloseFont(iterator2->second);
+				iterator2->second = NULL;
 			}
 		}
 	}
