@@ -1,6 +1,6 @@
 #include "GraphicsManager.h"
 
-GraphicsManager::GraphicsManager(Display* display) : FontManager(display), TextureManager(display)
+GraphicsManager::GraphicsManager(Display* display) : FontManager(display), TextureManager()
 {
 	imageBasepath = "";
 	animationBasepath = "";
@@ -9,6 +9,8 @@ GraphicsManager::GraphicsManager(Display* display) : FontManager(display), Textu
 
 void GraphicsManager::AddGraphicScript(const std::string& filepath)
 {
+	//TODO: REWORK
+	/*
 	std::ifstream in;
 	in.open(filepath);
 
@@ -164,4 +166,5 @@ void GraphicsManager::AddGraphicScript(const std::string& filepath)
 	}
 	else
 		LOG_ERROR("Couldn't load graphics script: " << filepath);
+		*/
 }

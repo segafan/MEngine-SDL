@@ -14,6 +14,8 @@
 #include "System.h"
 #include "Camera.h"
 
+class Texture;
+
 class Display
 {
 public:
@@ -47,6 +49,15 @@ public:
 	Color& GetRenderColor();
 
 	bool Is3D();
+
+	void Draw(Texture* texture, Rect* pos);
+	void Draw(Texture* texture, Rect* src, Rect* pos);
+
+	void DrawRotated(Texture* texture, Rect* pos, float angle);
+	void DrawRotated(Texture* texture, Rect* src, Rect* pos, float angle);
+
+	void DrawFlipped(Texture* texture, Rect* pos, SDL_RendererFlip flip);
+	void DrawFlipped(Texture* texture, Rect* src, Rect* pos, SDL_RendererFlip flip);
 
 private:
 	SDL_Window *window;

@@ -1,4 +1,5 @@
 #include "Display.h"
+#include "Texture.h"
 
 Display::Display()
 {
@@ -261,4 +262,34 @@ void Display::SetCamera(Camera& camera)
 Camera& Display::GetCamera()
 {
 	return camera;
+}
+
+void Display::Draw(Texture* texture, Rect* pos)
+{
+	SDL_RenderCopy(renderer, texture->GetTexture(), NULL, (*pos - camera.GetView()).ToSDLRect());
+}
+
+void Display::Draw(Texture* texture, Rect* src, Rect* pos)
+{
+	SDL_RenderCopy(renderer, texture->GetTexture(), src->ToSDLRect(), (*pos - camera.GetView()).ToSDLRect());
+}
+
+void Display::DrawRotated(Texture* texture, Rect* pos, float angle)
+{
+	SDL_RenderCopyEx(renderer, texture->GetTexture(), NULL, (*pos - camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
+}
+
+void Display::DrawRotated(Texture* texture, Rect* src, Rect* pos, float angle)
+{
+	SDL_RenderCopyEx(renderer, texture->GetTexture(), src->ToSDLRect(), (*pos - camera.GetView()).ToSDLRect(), angle, NULL, SDL_FLIP_NONE);
+}
+
+void Display::DrawFlipped(Texture* texture, Rect* pos, SDL_RendererFlip flip)
+{
+	SDL_RenderCopyEx(renderer, texture->GetTexture(), NULL, (*pos - camera.GetView()).ToSDLRect(), NULL, NULL, flip);
+}
+
+void Display::DrawFlipped(Texture* texture, Rect* src, Rect* pos, SDL_RendererFlip flip)
+{
+	SDL_RenderCopyEx(renderer, texture->GetTexture(), src->ToSDLRect(), (*pos - camera.GetView()).ToSDLRect(), NULL, NULL, flip);
 }
