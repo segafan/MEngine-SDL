@@ -55,4 +55,7 @@
 //Random
 #include "Random.h"
 
+//Profiler
+#include "Profiler.h"
+
 #endif

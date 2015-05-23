@@ -81,6 +81,7 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Profiler.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TextInput.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="MEngine.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Profiler.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Rect.h" />

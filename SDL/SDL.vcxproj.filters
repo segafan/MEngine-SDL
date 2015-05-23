@@ -90,6 +90,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Data Types</Filter>
     </ClCompile>
+    <ClCompile Include="Profiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderSupport.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Data Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiler.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
