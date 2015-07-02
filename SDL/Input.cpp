@@ -1,22 +1,19 @@
 #include "Input.h"
 
-bool PollEvent(Input* input)
+bool Input::PollEvent()
 {
-	//TODO: Do something so this is not static (probably move this into the Input class)
-	static bool clearSinglePressData = true;
-
 	if (clearSinglePressData)
 	{
-		input->keyboard.Clear();
-		input->mouse.Clear();
+		keyboard.Clear();
+		mouse.Clear();
 		clearSinglePressData = false;
 	}
 
-	if (SDL_PollEvent(&input->event) > 0)
+	if (SDL_PollEvent(&event) > 0)
 	{
-		input->mouse.Update();
-		input->keyboard.Update();
-		input->text.Update();
+		mouse.Update();
+		keyboard.Update();
+		text.Update();
 
 		return true;
 	}

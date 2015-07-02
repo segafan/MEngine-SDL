@@ -30,6 +30,14 @@ public:
 	{
 		return Rect(this->x - rect.x, this->y - rect.y, w, h);;
 	}
+	inline bool operator==(const Rect& rect) const
+	{
+		return x == rect.x && y == rect.y && w == rect.w && h == rect.h;
+	}
+	inline bool operator!=(const Rect& rect) const
+	{
+		return !(x == rect.x && y == rect.y && w == rect.w && h == rect.h);
+	}
 
 	SDL_Rect& operator= (const SDL_Rect c)
 	{
@@ -120,11 +128,11 @@ public:
 
 	bool Contains(Rect& rect)
 	{
-		return (rect.GetX() > x && rect.GetW() < w && rect.GetY() > y && rect.GetH() < h);
+		return (rect.GetX() >= x && rect.Right() <= (x + w) && rect.GetY() >= y && rect.Bottom() <= (y + h));
 	}
 	bool Contains(Point& point)
 	{
-		return(point.getX() > x && point.getX() < w && point.getY() > y && point.getY() < h);
+		return (point.getX() >= x && point.getX() <= (x + w) && point.getY() >= y && point.getY() <= (y + h));
 	}
 	bool Contains(int x, int y, int w, int h)
 	{

@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 		if (FPS.Tick())
 		{
 			//Input
-			while (PollEvent(&global->input))
+			while (global->input.PollEvent())
 			{
 				if (global->input.event.type == SDL_QUIT)
 					running = false;

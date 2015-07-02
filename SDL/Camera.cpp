@@ -25,6 +25,12 @@ void Camera::SetSize(int w, int h)
 	m_view.SetSize(w, h);
 }
 
+void Camera::SetCenter(Point& center)
+{
+	m_view.SetX(center.getX() - (m_view.GetW() / 2));
+	m_view.SetY(center.getY() - (m_view.GetH() / 2));
+}
+
 void Camera::SetCenter(int x, int y)
 {
 	m_view.SetX(x - (m_view.GetW() / 2));

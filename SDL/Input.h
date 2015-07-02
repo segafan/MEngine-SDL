@@ -17,14 +17,19 @@ public:
 		, keyboard(&event)
 		, text(&event, &keyboard)
 	{
+		clearSinglePressData = true;
 	}
+
+	bool PollEvent();
 
 	SDL_Event event;
 	Mouse	  mouse;
 	Keyboard  keyboard;
 	TextInput text;
+
+private:
+	bool clearSinglePressData;
 };
 
-bool PollEvent(Input* input);
 
 #endif

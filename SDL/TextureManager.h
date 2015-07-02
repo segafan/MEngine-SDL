@@ -18,10 +18,6 @@
 #include <map>
 #endif
 
-#ifndef MAX_TEXTURE_NUM
-#define MAX_TEXTURE_NUM 100
-#endif
-
 class TextureManager
 {
 public:

@@ -25,6 +25,9 @@ public:
 
 	SDL_Texture* GetTexture();
 
+	void SetAlpha(int alpha);
+	int GetAlpha();
+
 private:
 	SDL_Texture* m_texture;
 };

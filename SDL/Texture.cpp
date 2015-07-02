@@ -31,6 +31,10 @@ void Texture::Load(Display* display, const std::string& filepath)
 		{
 			LOG_ERROR("Couldn't load Texture! Filepath: " << filepath.c_str());
 		}
+		else
+		{
+			LOG("Texture loaded: " << filepath.c_str());
+		}
 	}
 }
 
@@ -53,4 +57,22 @@ SDL_Texture* Texture::GetTexture()
 		return m_texture;
 	else
 		return NULL;
+}
+
+void Texture::SetAlpha(int alpha)
+{
+	if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND) == -1)
+		LOG_ERROR("Couldn't set blend mode!");
+	if(SDL_SetTextureAlphaMod(m_texture, alpha) == -1)
+		LOG_ERROR("Couldn't set alpha mod!");
+}
+
+int Texture::GetAlpha()
+{
+	Uint8 alpha;
+
+	if(SDL_GetTextureAlphaMod(m_texture, &alpha) == -1)
+		LOG_ERROR("Couldn't get alpha mod");
+
+	return alpha;
 }

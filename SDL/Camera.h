@@ -15,6 +15,7 @@ public:
 
 	void SetSize(int w, int h);
 
+	void SetCenter(Point& center);
 	void SetCenter(int x, int y);
 
 	int& GetX();

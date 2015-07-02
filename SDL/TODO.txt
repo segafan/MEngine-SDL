@@ -9,7 +9,7 @@
 [?] make some GUI stuff
 [-] organize stuff in System.h / and everywhere
 [-] make modules
-[-] rewrite it so it has .cpp files
+[?] rewrite it so it has .cpp files
 [-] Improve Performace
 [-] test if import for Windows Symbols is needed
 [-] Add Debug mode to Drawing (Draws a rectangle around the texture)
@@ -22,7 +22,7 @@
 [-] Fix a bug with DrawText at CreateTextureFromSurface() <--- This bug only happend once and i couldn't reproduce it since it's probably OK now
 [-] Bitmap fonts
 [-] Rework Font Drawing
-[-] Create Log types (Error, Info, Message, etc.)
+[?] Create Log types (Error, Info, Message, etc.)
 [-] Remove CreateRect and things like this
 [-] Log GetRenderFlags()
 [-] Try to use const more and static less
@@ -46,9 +46,12 @@ use i for image and a for animation and so on
 [-] SwapValues()
 [-] Enable/Disable relative to camera
 [-] Make game engine parts disableable
-[-] Serialize Stuff like Textures and fonts and etc. with numbers and #define DIRT_TEXTURE 1 <--- Use it like this beacuse std::vectors are faster than std::map
-[-] Create Texture, Music and stuff...
+[?] Serialize Stuff like Textures and fonts and etc. with numbers and #define DIRT_TEXTURE 1 <--- Use it like this beacuse std::vectors are faster than std::map
+[?] Create Texture, Music and stuff...
 [-] Create Template ResourceManager
 [-] Make a #define 2D to use 2D and a 3D to use 3D
 [-] Use SFML for Audio (It has audio record built in)
 [-] Use SFML for Networking (It's better and easier to use)
+[+] Rework PollEvent(Input* input) to input->PollEvent();
+[-] Make display->Draw(Shape)
+[+] Make Texture.SetAlpha(int alpha)
