@@ -12,11 +12,7 @@
 #include "Camera.h"
 #include "Texture.h"
 
-#ifdef CPP11_SUPPORT
-#include <unordered_map>
-#else
-#include <map>
-#endif
+#include <vector>
 
 class TextureManager
 {
@@ -32,9 +28,10 @@ public:
 	Texture* GetTexture(unsigned int key);
 
 	void Clear();
+	void Reserve(int num);
 
 private:
-	std::unordered_map<unsigned int, Texture*> textures;
+	std::vector<Texture*> textures;
 };
 
 #endif

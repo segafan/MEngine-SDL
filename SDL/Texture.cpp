@@ -59,7 +59,7 @@ SDL_Texture* Texture::GetTexture()
 		return NULL;
 }
 
-void Texture::SetAlpha(int alpha)
+void Texture::SetAlphaMod(int alpha)
 {
 	if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND) == -1)
 		LOG_ERROR("Couldn't set blend mode!");
@@ -67,7 +67,12 @@ void Texture::SetAlpha(int alpha)
 		LOG_ERROR("Couldn't set alpha mod!");
 }
 
-int Texture::GetAlpha()
+void Texture::SetColorMod(Color color)
+{
+	SDL_SetTextureColorMod(m_texture, color.r, color.g, color.b);
+}
+
+int Texture::GetAlphaMod()
 {
 	Uint8 alpha;
 
@@ -75,4 +80,11 @@ int Texture::GetAlpha()
 		LOG_ERROR("Couldn't get alpha mod");
 
 	return alpha;
+}
+
+Color Texture::GetColorMod()
+{
+	SDL_Color temp;
+	SDL_GetTextureColorMod(m_texture, &temp.r, &temp.g, &temp.b);
+	return Color(temp.r, temp.g, temp.b);
 }

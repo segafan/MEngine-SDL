@@ -25,8 +25,11 @@ public:
 
 	SDL_Texture* GetTexture();
 
-	void SetAlpha(int alpha);
-	int GetAlpha();
+	void SetAlphaMod(int alpha);
+	void SetColorMod(Color color);
+
+	int GetAlphaMod();
+	Color GetColorMod();
 
 private:
 	SDL_Texture* m_texture;
