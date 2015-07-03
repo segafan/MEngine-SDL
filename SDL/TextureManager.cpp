@@ -13,7 +13,7 @@ TextureManager::~TextureManager()
 //Add & Destroy Textures
 void TextureManager::AddTexture(Display* display, const std::string& filepath, unsigned int key)
 {
-	if (key > (textures.size() - 1))
+	if (key > (textures.size() - 1) || textures.empty())
 	{
 		if (key == textures.size())
 		{
