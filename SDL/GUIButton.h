@@ -10,14 +10,12 @@
 class GUIButton
 {
 public:
-	GUIButton(Global* global)
+	GUIButton()
 	{
-		this->global = global;
-
 		//Position stuff
 		pos.SetPosition(0, 0, 100, 30);
-		relPos = &global->display.GetSize();
-		finalPos = pos + *relPos;
+		relPos.SetPosition(0, 0, 0, 0);
+		finalPos = pos + relPos;
 
 		//Enabled and visible
 		enabled = true;
@@ -40,12 +38,12 @@ public:
 		textColorOnClick.SetColor(0, 0, 0, 255);
 	}
 
-	void Update()
+	void Update(Global* global)
 	{
 		if (enabled)
 		{
 			//Calculate Pos
-			finalPos = pos + *relPos;
+			finalPos = pos + relPos;
 			textPos.SetPosition(finalPos.CenterX(), finalPos.CenterY(), 0, 0);
 
 			//Mouse
@@ -62,10 +60,17 @@ public:
 		}
 	}
 
-	void Draw()
+	void Draw(Global* global)
 	{
 		if (visible)
 		{
+			if (global->gfx.GetFont(font, fontSize) == NULL)
+			{
+				LOG_ERROR("Couldn't set font in button, " << "Font key: " << font << "Font Size: ", fontSize);
+				LOG_ERROR("It's probably not loaded with that key and size combination!");
+				return;
+			}
+
 			if (clicked)
 				global->gfx.DrawText(font, fontSize, text, &textPos, textColorOnClick, ALIGN_CENTER);
 			else if (hover)
@@ -91,10 +96,10 @@ public:
 	void SetPosition(Rect pos)
 	{
 		this->pos = pos;
-		finalPos = pos + *relPos;
+		finalPos = pos + relPos;
 		textPos.SetPosition(finalPos.CenterX(), finalPos.CenterY(), 0, 0);
 	}
-	void SetPositionRelativeTo(Rect* relPos)
+	void SetPositionRelativeTo(Rect relPos)
 	{
 		this->relPos = relPos;
 	}
@@ -102,13 +107,6 @@ public:
 	//Font Setters
 	void SetFont(std::string key, int size)
 	{
-		if (global->gfx.GetFont(key, size) == NULL)
-		{
-			LOG_ERROR("Couldn't set font in button, " << "Font key: " << key << "Font Size: ", size);
-			LOG_ERROR("It's probably not loaded with that key and size combination!");
-			return;
-		}
-		
 		font = key;
 		fontSize = size;
 	}
@@ -146,11 +144,58 @@ public:
 		this->visible = EnabledAndVisible;
 	}
 	
+	//Getters
+
+	//Position Getters
+	Rect GetPosition()
+	{
+		return pos;
+	}
+	Rect GetPositionRelativeTo()
+	{
+		return relPos;
+	}
+
+	//Font Getters
+	std::string GetFontName()
+	{
+		return font;
+	}
+	int GetFontSize()
+	{
+		return fontSize;
+	}
+
+	//Text Getters
+	std::string GetText()
+	{
+		return text;
+	}
+	Color GetTextColor()
+	{
+		return textColor;
+	}
+	Color GetTextColorOnHover()
+	{
+		return textColorOnHover;
+	}
+	Color GetTextColorOnClick()
+	{
+		return textColorOnClick;
+	}
+
+	//Enabled and visible Getters
+	bool GetEnabled()
+	{
+		return enabled;
+	}
+	bool GetVisible()
+	{
+		return visible;
+	}
+
 	//TODO: Add name to every button
 private:
-	//Global
-	Global* global;
-
 	//Enabled and visible
 	bool enabled;
 	bool visible;
@@ -161,7 +206,7 @@ private:
 
 	//Position
 	Rect pos;
-	Rect* relPos;
+	Rect relPos;
 	Rect finalPos;
 
 	//Font stuff
