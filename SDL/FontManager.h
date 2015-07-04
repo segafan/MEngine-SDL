@@ -13,27 +13,7 @@
 
 #include "Camera.h"
 
-//TOOD: This may create bugs & errors if it does redefine DrawText at the end of the file
-#ifdef DrawText
-#undef DrawText
-#endif
-
 #include <unordered_map>
-
-enum Align
-{
-	ALIGN_NONE = 0,
-
-	ALIGN_CENTER = 1,
-	
-	ALIGN_LEFT_X = 2,
-	ALIGN_RIGHT_X = 4,
-	ALIGN_CENTER_X = 8,
-
-	ALIGN_UP_Y = 16,
-	ALIGN_DOWN_Y = 32,
-	ALIGN_CENTER_Y = 64
-};
 
 class FontManager
 {
@@ -50,20 +30,6 @@ public:
 
 	void Clear();
 
-	//Draw Font
-	//TODO: Add more Draw() options
-	//TODO: Add every letter as a Texture and draw every letter of the text one by one
-	//TDOD: Add align Center | Left |Right
-
-	//Drawing with SDL_Rect
-
-	void DrawText(unsigned int key, int size, std::string text, SDL_Rect *pos, SDL_Color color, int align);
-	void DrawText(unsigned int key, int size, std::string text, SDL_Rect *pos, Color color, int align);
-
-	//Drawing with own Rect
-
-	void DrawText(unsigned int key, int size, std::string text, Rect *pos, SDL_Color color, int align);
-	void DrawText(unsigned int key, int size, std::string text, Rect *pos, Color color, int align);
 private:
 	Camera& camera;
 

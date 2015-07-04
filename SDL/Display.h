@@ -16,6 +16,26 @@
 
 class Texture;
 
+//TOOD: This may create bugs & errors if it does redefine DrawText at the end of the file
+#ifdef DrawText
+#undef DrawText
+#endif
+
+enum Align
+{
+	ALIGN_NONE = 0,
+
+	ALIGN_CENTER = 1,
+
+	ALIGN_LEFT_X = 2,
+	ALIGN_RIGHT_X = 4,
+	ALIGN_CENTER_X = 8,
+
+	ALIGN_UP_Y = 16,
+	ALIGN_DOWN_Y = 32,
+	ALIGN_CENTER_Y = 64
+};
+
 class Display
 {
 public:
@@ -58,6 +78,13 @@ public:
 
 	void DrawFlipped(Texture* texture, Rect* pos, SDL_RendererFlip flip);
 	void DrawFlipped(Texture* texture, Rect* src, Rect* pos, SDL_RendererFlip flip);
+
+	//Draw Font
+	//TODO: Add more Draw() options
+	//TODO: Add every letter as a Texture and draw every letter of the text one by one
+	//TDOD: Add align Center | Left |Right
+
+	void DrawText(TTF_Font* font, std::string text, Rect *pos, Color color, int align);
 
 private:
 	SDL_Window *window;

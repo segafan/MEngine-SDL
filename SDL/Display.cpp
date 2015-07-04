@@ -293,3 +293,76 @@ void Display::DrawFlipped(Texture* texture, Rect* src, Rect* pos, SDL_RendererFl
 {
 	SDL_RenderCopyEx(renderer, texture->GetTexture(), src->ToSDLRect(), (*pos - camera.GetView()).ToSDLRect(), NULL, NULL, flip);
 }
+
+void Display::DrawText(TTF_Font* font, std::string text, Rect *pos, Color color, int align)
+{
+	//TODO: Create dynamic font rendering using glyphes!/Make static text rendering
+	if (text == "")
+	{
+		LOG_ERROR("Can't render text! Given text is empty! Text tried to render: " << text);
+		return;
+	}
+
+	if (font == NULL)
+	{
+		LOG_ERROR("Can't render text! Given font is empty! Text tried to render: " << text);
+		return;
+	}
+
+	//Create Text Surface
+	SDL_Surface* surface = NULL;
+	surface = TTF_RenderText_Blended(font, text.c_str(), color.ToSDLColor());
+
+	if (surface == NULL)
+	{
+		LOG_ERROR("Couldn't create surface from Font! Text tried to render: " << text << " " << TTF_GetError());
+		return;
+	}
+
+	//Create Texture from Surface
+	SDL_Texture* texture = NULL;
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	if (texture == NULL)
+	{
+		LOG_ERROR("Couldn't create texture from surface(made from Font)! Text tried to render: " << text << " " << SDL_GetError());
+		return;
+	}
+
+	//Free Surface
+	SDL_FreeSurface(surface);
+
+	//Query Texture for w and h
+	if (SDL_QueryTexture(texture, NULL, NULL, &pos->w, &pos->h) == -1)
+	{
+		LOG_ERROR("Couldn't query texture made from surface(made from Font)! Text tried to render: " << text << " " << SDL_GetError());
+		return;
+	}
+
+	//Align
+
+	SDL_Rect tempPos = *(Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect();
+
+	//Recalculate coordinates
+	if (ContainsFlag(align, ALIGN_CENTER))
+	{
+		tempPos.x = tempPos.x - (tempPos.w / 2);
+		tempPos.y = tempPos.y - (tempPos.h / 2);
+	}
+
+	if (ContainsFlag(align, ALIGN_CENTER_X))
+		tempPos.x = tempPos.x - (tempPos.w / 2);
+	if (ContainsFlag(align, ALIGN_CENTER_Y))
+		tempPos.y = tempPos.y - (tempPos.h / 2);
+
+	if (ContainsFlag(align, ALIGN_RIGHT_X))
+		tempPos.x = tempPos.x - tempPos.w;
+
+	if (ContainsFlag(align, ALIGN_DOWN_Y))
+		tempPos.y = tempPos.y - tempPos.h;
+
+	SDL_RenderCopy(renderer, texture, NULL, &tempPos);
+
+	//Destroy Texture
+	SDL_DestroyTexture(texture);
+}
