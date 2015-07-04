@@ -31,7 +31,7 @@ void TextureManager::AddTexture(Display* display, const std::string& filepath, u
 	if (textures[key] != NULL)
 	{
 		LOG_DEBUG("There is already a texture with this key! Key: " << key);
-		//return;
+		return;
 	}
 
 	//Loading Texture
@@ -47,9 +47,9 @@ void TextureManager::RemoveTexture(unsigned int key)
 
 Texture* TextureManager::GetTexture(unsigned int key)
 {
-	if (key > textures.size())
+	if (key > textures.size() || textures.empty())
 	{
-		LOG_ERROR("You can't get the texture because it doesn't exist! You are looking ofr a texture in unallocated memory! Key: " << key);
+		LOG_ERROR("You can't get the texture because it doesn't exist! You are looking for a texture in unallocated memory! Key: " << key);
 		return NULL;
 	}
 

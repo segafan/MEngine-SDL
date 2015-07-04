@@ -42,11 +42,11 @@ public:
 	~FontManager();
 
 	//Add & Destroy Fonts
-	void AddFont(std::string filepath, std::string key, int size);
-	void AddFont(TTF_Font* font, std::string key, int size);
-	void RemoveFont(std::string key, int size);
+	void AddFont(std::string filepath, unsigned int key, int size);
+	void AddFont(TTF_Font* font, unsigned int key, int size);
+	void RemoveFont(unsigned int key, int size);
 
-	TTF_Font* GetFont(std::string key, int size);
+	TTF_Font* GetFont(unsigned int key, int size);
 
 	void Clear();
 
@@ -57,19 +57,17 @@ public:
 
 	//Drawing with SDL_Rect
 
-	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, SDL_Color color, int align);
-	void DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color, int align);
+	void DrawText(unsigned int key, int size, std::string text, SDL_Rect *pos, SDL_Color color, int align);
+	void DrawText(unsigned int key, int size, std::string text, SDL_Rect *pos, Color color, int align);
 
 	//Drawing with own Rect
 
-	void DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color, int align);
-	void DrawText(std::string key, int size, std::string text, Rect *pos, Color color, int align);
+	void DrawText(unsigned int key, int size, std::string text, Rect *pos, SDL_Color color, int align);
+	void DrawText(unsigned int key, int size, std::string text, Rect *pos, Color color, int align);
 private:
 	Camera& camera;
 
-	std::unordered_map<std::string, std::unordered_map<int, TTF_Font*> > fonts;
-
-	std::unordered_map<std::string, std::unordered_map<int, bool> > errorShown;
+	std::unordered_map<unsigned int, std::unordered_map<int, TTF_Font*> > fonts;
 
 	SDL_Window *window;
 	SDL_Renderer *renderer;

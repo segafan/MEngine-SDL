@@ -5,7 +5,7 @@
 
 #include "Timer.h"
 
-//TODO: Add better Time System & Create a Time.h
+//TODO: Add better Timer System
 
 inline void FPSCounter();
 

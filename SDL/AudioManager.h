@@ -10,7 +10,6 @@
 
 #include <unordered_map>
 
-//TODO: Add RemoveMusic and SoundEffect
 class AudioManager
 {
 public:

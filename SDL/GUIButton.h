@@ -194,7 +194,6 @@ public:
 		return visible;
 	}
 
-	//TODO: Add name to every button
 private:
 	//Enabled and visible
 	bool enabled;

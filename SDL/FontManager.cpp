@@ -11,7 +11,7 @@ FontManager::~FontManager()
 	Clear();
 }
 
-void FontManager::AddFont(std::string filepath, std::string key, int size)
+void FontManager::AddFont(std::string filepath, unsigned int key, int size)
 {
 	if (fonts[key][size] != NULL)
 	{
@@ -27,11 +27,11 @@ void FontManager::AddFont(std::string filepath, std::string key, int size)
 		LOG_ERROR("Font couldn't be loaded! Key: " << key << " Size: " << size << " Error: " << SDL_GetError());
 		return;
 	}
-
+	LOG("Font loaded " << key << " Size: " << size);
 	fonts[key][size] = font;
 }
 
-void FontManager::AddFont(TTF_Font* font, std::string key, int size)
+void FontManager::AddFont(TTF_Font* font, unsigned int key, int size)
 {
 	if (fonts[key][size] != NULL)
 	{
@@ -48,7 +48,7 @@ void FontManager::AddFont(TTF_Font* font, std::string key, int size)
 	fonts[key][size] = font;
 }
 
-void FontManager::RemoveFont(std::string key, int size)
+void FontManager::RemoveFont(unsigned int key, int size)
 {
 	if (fonts[key][size] == NULL)
 	{
@@ -60,17 +60,24 @@ void FontManager::RemoveFont(std::string key, int size)
 	fonts[key][size] = NULL;
 }
 
-TTF_Font* FontManager::GetFont(std::string key, int size)
+TTF_Font* FontManager::GetFont(unsigned int key, int size)
 {
+	if (key > fonts.size() || fonts.empty())
+	{
+		LOG_ERROR("You can't get the font because it doesn't exist! You are looking for a texture in unallocated memory! Key: " << key);
+		return NULL;
+	}
+	if (fonts[key].find(size) == fonts[key].end() || fonts[key].empty())
+	{
+		LOG_ERROR("You can't get the font because it doesn't exist in this size! You are looking for a texture in unallocated memory! Key: " << key << " Size: " << size);
+		return NULL;
+	}
+
 	TTF_Font* font = fonts[key][size];
 
 	if (font == NULL)
 	{
-		if (errorShown[key][size] == 0 || errorShown[key][size] == false)
-		{
-			LOG_ERROR("You can't get this font because it doesn't exist! Key: " << key << " Size: " << size);
-			errorShown[key][size] = true;
-		}
+		LOG_ERROR("You can't get this font because it doesn't exist! Key: " << key << " Size: " << size);
 
 		return NULL;
 	}
@@ -98,7 +105,7 @@ void FontManager::Clear()
 	}
 }
 
-void FontManager::DrawText(std::string key, int size, std::string text, SDL_Rect *pos, SDL_Color color, int align)
+void FontManager::DrawText(unsigned int key, int size, std::string text, SDL_Rect *pos, SDL_Color color, int align)
 {
 	if (text == "")
 		return;
@@ -108,7 +115,7 @@ void FontManager::DrawText(std::string key, int size, std::string text, SDL_Rect
 
 	//Create Text Surface
 	SDL_Surface* surface = NULL;
-	surface = TTF_RenderText_Solid(fonts[key][size], text.c_str(), color);
+	surface = TTF_RenderText_Blended(fonts[key][size], text.c_str(), color);
 
 	if (surface == NULL)
 	{
@@ -164,17 +171,17 @@ void FontManager::DrawText(std::string key, int size, std::string text, SDL_Rect
 	SDL_DestroyTexture(texture);
 }
 
-void FontManager::DrawText(std::string key, int size, std::string text, SDL_Rect *pos, Color color, int align)
+void FontManager::DrawText(unsigned int key, int size, std::string text, SDL_Rect *pos, Color color, int align)
 {
 	DrawText(key, size, text, pos, color.ToSDLColor(), align);
 }
 
-void FontManager::DrawText(std::string key, int size, std::string text, Rect *pos, SDL_Color color, int align)
+void FontManager::DrawText(unsigned int key, int size, std::string text, Rect *pos, SDL_Color color, int align)
 {
 	DrawText(key, size, text, pos->ToSDLRect(), color, align);
 }
 
-void FontManager::DrawText(std::string key, int size, std::string text, Rect *pos, Color color, int align)
+void FontManager::DrawText(unsigned int key, int size, std::string text, Rect *pos, Color color, int align)
 {
 	DrawText(key, size, text, pos->ToSDLRect(), color.ToSDLColor(), align);
 }
