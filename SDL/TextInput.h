@@ -16,15 +16,11 @@ class TextInput
 public:
 	TextInput(SDL_Event* event, Keyboard* keyboard);
 
+	void Clear();
 	void Update();
 
-	bool AddTextInput(std::string key);
-
-	void SetTextInputActive(std::string key, bool isActive);
-
-	std::string& GetText(std::string key);
-
-	void SetText(std::string key, std::string textToSet);
+	std::string& GetText();
+	bool IsBackSpace();
 
 private:
 	//Events
@@ -32,8 +28,8 @@ private:
 	Keyboard* keyboard;
 
 	//Text Input Stuff
-	std::map<std::string, std::string> text;
-	std::map<std::string, bool> active;
+	std::string text;
+	bool backspace;
 };
 
 #endif

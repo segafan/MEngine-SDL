@@ -6,6 +6,7 @@ bool Input::PollEvent()
 	{
 		keyboard.Clear();
 		mouse.Clear();
+		text.Clear();
 		clearSinglePressData = false;
 	}
 
