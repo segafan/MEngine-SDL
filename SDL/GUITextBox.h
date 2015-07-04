@@ -10,23 +10,12 @@
 class GUITextBox
 {
 public:
-	GUITextBox(Global *global, std::string nameOfTextBox)
+	GUITextBox()
 	{
-		this->global = global;
-
-		this->name = nameOfTextBox;
-
-		//Calculate Name of Text Input
-		if (!global->input.text.AddTextInput(name))
-		{
-			LOG_DEBUG("There is already a button with this name! Name: " << name);
-			return;
-		}
-
 		//Position stuff
 		pos.SetPosition(0, 0, 200, 30);
-		relPos = &global->display.GetSize();
-		finalPos = pos + *relPos;
+		relPos = Rect(0, 0, 0, 0);
+		finalPos = pos + relPos;
 
 		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY(), 0, 0);
 
@@ -42,10 +31,10 @@ public:
 		textLength = 20;
 	}
 
-	void Update()
+	void Update(Global* global)
 	{
 		//Calculate Position
-		finalPos = pos + *relPos;
+		finalPos = pos + relPos;
 		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY(), 0, 0);
 
 		//Mouse Stuff
@@ -60,28 +49,31 @@ public:
 
 		if (focus)
 		{
-			//TODO: Text Input here
-			global->input.text.SetTextInputActive(name, true);
-			text = global->input.text.GetText(name);
+			text.append(global->input.text.GetText());
+
+			if (global->input.text.IsBackSpace() && !text.empty())
+				text.pop_back();
 		}
-		else
-			global->input.text.SetTextInputActive(name, false);
 
 		//Text Length Calculations
 		if (text.size() > textLength)
-		{
 			text = text.substr(0, textLength);
-			global->input.text.SetText(name, text);
-		}
 	}
 
-	void Draw()
+	void Draw(Global* global)
 	{
 		global->display.SetRenderColor(255, 255, 255);
 		SDL_RenderFillRect(global->display.GetRenderer(), finalPos.ToSDLRect());
 		global->display.SetRenderColor(0, 0, 0);
 		SDL_RenderDrawRect(global->display.GetRenderer(), finalPos.ToSDLRect());
 		global->display.SetRenderColor(255, 255, 0);
+
+		if (global->gfx.GetFont(font, fontSize) == NULL)
+		{
+			LOG_ERROR("Couldn't use font in textbox, " << "Font key: " << font << "Font Size: " << fontSize);
+			LOG_ERROR("It's probably not loaded with that key and size combination!");
+			return;
+		}
 
 		global->gfx.DrawText(font, fontSize, text, &textPos, MapRGB(0, 0, 0), ALIGN_CENTER_Y);
 	}
@@ -103,7 +95,7 @@ public:
 	{
 		this->pos = pos;
 	}
-	void SetPositionRelativeTo(Rect* relPos)
+	void SetPositionRelativeTo(Rect relPos)
 	{
 		this->relPos = relPos;
 	}
@@ -111,13 +103,6 @@ public:
 	//Font Stuff
 	void SetFont(std::string key, int size)
 	{
-		if (global->gfx.GetFont(key, size) == NULL)
-		{
-			LOG_ERROR("Couldn't set font in textbox, " << "Font key: " << key << "Font Size: " << size);
-			LOG_ERROR("It's probably not loaded with that key and size combination!");
-			return;
-		}
-
 		font = key;
 		fontSize = size;
 	}
@@ -136,15 +121,10 @@ public:
 	}
 
 private:
-	//Global
-	Global *global;
-
-	//Name
-	std::string name;
 
 	//Position Stuff
 	Rect pos;
-	Rect* relPos;
+	Rect relPos;
 	Rect finalPos;
 
 	//Event Stuff
