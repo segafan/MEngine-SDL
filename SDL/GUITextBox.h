@@ -23,7 +23,7 @@ public:
 		focus = false;
 
 		//Font Stuff
-		font = "FONT";
+		font = 0;
 		fontSize = 12;
 
 		//Text Stuff
@@ -75,7 +75,7 @@ public:
 			return;
 		}
 
-		global->gfx.DrawText(font, fontSize, text, &textPos, MapRGB(0, 0, 0), ALIGN_CENTER_Y);
+		global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, MapRGB(0, 0, 0), ALIGN_CENTER_Y);
 	}
 
 	bool IsFocus()
@@ -101,7 +101,7 @@ public:
 	}
 
 	//Font Stuff
-	void SetFont(std::string key, int size)
+	void SetFont(unsigned int key, int size)
 	{
 		font = key;
 		fontSize = size;
@@ -120,6 +120,16 @@ public:
 		return text;
 	}
 
+	unsigned int GetFont()
+	{
+		return font;
+	}
+
+	unsigned int GetFontSize()
+	{
+		return fontSize;
+	}
+
 private:
 
 	//Position Stuff
@@ -131,7 +141,7 @@ private:
 	bool focus;
 
 	//Font stuff
-	std::string font;
+	unsigned int font;
 	int fontSize;
 
 	//Text Stuff

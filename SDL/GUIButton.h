@@ -26,7 +26,7 @@ public:
 		clicked = false;
 
 		//Font stuff
-		font = "";
+		font = 0;
 		fontSize = 12;
 
 		//Text stuff
@@ -72,14 +72,14 @@ public:
 			}
 
 			if (clicked)
-				global->gfx.DrawText(font, fontSize, text, &textPos, textColorOnClick, ALIGN_CENTER);
+				global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, textColorOnClick, ALIGN_CENTER);
 			else if (hover)
-				global->gfx.DrawText(font, fontSize, text, &textPos, textColorOnHover, ALIGN_CENTER);
+				global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, textColorOnHover, ALIGN_CENTER);
 			else
-				global->gfx.DrawText(font, fontSize, text, &textPos, textColor, ALIGN_CENTER);
+				global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, textColor, ALIGN_CENTER);
 		}
 	}
-	
+
 	//Bool Functions
 	bool OnClick()
 	{
@@ -105,7 +105,7 @@ public:
 	}
 
 	//Font Setters
-	void SetFont(std::string key, int size)
+	void SetFont(unsigned int key, int size)
 	{
 		font = key;
 		fontSize = size;
@@ -143,7 +143,7 @@ public:
 		this->enabled = EnabledAndVisible;
 		this->visible = EnabledAndVisible;
 	}
-	
+
 	//Getters
 
 	//Position Getters
@@ -157,7 +157,7 @@ public:
 	}
 
 	//Font Getters
-	std::string GetFontName()
+	unsigned int GetFontName()
 	{
 		return font;
 	}
@@ -209,7 +209,7 @@ private:
 	Rect finalPos;
 
 	//Font stuff
-	std::string font;
+	unsigned int font;
 	int fontSize;
 
 	//Text stuff
