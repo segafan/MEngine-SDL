@@ -2,6 +2,8 @@
 
 #include "MEngine.h"
 
+#include <SFML/Network.hpp>
+
 int main(int argc, char *argv[])
 {
 	if (Init() != 0)
@@ -46,7 +48,7 @@ int main(int argc, char *argv[])
 
 			//Update
 
-
+			
 
 			//Draw
 

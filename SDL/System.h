@@ -5,7 +5,6 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_net.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_syswm.h>
@@ -31,8 +30,6 @@ static int Init()
 			throw "Error Mix_OpenAudio!";
 		if (TTF_Init() != 0)
 			throw "Error TTF_Init()!";
-		if (SDLNet_Init() != 0)
-			throw "Error SDLNet_Init()!";
 		
 		if (!Random::IsSafe())
 			std::cout << "Random Number Generation is using 32 bit time values which may cause problems after 2036!" << std::endl;
@@ -57,7 +54,6 @@ static void Quit()
 	Mix_CloseAudio();
 	Mix_Quit();
 	TTF_Quit();
-	SDLNet_Quit();
 }
 
 static void LogSDLInfo()

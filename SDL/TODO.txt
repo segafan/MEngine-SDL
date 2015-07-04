@@ -32,7 +32,7 @@
 i ./resources/textures/image.png IMAGE
 use i for image and a for animation and so on
 [-] Create own image format
-[-] Better Text Input System
+[+] Better Text Input System
 [-] Networking
 [-] Add Background Image to GUIButton
 [-] Rect Swap() SwapX() SwapY()
@@ -56,3 +56,4 @@ use i for image and a for animation and so on
 [-] Make display->Draw(Shape)
 [+] Make Texture.SetAlpha(int alpha)
 [-] Create Texture Sections which can load destroy more textures at once ex. Menu Section loads button textures, background than destroys it later
+[-] Rework FontManager when Engine  is mature enough
