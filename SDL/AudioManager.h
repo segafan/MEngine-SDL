@@ -8,11 +8,7 @@
 
 #include "Logger.h"
 
-#ifdef CPP11_SUPPORT
 #include <unordered_map>
-#else
-#include <map>
-#endif
 
 //TODO: Add RemoveMusic and SoundEffect
 class AudioManager
@@ -54,14 +50,8 @@ public:
 
 	void Clear();
 private:
-
-#ifdef CPP11_SUPPORT
 	std::unordered_map<std::string, Mix_Music*> music;
 	std::unordered_map<std::string, Mix_Chunk*> soundEffect;
-#else
-	std::map<std::string, Mix_Music*> music;
-	std::map<std::string, Mix_Chunk*> soundEffect;
-#endif
 };
 
 #endif

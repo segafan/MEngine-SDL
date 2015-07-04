@@ -1,6 +1,5 @@
 #include "FontManager.h"
 
-
 FontManager::FontManager(Display* display) : camera(display->GetCamera())
 {
 	this->window = display->GetWindow();
@@ -87,7 +86,7 @@ void FontManager::Clear()
 		//Search for Font size
 		for (auto iterator2 = iterator->second.begin(); iterator2 != iterator->second.end(); iterator2++)
 		{
-			//Search if the sont exists
+			//Search if the font exists
 			if (iterator2->second != NULL)
 			{
 				//Destroy Font

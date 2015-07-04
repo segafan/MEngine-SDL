@@ -18,11 +18,7 @@
 #undef DrawText
 #endif
 
-#ifdef CPP11_SUPPORT
 #include <unordered_map>
-#else
-#include <map>
-#endif
 
 enum Align
 {
@@ -71,15 +67,9 @@ public:
 private:
 	Camera& camera;
 
-#ifdef CPP11_SUPPORT
 	std::unordered_map<std::string, std::unordered_map<int, TTF_Font*> > fonts;
 
 	std::unordered_map<std::string, std::unordered_map<int, bool> > errorShown;
-#else
-	std::map<std::string, std::map<int, TTF_Font*> > fonts;
-
-	std::map<std::string, std::map<int, bool> > errorShown;
-#endif
 
 	SDL_Window *window;
 	SDL_Renderer *renderer;

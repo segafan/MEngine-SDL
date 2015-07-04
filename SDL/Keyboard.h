@@ -3,9 +3,9 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include <map>
-
 #include <SDL2/SDL.h>
+
+#include <unordered_map>
 
 class Keyboard
 {
@@ -23,8 +23,8 @@ public:
 	void Update();
 private:
 	SDL_Event *event;
-	std::map<int, bool> keys;
-	std::map<int, bool> keysPressed;
+	std::unordered_map<int, bool> keys;
+	std::unordered_map<int, bool> keysPressed;
 };
 
 #endif

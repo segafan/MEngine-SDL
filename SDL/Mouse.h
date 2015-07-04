@@ -4,7 +4,7 @@
 #define MOUSE_H
 
 #include <SDL2/SDL.h>
-#include <map>
+#include <unordered_map>
 
 #include "Rect.h"
 
@@ -54,9 +54,9 @@ private:
 
 	int scroll;
 
-	std::map<int, bool> buttons;
-	std::map<int, bool> buttonsUp;
-	std::map<int, bool> buttonsDown;
+	std::unordered_map<int, bool> buttons;
+	std::unordered_map<int, bool> buttonsUp;
+	std::unordered_map<int, bool> buttonsDown;
 };
 
 #endif

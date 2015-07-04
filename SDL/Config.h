@@ -57,7 +57,8 @@
 //Check if C++11 is supported
 #if _MSC_VER >= 1600 || __cplusplus > 199711L
 #define CPP11_SUPPORT
-#elif _MSC_VER < 1600 || __cplusplus <= 199711L
+#else
+#error The game engine needs C++11 to function properly
 #endif
 
 #endif

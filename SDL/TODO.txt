@@ -55,3 +55,4 @@ use i for image and a for animation and so on
 [+] Rework PollEvent(Input* input) to input->PollEvent();
 [-] Make display->Draw(Shape)
 [+] Make Texture.SetAlpha(int alpha)
+[-] Create Texture Sections which can load destroy more textures at once ex. Menu Section loads button textures, background than destroys it later
