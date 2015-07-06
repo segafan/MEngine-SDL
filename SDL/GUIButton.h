@@ -66,7 +66,7 @@ public:
 		{
 			if (global->gfx.GetFont(font, fontSize) == NULL)
 			{
-				LOG_ERROR("Couldn't use font in button, " << "Font key: " << font << "Font Size: ", fontSize);
+				LOG_ERROR("Couldn't use font in button, " << "Font key: " << font << "Font Size: " << fontSize);
 				LOG_ERROR("It's probably not loaded with that key and size combination!");
 				return;
 			}

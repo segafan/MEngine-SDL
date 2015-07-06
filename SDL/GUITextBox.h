@@ -75,7 +75,8 @@ public:
 			return;
 		}
 
-		global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, MapRGB(0, 0, 0), ALIGN_CENTER_Y);
+		if (text != "")
+			global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, MapRGB(0, 0, 0), ALIGN_CENTER_Y);
 	}
 
 	bool IsFocus()

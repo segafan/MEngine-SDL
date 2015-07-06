@@ -51,7 +51,7 @@ use i for image and a for animation and so on
 [-] Create Template ResourceManager
 [-] Make a #define 2D to use 2D and a 3D to use 3D
 [-] Use SFML for Audio (It has audio record built in)
-[-] Use SFML for Networking (It's better and easier to use)
+[?] Use SFML for Networking (It's better and easier to use)
 [+] Rework PollEvent(Input* input) to input->PollEvent();
 [-] Make display->Draw(Shape)
 [+] Make Texture.SetAlpha(int alpha)

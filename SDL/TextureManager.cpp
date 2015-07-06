@@ -23,7 +23,7 @@ void TextureManager::AddTexture(Display* display, const std::string& filepath, u
 		else
 		{
 			LOG_ERROR("No more allocated memory for textures! Allocating " << key - (textures.size() - 1) << " more...");
-			for (int i = textures.size(); i <= key; i++)
+			for (unsigned int i = textures.size(); i <= key; i++)
 				textures.push_back(NULL);
 		}
 	}
@@ -71,7 +71,7 @@ Texture* TextureManager::GetTexture(unsigned int key)
 
 void TextureManager::Clear()
 {
-	for (int i = 0; i < textures.size(); i++)
+	for (unsigned int i = 0; i < textures.size(); i++)
 	{
 		if (textures[i] != NULL)
 		{
