@@ -62,11 +62,14 @@ public:
 
 	void Draw(Global* global)
 	{
+		global->display.PushRenderColor();
+
 		global->display.SetRenderColor(255, 255, 255);
 		SDL_RenderFillRect(global->display.GetRenderer(), finalPos.ToSDLRect());
 		global->display.SetRenderColor(0, 0, 0);
 		SDL_RenderDrawRect(global->display.GetRenderer(), finalPos.ToSDLRect());
-		global->display.SetRenderColor(255, 255, 0);
+
+		global->display.PopRenderColor();
 
 		if (global->gfx.GetFont(font, fontSize) == NULL)
 		{

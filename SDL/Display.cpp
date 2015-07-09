@@ -366,3 +366,8 @@ void Display::DrawText(TTF_Font* font, std::string text, Rect *pos, Color color,
 	//Destroy Texture
 	SDL_DestroyTexture(texture);
 }
+
+int Display::GetPixelFormat()
+{
+	return SDL_GetWindowPixelFormat(window);
+}

@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <cctype>
+#include <iostream>
 
 #include "Config.h"
 
@@ -188,5 +189,56 @@ inline SDL_Rect SetValues(int x, int y, int w, int h)
 
 	return rect;
 }
+
+#ifdef OS_WINDOWS
+#include <Windows.h>
+inline std::vector<std::string> ListFilesInFolder(std::string folder)
+{
+	std::vector<std::string> names;
+	std::string search_path = folder;
+	search_path.append("*.*");
+	WIN32_FIND_DATA fd;
+	HANDLE hFind = ::FindFirstFile(search_path.c_str(), &fd);
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				names.push_back(fd.cFileName);
+			}
+		} while (::FindNextFile(hFind, &fd));
+		::FindClose(hFind);
+	}
+	else
+		std::cout << "Couldn't open the directory" << std::endl;
+
+	return names;
+}
+#else
+#include <dirent.h>
+#include <sys/types.h>
+inline std::vector<std::string> ListFilesInFolder(std::string folder)
+{
+	std::vector<std::string> names;
+
+	DIR *d;
+	struct dirent *dir;
+	d = opendir(folder.c_str());
+	if (d)
+	{
+		while ((dir = readdir(d)) != NULL)
+		{
+			names.push_back(dir->d_name);
+		}
+
+		closedir(d);
+	}
+	else
+		std::cout << "Couldn't open the directory" << std::endl;
+
+	return names;
+}
+#endif
 
 #endif

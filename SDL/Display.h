@@ -66,6 +66,7 @@ public:
 	void SetCamera(Camera& camera);
 	Camera& GetCamera();
 
+	int GetPixelFormat();
 	Color& GetRenderColor();
 
 	bool Is3D();
