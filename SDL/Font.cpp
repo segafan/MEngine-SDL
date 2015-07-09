@@ -58,7 +58,7 @@ bool Font::IsEmpty()
 
 void Font::ConvertToBitmapFont(Display* display)
 {
-	bitmapFont = SDL_CreateTexture(display->GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, size * 32, size * 32);
+	bitmapFont = SDL_CreateTexture(display->GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, size * 16, size * 16);
 
 	if (bitmapFont == nullptr)
 	{
@@ -98,7 +98,7 @@ void Font::ConvertToBitmapFont(Display* display)
 		if (surface == nullptr)
 		{
 			//Don't show error on the NULL character
-			if (i == 0)
+			if (i != 0)
 			{
 				LOG_ERROR("Couldn't create glyph surface! Using letter " << (char)i);
 			}
@@ -128,13 +128,13 @@ void Font::ConvertToBitmapFont(Display* display)
 
 		x += pos.GetW();
 
-		if (x > (size * 32) - (size * 1.4))
+		if (x > (size * 16) - (size * 1.4))
 		{
 			x = 0;
 			y++;
 		}
 
-		if (y * pos.h > (size * 32) - (size * 1.4))
+		if (y * pos.h > (size * 16) - (size * 1.4))
 		{
 			LOG_ERROR("Can't render anymore letters to the texture it's full! Font size: " << size);
 			SDL_DestroyTexture(texture);
