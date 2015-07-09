@@ -1,5 +1,6 @@
 #include "Display.h"
 #include "Texture.h"
+#include "Font.h"
 
 Display::Display()
 {
@@ -365,6 +366,36 @@ void Display::DrawText(TTF_Font* font, std::string text, Rect *pos, Color color,
 
 	//Destroy Texture
 	SDL_DestroyTexture(texture);
+}
+
+void Display::DrawText(Font* font, std::string text, Rect *pos, Color color)
+{
+	std::vector<Rect>& glyphPositions = font->GetGlyphPositions();
+	SDL_Texture* bitmapFont = font->GetBitmapFont();
+
+	SDL_SetTextureColorMod(bitmapFont, color.r, color.g, color.b);
+
+	int x = 0;
+	int y = 0;
+	int h = glyphPositions[97].GetH();
+	for (int i = 0; i < text.length(); i++)
+	{
+		if ((int)(text[i]) == 10)
+		{
+			y++;
+			x = 0;
+			continue;
+		}
+
+		Rect temp = glyphPositions[text[i]];
+		temp.SetX(x);
+		temp.SetY(y * h);
+		x += temp.GetW();
+		temp.TranslateX(pos->GetX());
+		temp.TranslateY(pos->GetY());
+		
+		SDL_RenderCopy(renderer, bitmapFont, glyphPositions[text[i]].ToSDLRect(), (temp - camera.GetView()).ToSDLRect());
+	}
 }
 
 int Display::GetPixelFormat()

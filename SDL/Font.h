@@ -18,27 +18,8 @@ public:
 
 	bool IsEmpty();
 
-	void Draw(Display* display, std::string text)
-	{
-		int x = 0;
-		int y = 0;
-		int h = glyphPositions[97].GetH();
-		for (int i = 0; i < text.length(); i++)
-		{
-			if ((int)(text[i]) == 10)
-			{
-				y++;
-				x = 0;
-				continue;
-			}
-
-			Rect pos = glyphPositions[text[i]];
-			pos.SetX(x);
-			pos.SetY(y * h);
-			x += pos.GetW();
-			SDL_RenderCopy(display->GetRenderer(), bitmapFont, glyphPositions[text[i]].ToSDLRect(), pos.ToSDLRect());
-		}
-	}
+	std::vector<Rect>& GetGlyphPositions();
+	SDL_Texture* GetBitmapFont();
 
 private:
 	void ConvertToBitmapFont(Display* display);

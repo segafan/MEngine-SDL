@@ -75,7 +75,7 @@ void Font::ConvertToBitmapFont(Display* display)
 	display->PushRenderColor();
 	display->SetRenderColor(255, 255, 255, 0);
 
-	if(SDL_RenderClear(display->GetRenderer()) == -1);
+	if(SDL_RenderClear(display->GetRenderer()) == -1)
 		LOG_ERROR("Couldn't clear texture when creating bitmap font!");
 
 	display->PopRenderColor();
@@ -155,4 +155,14 @@ void Font::ConvertToBitmapFont(Display* display)
 		LOG_ERROR("Couldn't set render target back to renderer when creating bitmap font!");
 	
 	return;
+}
+
+std::vector<Rect>& Font::GetGlyphPositions()
+{
+	return glyphPositions;
+}
+
+SDL_Texture* Font::GetBitmapFont()
+{
+	return bitmapFont;
 }

@@ -15,6 +15,7 @@
 #include "Camera.h"
 
 class Texture;
+class Font;
 
 //TOOD: This may create bugs & errors if it does redefine DrawText at the end of the file
 #ifdef DrawText
@@ -86,6 +87,7 @@ public:
 	//TDOD: Add align Center | Left |Right
 
 	void DrawText(TTF_Font* font, std::string text, Rect *pos, Color color, int align);
+	void DrawText(Font* font, std::string text, Rect *pos, Color color);
 
 private:
 	SDL_Window *window;

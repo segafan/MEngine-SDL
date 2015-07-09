@@ -10,6 +10,7 @@
 #include "Rect.h"
 #include "Logger.h"
 #include "Display.h"
+#include "Font.h"
 
 #include "Camera.h"
 
