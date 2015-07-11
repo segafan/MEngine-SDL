@@ -81,10 +81,11 @@ void Font::ConvertToBitmapFont(Display* display)
 	display->PopRenderColor();
 
 	int x = 0;
-	int y = 0;
+	int y = 0;	
 
-	for (int i = 0; i <= 128; i++)
+	for (int i = 0; i <= 256; i++)
 	{	
+		
 		//If break line charater skip
 		if (i == 10)
 		{ 

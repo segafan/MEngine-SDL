@@ -368,7 +368,7 @@ void Display::DrawText(TTF_Font* font, std::string text, Rect *pos, Color color,
 	SDL_DestroyTexture(texture);
 }
 
-void Display::DrawText(Font* font, std::string text, Rect *pos, Color color)
+void Display::DrawText(Font* font, std::wstring text, Rect *pos, Color color)
 {
 	std::vector<Rect>& glyphPositions = font->GetGlyphPositions();
 	SDL_Texture* bitmapFont = font->GetBitmapFont();
@@ -378,23 +378,30 @@ void Display::DrawText(Font* font, std::string text, Rect *pos, Color color)
 	int x = 0;
 	int y = 0;
 	int h = glyphPositions[97].GetH();
+	int ID;
 	for (int i = 0; i < text.length(); i++)
 	{
-		if ((int)(text[i]) == 10)
+		ID = text[i];
+		if (ID < 0 || ID > (glyphPositions.size() - 1))
+		{
+			continue;
+		}
+
+		if (ID == 10)
 		{
 			y++;
 			x = 0;
 			continue;
 		}
 
-		Rect temp = glyphPositions[text[i]];
+		Rect temp = glyphPositions[ID];
 		temp.SetX(x);
 		temp.SetY(y * h);
 		x += temp.GetW();
 		temp.TranslateX(pos->GetX());
 		temp.TranslateY(pos->GetY());
 		
-		SDL_RenderCopy(renderer, bitmapFont, glyphPositions[text[i]].ToSDLRect(), (temp - camera.GetView()).ToSDLRect());
+		SDL_RenderCopy(renderer, bitmapFont, glyphPositions[ID].ToSDLRect(), (temp - camera.GetView()).ToSDLRect());
 	}
 }
 
