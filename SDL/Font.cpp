@@ -2,9 +2,25 @@
 
 Font::Font()
 {
-	font = nullptr;
-	bitmapFont = nullptr;
-	size = 0;
+	this->font = nullptr;
+	this->bitmapFont = nullptr;
+	this->size = 0;
+}
+
+Font::Font(Display* display, const std::string& filepath, unsigned int size)
+{
+	this->font = nullptr;
+	this->bitmapFont = nullptr;
+	this->size = 0;
+	Load(display, filepath, size);
+}
+
+Font::Font(Display* display, const std::string& filepath, unsigned int size, int numchar)
+{
+	this->font = nullptr;
+	this->bitmapFont = nullptr;
+	this->size = 0;
+	Load(display, filepath, size, numchar);
 }
 
 Font::~Font()
@@ -13,6 +29,11 @@ Font::~Font()
 }
 
 void Font::Load(Display* display, const std::string& filepath, unsigned int size)
+{
+	Load(display, filepath, size, ASCII_EXTENDED);
+}
+
+void Font::Load(Display* display, const std::string& filepath, unsigned int size, int numchar)
 {
 	if (font != nullptr || bitmapFont != nullptr)
 	{
@@ -24,7 +45,7 @@ void Font::Load(Display* display, const std::string& filepath, unsigned int size
 
 	if (font == nullptr)
 	{
-		LOG_ERROR("Font couldn't be loaded! Filepath: " << filepath << " Size: " << size);
+		LOG_ERROR("Font couldn't be loaded! Filepath: " << filepath << " Size: " << size << " Error: " << SDL_GetError());
 		font = nullptr;
 		return;
 	}
@@ -32,7 +53,7 @@ void Font::Load(Display* display, const std::string& filepath, unsigned int size
 	this->size = size;
 	LOG("Font loaded! Filepath: " << filepath << " Size: " << size);
 
-	ConvertToBitmapFont(display);
+	ConvertToBitmapFont(display, numchar);
 
 	TTF_CloseFont(font);
 	font = nullptr;
@@ -56,9 +77,12 @@ bool Font::IsEmpty()
 	return ((font == nullptr) || (bitmapFont == nullptr));
 }
 
-void Font::ConvertToBitmapFont(Display* display)
+void Font::ConvertToBitmapFont(Display* display, int numchar)
 {
-	bitmapFont = SDL_CreateTexture(display->GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, size * 16, size * 16);
+	int textureW = size * sqrt(numchar);
+	int textureH = size * sqrt(numchar);
+
+	bitmapFont = SDL_CreateTexture(display->GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, textureW, textureH);
 
 	if (bitmapFont == nullptr)
 	{
@@ -83,7 +107,7 @@ void Font::ConvertToBitmapFont(Display* display)
 	int x = 0;
 	int y = 0;	
 
-	for (int i = 0; i <= 256; i++)
+	for (int i = 0; i <= numchar; i++)
 	{	
 		
 		//If break line charater skip
@@ -120,8 +144,11 @@ void Font::ConvertToBitmapFont(Display* display)
 		}
 
 		Rect pos;
-		if(SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h) == -1)
+		if (SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h) == -1)
+		{
 			LOG_ERROR("Couldn't query texture when creating bitmap font!");
+		}
+
 		pos.x = x;
 		pos.y = y * pos.h;
 
@@ -129,13 +156,13 @@ void Font::ConvertToBitmapFont(Display* display)
 
 		x += pos.GetW();
 
-		if (x > (size * 16) - (size * 1.4))
+		if (x > (textureW - (size * 1.33333333333)))
 		{
 			x = 0;
 			y++;
 		}
 
-		if (y * pos.h > (size * 16) - (size * 1.4))
+		if (y * pos.h > (textureH - (size * 1.33333333333)))
 		{
 			LOG_ERROR("Can't render anymore letters to the texture it's full! Font size: " << size);
 			SDL_DestroyTexture(texture);
