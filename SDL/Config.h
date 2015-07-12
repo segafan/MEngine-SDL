@@ -61,4 +61,7 @@
 #error The game engine needs C++11 to function properly
 #endif
 
+#define PAUSE  std::cout << "Press enter to continue ..."; \
+			   std::cin.get();
+
 #endif

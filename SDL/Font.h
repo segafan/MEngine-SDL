@@ -30,6 +30,7 @@ public:
 
 	std::vector<Rect>& GetGlyphPositions();
 	SDL_Texture* GetBitmapFont();
+	Rect GetTextSize(const std::wstring& text);
 
 private:
 	void ConvertToBitmapFont(Display* display, int numchar);

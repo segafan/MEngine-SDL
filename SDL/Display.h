@@ -87,7 +87,7 @@ public:
 	//TDOD: Add align Center | Left |Right
 
 	void DrawText(TTF_Font* font, std::string text, Rect *pos, Color color, int align);
-	void DrawText(Font* font, std::wstring text, Rect *pos, Color color);
+	void DrawText(Font* font, const std::wstring& text, Rect *pos, Color color);
 
 private:
 	SDL_Window *window;

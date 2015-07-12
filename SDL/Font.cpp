@@ -194,3 +194,38 @@ SDL_Texture* Font::GetBitmapFont()
 {
 	return bitmapFont;
 }
+
+Rect Font::GetTextSize(const std::wstring& text)
+{
+	int x = 0;
+	int y = 0;
+	int w = 0;
+	int h = glyphPositions[97].GetH();
+	int ID;
+	for (int i = 0; i < text.length(); i++)
+	{
+		ID = text[i];
+		if (ID < 0 || ID > (glyphPositions.size() - 1))
+		{
+			continue;
+		}
+
+		if (ID == 10)
+		{
+			y++;
+
+			if (x > w)
+				w = x;
+
+			x = 0;
+			continue;
+		}
+
+		x += glyphPositions[ID].GetW();
+	}
+
+	if (x > w)
+		w = x;
+
+	return Rect(0, 0, w, h * (y + 1));
+}

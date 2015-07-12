@@ -368,7 +368,7 @@ void Display::DrawText(TTF_Font* font, std::string text, Rect *pos, Color color,
 	SDL_DestroyTexture(texture);
 }
 
-void Display::DrawText(Font* font, std::wstring text, Rect *pos, Color color)
+void Display::DrawText(Font* font, const std::wstring& text, Rect *pos, Color color)
 {
 	std::vector<Rect>& glyphPositions = font->GetGlyphPositions();
 	SDL_Texture* bitmapFont = font->GetBitmapFont();
