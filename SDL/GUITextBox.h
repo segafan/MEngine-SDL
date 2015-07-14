@@ -20,6 +20,7 @@ public:
 	GUITextBox()
 	{
 		cursorPos = 0;
+		cursorTime = Time::GetTime();
 
 		//Position stuff
 		pos.SetPosition(0, 0, 200, 30);
@@ -56,10 +57,24 @@ public:
 
 		if (focus)
 		{
-			text.append(converter.from_bytes(global->input.text.GetText()));
+			std::wstring temp = converter.from_bytes(global->input.text.GetText());
 
-			if (global->input.text.IsBackSpace() && !text.empty())
-				text.pop_back();
+			if (temp.length() + text.length() > textLength)
+				temp = temp.substr(0, textLength - text.length());
+
+			text.insert(cursorPos, temp);
+			cursorPos += temp.length();
+
+			if (global->input.text.IsLeft() && cursorPos > 0)
+				cursorPos--;
+			if (global->input.text.IsRight() && cursorPos < text.length())
+				cursorPos++;
+
+			if (global->input.text.IsBackSpace() && !text.empty() && cursorPos > 0)
+			{
+				text.erase(cursorPos - 1, 1);
+				cursorPos--;
+			}
 		}
 
 		//Text Length Calculations
@@ -69,6 +84,13 @@ public:
 
 	void Draw(Global* global)
 	{
+		if (global->gfx.GetFont(font) == NULL)
+		{
+			LOG_ERROR("Couldn't use font in textbox, " << "Font key: " << font);
+			LOG_ERROR("It's probably not loaded with that key and size combination!");
+			return;
+		}
+
 		global->display.PushRenderColor();
 
 		global->display.SetRenderColor(255, 255, 255);
@@ -76,14 +98,16 @@ public:
 		global->display.SetRenderColor(0, 0, 0);
 		SDL_RenderDrawRect(global->display.GetRenderer(), finalPos.ToSDLRect());
 
-		global->display.PopRenderColor();
-
-		if (global->gfx.GetFont(font) == NULL)
+		if (Time::GetTime() - cursorTime > 0.530 && focus)
 		{
-			LOG_ERROR("Couldn't use font in textbox, " << "Font key: " << font);
-			LOG_ERROR("It's probably not loaded with that key and size combination!");
-			return;
+			int x = textPos.GetX() + global->gfx.GetFont(font)->GetTextSize(text.substr(0, cursorPos)).Right();
+			SDL_RenderDrawLine(global->display.GetRenderer(), x, textPos.GetY(), x, textPos.GetY() + global->gfx.GetFont(font)->GetGlyphHeight());
+
+			if (Time::GetTime() - cursorTime > 1.060)
+				cursorTime = Time::GetTime();
 		}
+
+		global->display.PopRenderColor();
 
 		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY() - global->gfx.GetFont(font)->GetGlyphHeight() / 2, 0, 0);
 
@@ -143,7 +167,7 @@ public:
 	}
 
 private:
-
+	double cursorTime;
 	unsigned int cursorPos;
 
 	//Position Stuff

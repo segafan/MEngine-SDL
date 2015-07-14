@@ -10,6 +10,8 @@ void TextInput::Clear()
 {
 	text = "";
 	backspace = false;
+	right = false;
+	left = false;
 }
 
 void TextInput::Update()
@@ -28,6 +30,10 @@ void TextInput::Update()
 		text.append(event->text.text);
 	if (keyboard->IsKeyPressed(SDLK_BACKSPACE))
 		backspace = true;
+	if (keyboard->IsKeyPressed(SDLK_RIGHT))
+		right = true;
+	if (keyboard->IsKeyPressed(SDLK_LEFT))
+		left = true;
 }
 
 std::string& TextInput::GetText()
@@ -38,4 +44,14 @@ std::string& TextInput::GetText()
 bool TextInput::IsBackSpace()
 {
 	return backspace;
+}
+
+bool TextInput::IsRight()
+{
+	return right;
+}
+
+bool TextInput::IsLeft()
+{
+	return left;
 }

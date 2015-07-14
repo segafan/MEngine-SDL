@@ -21,6 +21,8 @@ public:
 
 	std::string& GetText();
 	bool IsBackSpace();
+	bool IsRight();
+	bool IsLeft();
 
 private:
 	//Events
@@ -30,6 +32,8 @@ private:
 	//Text Input Stuff
 	std::string text;
 	bool backspace;
+	bool right;
+	bool left;
 };
 
 #endif
