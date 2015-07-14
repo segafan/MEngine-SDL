@@ -295,7 +295,7 @@ void Display::DrawFlipped(Texture* texture, Rect* src, Rect* pos, SDL_RendererFl
 	SDL_RenderCopyEx(renderer, texture->GetTexture(), src->ToSDLRect(), (*pos - camera.GetView()).ToSDLRect(), NULL, NULL, flip);
 }
 
-void Display::DrawText(TTF_Font* font, std::string text, Rect *pos, Color color, int align)
+void Display::DrawText(TTF_Font* font, std::string text, Rect *pos, Color color, Align align)
 {
 	//TODO: Create dynamic font rendering using glyphes!/Make static text rendering
 	if (text == "")
@@ -345,22 +345,12 @@ void Display::DrawText(TTF_Font* font, std::string text, Rect *pos, Color color,
 	SDL_Rect tempPos = *(Rect(pos->x, pos->y, pos->w, pos->h) - camera.GetView()).ToSDLRect();
 
 	//Recalculate coordinates
-	if (ContainsFlag(align, ALIGN_CENTER))
-	{
-		tempPos.x = tempPos.x - (tempPos.w / 2);
-		tempPos.y = tempPos.y - (tempPos.h / 2);
-	}
 
-	if (ContainsFlag(align, ALIGN_CENTER_X))
+	if (align == ALIGN_CENTER)
 		tempPos.x = tempPos.x - (tempPos.w / 2);
-	if (ContainsFlag(align, ALIGN_CENTER_Y))
-		tempPos.y = tempPos.y - (tempPos.h / 2);
-
-	if (ContainsFlag(align, ALIGN_RIGHT_X))
+	
+	if (align == ALIGN_RIGHT)
 		tempPos.x = tempPos.x - tempPos.w;
-
-	if (ContainsFlag(align, ALIGN_DOWN_Y))
-		tempPos.y = tempPos.y - tempPos.h;
 
 	SDL_RenderCopy(renderer, texture, NULL, &tempPos);
 
@@ -368,7 +358,7 @@ void Display::DrawText(TTF_Font* font, std::string text, Rect *pos, Color color,
 	SDL_DestroyTexture(texture);
 }
 
-void Display::DrawText(Font* font, const std::wstring& text, Rect *pos, Color color)
+void Display::DrawText(Font* font, const std::wstring& text, Rect *pos, Color color, Align align)
 {
 	std::vector<Rect>& glyphPositions = font->GetGlyphPositions();
 	SDL_Texture* bitmapFont = font->GetBitmapFont();
@@ -379,6 +369,13 @@ void Display::DrawText(Font* font, const std::wstring& text, Rect *pos, Color co
 	int y = 0;
 	int h = glyphPositions[97].GetH();
 	int ID;
+
+	int alignPos;
+	if (align == ALIGN_CENTER)
+		alignPos = font->GetTextSize(text).GetW() / 2;
+	else if (align == ALIGN_RIGHT)
+		alignPos = font->GetTextSize(text).GetW();
+
 	for (int i = 0; i < text.length(); i++)
 	{
 		ID = text[i];
@@ -398,9 +395,14 @@ void Display::DrawText(Font* font, const std::wstring& text, Rect *pos, Color co
 		temp.SetX(x);
 		temp.SetY(y * h);
 		x += temp.GetW();
-		temp.TranslateX(pos->GetX());
+	
+		if (align == ALIGN_CENTER || align == ALIGN_RIGHT)
+			temp.TranslateX(pos->GetX() - alignPos);
+		else
+			temp.TranslateX(pos->GetX());
+
 		temp.TranslateY(pos->GetY());
-		
+
 		SDL_RenderCopy(renderer, bitmapFont, glyphPositions[ID].ToSDLRect(), (temp - camera.GetView()).ToSDLRect());
 	}
 }

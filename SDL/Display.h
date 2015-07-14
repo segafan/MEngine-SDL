@@ -24,18 +24,12 @@ class Font;
 
 enum Align
 {
-	ALIGN_NONE = 0,
-
-	ALIGN_CENTER = 1,
-
-	ALIGN_LEFT_X = 2,
-	ALIGN_RIGHT_X = 4,
-	ALIGN_CENTER_X = 8,
-
-	ALIGN_UP_Y = 16,
-	ALIGN_DOWN_Y = 32,
-	ALIGN_CENTER_Y = 64
+	ALIGN_LEFT,
+	ALIGN_CENTER,
+	ALIGN_RIGHT
 };
+
+#define ALIGN_CENTRE ALIGN_CENTER
 
 class Display
 {
@@ -86,8 +80,8 @@ public:
 	//TODO: Add every letter as a Texture and draw every letter of the text one by one
 	//TDOD: Add align Center | Left |Right
 
-	void DrawText(TTF_Font* font, std::string text, Rect *pos, Color color, int align);
-	void DrawText(Font* font, const std::wstring& text, Rect *pos, Color color);
+	void DrawText(TTF_Font* font, std::string text, Rect *pos, Color color, Align align);
+	void DrawText(Font* font, const std::wstring& text, Rect *pos, Color color, Align align = ALIGN_LEFT);
 
 private:
 	SDL_Window *window;
