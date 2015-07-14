@@ -107,7 +107,7 @@ void Font::ConvertToBitmapFont(Display* display, int numchar)
 	int x = 0;
 	int y = 0;	
 
-	for (int i = 0; i <= numchar; i++)
+	for (int i = 0; i < numchar; i++)
 	{	
 		
 		//If break line charater skip

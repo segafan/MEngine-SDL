@@ -11,13 +11,16 @@
 #include <codecvt>
 #include <string>
 
-std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+//TODO: Move this static variable to a .cpp file
+static std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 
 class GUITextBox
 {
 public:
 	GUITextBox()
 	{
+		cursorPos = 0;
+
 		//Position stuff
 		pos.SetPosition(0, 0, 200, 30);
 		relPos = Rect(0, 0, 0, 0);
@@ -29,7 +32,7 @@ public:
 		focus = false;
 
 		//Font Stuff
-		font = 1;
+		font = 0;
 
 		//Text Stuff
 		text = L"";
@@ -140,6 +143,8 @@ public:
 	}
 
 private:
+
+	unsigned int cursorPos;
 
 	//Position Stuff
 	Rect pos;
