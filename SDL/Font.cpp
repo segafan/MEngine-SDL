@@ -234,6 +234,39 @@ Rect Font::GetTextSize(const std::wstring& text)
 	return Rect(0, 0, w, height * (y + 1));
 }
 
+int Font::GetLetterAt(const std::wstring& text, Point point)
+{
+	if (point.getX() < 0)
+	{
+		if (point.getY() <= height)
+			return 0;
+		//TODO: If adding support for multiple lanes add this for other lanes
+	}
+
+	int x = 0;
+	int y = 0;
+	int ID;
+	for (int i = 0; i < text.length(); i++)
+	{
+		ID = text[i];
+		if (ID < 0 || ID > (glyphPositions.size() - 1))
+		{
+			continue;
+		}
+
+		if (ID == 10)
+		{
+			LOG_DEBUG("Font::GetLetterAt function was designed for one row texts! Text inserted: " << text.c_str());
+			continue;
+		}
+		
+		if (Rect(x, y * height, glyphPositions[ID].GetW(), height).Contains(point))
+			return i;
+
+		x += glyphPositions[ID].GetW();
+	}
+}
+
 int Font::GetGlyphHeight()
 {
 	return height;

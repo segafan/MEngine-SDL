@@ -31,6 +31,7 @@ public:
 	std::vector<Rect>& GetGlyphPositions();
 	SDL_Texture* GetBitmapFont();
 	Rect GetTextSize(const std::wstring& text);
+	int GetLetterAt(const std::wstring& text, Point point);
 	int GetGlyphHeight();
 
 private:

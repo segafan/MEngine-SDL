@@ -21,6 +21,7 @@ public:
 	{
 		cursorPos = 0;
 		cursorTime = Time::GetTime();
+		cursorBlinkRate = 0.530;
 
 		//Position stuff
 		pos.SetPosition(0, 0, 200, 30);
@@ -52,8 +53,10 @@ public:
 				focus = true;
 		}
 		else
+		{
 			if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
 				focus = false;
+		}
 
 		if (focus)
 		{
@@ -65,10 +68,27 @@ public:
 			text.insert(cursorPos, temp);
 			cursorPos += temp.length();
 
+			if (global->input.mouse.OnButtonPress(SDL_BUTTON_LEFT))
+			{
+				if (global->gfx.GetFont(font) != NULL)
+				{
+					Point point(global->input.mouse.GetPosition().GetX() - textPos.GetX(), global->input.mouse.GetPosition().GetY() - textPos.GetY());
+					
+					cursorPos = global->gfx.GetFont(font)->GetLetterAt(text, point);
+					cursorTime = Time::GetTime() - (cursorBlinkRate + 0.001);
+				}
+			}
+
 			if (global->input.text.IsLeft() && cursorPos > 0)
+			{
 				cursorPos--;
+				cursorTime = Time::GetTime() - (cursorBlinkRate + 0.001);
+			}
 			if (global->input.text.IsRight() && cursorPos < text.length())
+			{
 				cursorPos++;
+				cursorTime = Time::GetTime() - (cursorBlinkRate + 0.001);
+			}
 
 			if (global->input.text.IsBackSpace() && !text.empty() && cursorPos > 0)
 			{
@@ -98,12 +118,12 @@ public:
 		global->display.SetRenderColor(0, 0, 0);
 		SDL_RenderDrawRect(global->display.GetRenderer(), finalPos.ToSDLRect());
 
-		if (Time::GetTime() - cursorTime > 0.530 && focus)
+		if (Time::GetTime() - cursorTime > cursorBlinkRate && focus)
 		{
 			int x = textPos.GetX() + global->gfx.GetFont(font)->GetTextSize(text.substr(0, cursorPos)).Right();
 			SDL_RenderDrawLine(global->display.GetRenderer(), x, textPos.GetY(), x, textPos.GetY() + global->gfx.GetFont(font)->GetGlyphHeight());
 
-			if (Time::GetTime() - cursorTime > 1.060)
+			if (Time::GetTime() - cursorTime > (cursorBlinkRate * 2))
 				cursorTime = Time::GetTime();
 		}
 
@@ -168,6 +188,7 @@ public:
 
 private:
 	double cursorTime;
+	double cursorBlinkRate;
 	unsigned int cursorPos;
 
 	//Position Stuff
