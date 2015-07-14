@@ -31,11 +31,13 @@ public:
 	std::vector<Rect>& GetGlyphPositions();
 	SDL_Texture* GetBitmapFont();
 	Rect GetTextSize(const std::wstring& text);
+	int GetGlyphHeight();
 
 private:
 	void ConvertToBitmapFont(Display* display, int numchar);
 
 	int size;
+	int height;
 
 	std::vector<Rect> glyphPositions;
 	SDL_Texture* bitmapFont;

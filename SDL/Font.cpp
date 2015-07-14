@@ -5,6 +5,7 @@ Font::Font()
 	this->font = nullptr;
 	this->bitmapFont = nullptr;
 	this->size = 0;
+	this->height = 0;
 }
 
 Font::Font(Display* display, const std::string& filepath, unsigned int size)
@@ -12,6 +13,7 @@ Font::Font(Display* display, const std::string& filepath, unsigned int size)
 	this->font = nullptr;
 	this->bitmapFont = nullptr;
 	this->size = 0;
+	this->height = 0;
 	Load(display, filepath, size);
 }
 
@@ -20,6 +22,7 @@ Font::Font(Display* display, const std::string& filepath, unsigned int size, uns
 	this->font = nullptr;
 	this->bitmapFont = nullptr;
 	this->size = 0;
+	this->height = 0;
 	Load(display, filepath, size, numchar);
 }
 
@@ -86,7 +89,7 @@ void Font::ConvertToBitmapFont(Display* display, int numchar)
 
 	if (bitmapFont == nullptr)
 	{
-		LOG_ERROR("Couldn't create texture for bitmap font creating!");
+		LOG_ERROR("Couldn't create texture for bitmap font creating! Error: " << SDL_GetError());
 	}
 
 	if(SDL_SetTextureBlendMode(bitmapFont, SDL_BLENDMODE_BLEND) == -1)
@@ -147,6 +150,7 @@ void Font::ConvertToBitmapFont(Display* display, int numchar)
 		if (SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h) == -1)
 		{
 			LOG_ERROR("Couldn't query texture when creating bitmap font!");
+			break;
 		}
 
 		if (x + pos.GetW() > textureW)
@@ -163,6 +167,8 @@ void Font::ConvertToBitmapFont(Display* display, int numchar)
 
 		pos.x = x;
 		pos.y = y * pos.h;
+
+		height = pos.GetH();
 
 		glyphPositions.push_back(pos);
 
@@ -199,7 +205,6 @@ Rect Font::GetTextSize(const std::wstring& text)
 	int x = 0;
 	int y = 0;
 	int w = 0;
-	int h = glyphPositions[97].GetH();
 	int ID;
 	for (int i = 0; i < text.length(); i++)
 	{
@@ -226,5 +231,10 @@ Rect Font::GetTextSize(const std::wstring& text)
 	if (x > w)
 		w = x;
 
-	return Rect(0, 0, w, h * (y + 1));
+	return Rect(0, 0, w, height * (y + 1));
+}
+
+int Font::GetGlyphHeight()
+{
+	return height;
 }

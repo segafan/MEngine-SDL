@@ -85,7 +85,7 @@ public:
 			return;
 		}
 
-		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY() - global->gfx.GetFont(font)->GetTextSize(L"a").GetH() / 2, 0, 0);
+		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY() - global->gfx.GetFont(font)->GetGlyphHeight() / 2, 0, 0);
 
 		if (text != L"")
 			global->display.DrawText(global->gfx.GetFont(font), text, &textPos, MapRGB(0, 0, 0), ALIGN_LEFT);

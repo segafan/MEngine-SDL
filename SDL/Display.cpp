@@ -304,7 +304,7 @@ void Display::DrawText(Font* font, const std::wstring& text, Rect *pos, Color co
 
 	int x = 0;
 	int y = 0;
-	int h = glyphPositions[97].GetH();
+	int h = font->GetGlyphHeight();
 	int ID;
 
 	int alignPos;
