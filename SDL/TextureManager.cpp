@@ -51,7 +51,7 @@ void TextureManager::RemoveTexture(unsigned int key)
 
 Texture* TextureManager::GetTexture(unsigned int key)
 {
-	if (key > textures.size() || textures.empty())
+	if (key > (textures.size() - 1) || textures.empty())
 	{
 		LOG_ERROR("You can't get the texture because it doesn't exist! You are looking for a texture in unallocated memory! Key: " << key);
 		return NULL;

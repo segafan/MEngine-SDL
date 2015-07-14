@@ -53,7 +53,7 @@ void FontManager::RemoveFont(unsigned int key)
 
 Font* FontManager::GetFont(unsigned int key)
 {
-	if (key > fonts.size() || fonts.empty())
+	if (key > (fonts.size() - 1) || fonts.empty())
 	{
 		LOG_ERROR("You can't get the texture because it doesn't exist! You are looking for a texture in unallocated memory! Key: " << key);
 		return NULL;

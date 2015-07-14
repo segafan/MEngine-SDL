@@ -27,10 +27,9 @@ public:
 
 		//Font stuff
 		font = 0;
-		fontSize = 12;
 
 		//Text stuff
-		text = "";
+		text = L"";
 		textPos.SetPosition(finalPos.CenterX(), finalPos.CenterY(), 0, 0);
 		textColor.SetColor(0, 0, 0, 255);
 
@@ -44,7 +43,7 @@ public:
 		{
 			//Calculate Pos
 			finalPos = pos + relPos;
-			textPos.SetPosition(finalPos.CenterX(), finalPos.CenterY(), 0, 0);
+			textPos.SetPosition(finalPos.CenterX(), finalPos.GetY(), 0, 0);
 
 			//Mouse
 			hover = false;
@@ -64,19 +63,19 @@ public:
 	{
 		if (visible)
 		{
-			if (global->gfx.GetFont(font, fontSize) == NULL)
+			if (global->gfx.GetFont(font) == NULL)
 			{
-				LOG_ERROR("Couldn't use font in button, " << "Font key: " << font << "Font Size: " << fontSize);
+				LOG_ERROR("Couldn't use font in button, " << "Font key: " << font);
 				LOG_ERROR("It's probably not loaded with that key and size combination!");
 				return;
 			}
 
 			if (clicked)
-				global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, textColorOnClick, ALIGN_CENTER);
+				global->display.DrawText(global->gfx.GetFont(font), text, &textPos, textColorOnClick, ALIGN_CENTER);
 			else if (hover)
-				global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, textColorOnHover, ALIGN_CENTER);
+				global->display.DrawText(global->gfx.GetFont(font), text, &textPos, textColorOnHover, ALIGN_CENTER);
 			else
-				global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, textColor, ALIGN_CENTER);
+				global->display.DrawText(global->gfx.GetFont(font), text, &textPos, textColor, ALIGN_CENTER);
 		}
 	}
 
@@ -105,14 +104,13 @@ public:
 	}
 
 	//Font Setters
-	void SetFont(unsigned int key, int size)
+	void SetFont(unsigned int key)
 	{
 		font = key;
-		fontSize = size;
 	}
 
 	//Text Setters
-	void SetText(std::string text)
+	void SetText(std::wstring text)
 	{
 		this->text = text;
 	}
@@ -157,17 +155,13 @@ public:
 	}
 
 	//Font Getters
-	unsigned int GetFontName()
+	unsigned int GetFont()
 	{
 		return font;
 	}
-	int GetFontSize()
-	{
-		return fontSize;
-	}
 
 	//Text Getters
-	std::string GetText()
+	std::wstring GetText()
 	{
 		return text;
 	}
@@ -210,11 +204,10 @@ private:
 
 	//Font stuff
 	unsigned int font;
-	int fontSize;
 
 	//Text stuff
 	Rect textPos;
-	std::string text;
+	std::wstring text;
 	Color textColor;
 
 	Color textColorOnHover;

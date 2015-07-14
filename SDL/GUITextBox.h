@@ -7,6 +7,12 @@
 
 #include "Global.h"
 
+#include <locale>
+#include <codecvt>
+#include <string>
+
+std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+
 class GUITextBox
 {
 public:
@@ -23,11 +29,10 @@ public:
 		focus = false;
 
 		//Font Stuff
-		font = 0;
-		fontSize = 12;
+		font = 1;
 
 		//Text Stuff
-		text = "";
+		text = L"";
 		textLength = 20;
 	}
 
@@ -35,7 +40,6 @@ public:
 	{
 		//Calculate Position
 		finalPos = pos + relPos;
-		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY(), 0, 0);
 
 		//Mouse Stuff
 		if (global->input.mouse.IsHover(finalPos))
@@ -49,7 +53,7 @@ public:
 
 		if (focus)
 		{
-			text.append(global->input.text.GetText());
+			text.append(converter.from_bytes(global->input.text.GetText()));
 
 			if (global->input.text.IsBackSpace() && !text.empty())
 				text.pop_back();
@@ -71,15 +75,17 @@ public:
 
 		global->display.PopRenderColor();
 
-		if (global->gfx.GetFont(font, fontSize) == NULL)
+		if (global->gfx.GetFont(font) == NULL)
 		{
-			LOG_ERROR("Couldn't use font in textbox, " << "Font key: " << font << "Font Size: " << fontSize);
+			LOG_ERROR("Couldn't use font in textbox, " << "Font key: " << font);
 			LOG_ERROR("It's probably not loaded with that key and size combination!");
 			return;
 		}
 
-		if (text != "")
-			global->display.DrawText(global->gfx.GetFont(font, fontSize), text, &textPos, MapRGB(0, 0, 0), ALIGN_CENTER_Y);
+		textPos.SetPosition(finalPos.GetX() + 9, finalPos.CenterY() - global->gfx.GetFont(font)->GetTextSize(L"a").GetH() / 2, 0, 0);
+
+		if (text != L"")
+			global->display.DrawText(global->gfx.GetFont(font), text, &textPos, MapRGB(0, 0, 0), ALIGN_LEFT);
 	}
 
 	bool IsFocus()
@@ -105,21 +111,25 @@ public:
 	}
 
 	//Font Stuff
-	void SetFont(unsigned int key, int size)
+	void SetFont(unsigned int key)
 	{
 		font = key;
-		fontSize = size;
 	}
 
 	//Text Stuff
-	void SetText(std::string text)
+	void SetText(std::wstring text)
 	{
 		this->text = text;
 	}
 
+	void SetTextLength(unsigned int length)
+	{
+		this->textLength = length;
+	}
+
 	//Getters
 
-	std::string GetText()
+	std::wstring GetText()
 	{
 		return text;
 	}
@@ -127,11 +137,6 @@ public:
 	unsigned int GetFont()
 	{
 		return font;
-	}
-
-	unsigned int GetFontSize()
-	{
-		return fontSize;
 	}
 
 private:
@@ -146,10 +151,9 @@ private:
 
 	//Font stuff
 	unsigned int font;
-	int fontSize;
 
 	//Text Stuff
-	std::string text;
+	std::wstring text;
 	unsigned int textLength;
 	Rect textPos;
 };
