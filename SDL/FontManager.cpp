@@ -21,12 +21,12 @@ void FontManager::AddFont(Display* display, std::string filepath, unsigned int k
 	{
 		if (key == fonts.size())
 		{
-			LOG_DEBUG("No more allocated memory for textures! Allocating +1 ...");
+			LOG_DEBUG("No more allocated memory for fonts! Allocating +1 ...");
 			fonts.push_back(NULL);
 		}
 		else
 		{
-			LOG_ERROR("No more allocated memory for textures! Allocating " << key - (fonts.size() - 1) << " more...");
+			LOG_ERROR("No more allocated memory for fonts! Allocating " << key - (fonts.size() - 1) << " more...");
 			for (unsigned int i = fonts.size(); i <= key; i++)
 				fonts.push_back(NULL);
 		}

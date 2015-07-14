@@ -149,25 +149,24 @@ void Font::ConvertToBitmapFont(Display* display, int numchar)
 			LOG_ERROR("Couldn't query texture when creating bitmap font!");
 		}
 
+		if (x + pos.GetW() > textureW)
+		{
+			x = 0;
+			y++;
+		}
+		if (y * pos.h > textureH)
+		{
+			LOG_ERROR("Can't render anymore letters to the texture it's full! Font size: " << size);
+			SDL_DestroyTexture(texture);
+			break;
+		}
+
 		pos.x = x;
 		pos.y = y * pos.h;
 
 		glyphPositions.push_back(pos);
 
 		x += pos.GetW();
-
-		if (x > (textureW - (size * 1.33333333333)))
-		{
-			x = 0;
-			y++;
-		}
-
-		if (y * pos.h > (textureH - (size * 1.33333333333)))
-		{
-			LOG_ERROR("Can't render anymore letters to the texture it's full! Font size: " << size);
-			SDL_DestroyTexture(texture);
-			break;
-		}
 
 		//Don't render tab character
 		if (i != 9)
