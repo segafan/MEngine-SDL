@@ -77,10 +77,7 @@ public:
 
 	//Draw Font
 	//TODO: Add more Draw() options
-	//TODO: Add every letter as a Texture and draw every letter of the text one by one
-	//TDOD: Add align Center | Left |Right
 
-	void DrawText(TTF_Font* font, std::string text, Rect *pos, Color color, Align align);
 	void DrawText(Font* font, const std::wstring& text, Rect *pos, Color color, Align align = ALIGN_LEFT);
 
 private:
