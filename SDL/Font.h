@@ -19,11 +19,11 @@ class Font
 public:
 	Font();
 	Font(Display* display, const std::string& filepath, unsigned int size);
-	Font(Display* display, const std::string& filepath, unsigned int size, int numchar);
+	Font(Display* display, const std::string& filepath, unsigned int size, unsigned int numchar);
 	~Font();
 
 	void Load(Display* display, const std::string& filepath, unsigned int size);
-	void Load(Display* display, const std::string& filepath, unsigned int size, int numchar);
+	void Load(Display* display, const std::string& filepath, unsigned int size, unsigned int numchar);
 	void Destroy();
 
 	bool IsEmpty();

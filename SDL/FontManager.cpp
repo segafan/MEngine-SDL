@@ -1,9 +1,8 @@
 #include "FontManager.h"
 
-FontManager::FontManager(Display* display) : camera(display->GetCamera())
+FontManager::FontManager()
 {
-	this->window = display->GetWindow();
-	this->renderer = display->GetRenderer();
+	
 }
 
 FontManager::~FontManager()
@@ -11,74 +10,65 @@ FontManager::~FontManager()
 	Clear();
 }
 
-void FontManager::AddFont(std::string filepath, unsigned int key, int size)
+void FontManager::AddFont(Display* display, std::string filepath, unsigned int key, unsigned int size)
 {
-	if (fonts[key][size] != NULL)
+	AddFont(display, filepath, key, size, ASCII_EXTENDED);
+}
+
+void FontManager::AddFont(Display* display, std::string filepath, unsigned int key, unsigned int size, unsigned int numchar)
+{
+	if (key > (fonts.size() - 1) || fonts.empty())
+	{
+		if (key == fonts.size())
+		{
+			LOG_DEBUG("No more allocated memory for textures! Allocating +1 ...");
+			fonts.push_back(NULL);
+		}
+		else
+		{
+			LOG_ERROR("No more allocated memory for textures! Allocating " << key - (fonts.size() - 1) << " more...");
+			for (unsigned int i = fonts.size(); i <= key; i++)
+				fonts.push_back(NULL);
+		}
+	}
+	if (fonts[key] != NULL)
 	{
 		LOG_DEBUG("There is already a font with this key! Key: " << key);
 		return;
 	}
 
-	TTF_Font* font = NULL;
-	font = TTF_OpenFont(filepath.c_str(), size);
-
-	if (font == NULL)
-	{
-		LOG_ERROR("Font couldn't be loaded! Key: " << key << " Size: " << size << " Error: " << SDL_GetError());
-		return;
-	}
-	LOG("Font loaded " << key << " Size: " << size);
-	fonts[key][size] = font;
+	fonts[key] = new Font(display, filepath, size, numchar);
 }
 
-void FontManager::AddFont(TTF_Font* font, unsigned int key, int size)
+void FontManager::RemoveFont(unsigned int key)
 {
-	if (fonts[key][size] != NULL)
+	if (fonts[key] != NULL)
 	{
-		LOG_DEBUG("There is already a font with this key! Key: " << key);
-		return;
+		std::cout << "Destroyed font: " << key << std::endl;
+		fonts[key]->Destroy();
+		delete fonts[key];
+		fonts[key] = NULL;
 	}
-
-	if (font == NULL)
-	{
-		LOG_ERROR("Font couldn't be added, because it's NULL! Key: " << key << " Size: " << size << " Error: " << SDL_GetError());
-		return;
-	}
-
-	fonts[key][size] = font;
 }
 
-void FontManager::RemoveFont(unsigned int key, int size)
-{
-	if (fonts[key][size] == NULL)
-	{
-		LOG_DEBUG("Font couldn't be removed because it doesn't exist! Key: " << key << " Size: " << size);
-		return;
-	}
-
-	TTF_CloseFont(fonts[key][size]);
-	fonts[key][size] = NULL;
-}
-
-TTF_Font* FontManager::GetFont(unsigned int key, int size)
+Font* FontManager::GetFont(unsigned int key)
 {
 	if (key > fonts.size() || fonts.empty())
 	{
-		LOG_ERROR("You can't get the font because it doesn't exist! You are looking for a texture in unallocated memory! Key: " << key);
-		return NULL;
-	}
-	if (fonts[key].find(size) == fonts[key].end() || fonts[key].empty())
-	{
-		LOG_ERROR("You can't get the font because it doesn't exist in this size! You are looking for a texture in unallocated memory! Key: " << key << " Size: " << size);
+		LOG_ERROR("You can't get the texture because it doesn't exist! You are looking for a texture in unallocated memory! Key: " << key);
 		return NULL;
 	}
 
-	TTF_Font* font = fonts[key][size];
+	Font* font = fonts[key];
 
 	if (font == NULL)
 	{
-		LOG_ERROR("You can't get this font because it doesn't exist! Key: " << key << " Size: " << size);
-
+		LOG_ERROR("You can't get the texture because it doesn't exist! Key: " << key);
+		return NULL;
+	}
+	if (font->IsEmpty())
+	{
+		LOG_ERROR("You can't get the texture because it's empty exist! Key: " << key);
 		return NULL;
 	}
 
@@ -87,20 +77,14 @@ TTF_Font* FontManager::GetFont(unsigned int key, int size)
 
 void FontManager::Clear()
 {
-	//Search for Font type
-	for (auto iterator = fonts.begin(); iterator != fonts.end(); iterator++)
+	for (unsigned int i = 0; i < fonts.size(); i++)
 	{
-		//Search for Font size
-		for (auto iterator2 = iterator->second.begin(); iterator2 != iterator->second.end(); iterator2++)
+		if (fonts[i] != NULL)
 		{
-			//Search if the font exists
-			if (iterator2->second != NULL)
-			{
-				//Destroy Font
-				std::cout << "Destroyed font: " << iterator->first << " Size: " << iterator2->first << std::endl;
-				TTF_CloseFont(iterator2->second);
-				iterator2->second = NULL;
-			}
+			std::cout << "Destroyed font: " << i << std::endl;
+			fonts[i]->Destroy();
+			delete fonts[i];
+			fonts[i] = NULL;
 		}
 	}
 }

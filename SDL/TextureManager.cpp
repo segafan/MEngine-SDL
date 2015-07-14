@@ -40,9 +40,13 @@ void TextureManager::AddTexture(Display* display, const std::string& filepath, u
 
 void TextureManager::RemoveTexture(unsigned int key)
 {
-	textures[key]->Destroy();
-	delete textures[key];
-	textures[key] = NULL;
+	if (textures[key] != NULL)
+	{
+		std::cout << "Destroyed texture: " << key << std::endl;
+		textures[key]->Destroy();
+		delete textures[key];
+		textures[key] = NULL;
+	}
 }
 
 Texture* TextureManager::GetTexture(unsigned int key)

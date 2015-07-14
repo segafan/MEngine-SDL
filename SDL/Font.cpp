@@ -15,7 +15,7 @@ Font::Font(Display* display, const std::string& filepath, unsigned int size)
 	Load(display, filepath, size);
 }
 
-Font::Font(Display* display, const std::string& filepath, unsigned int size, int numchar)
+Font::Font(Display* display, const std::string& filepath, unsigned int size, unsigned int numchar)
 {
 	this->font = nullptr;
 	this->bitmapFont = nullptr;
@@ -33,7 +33,7 @@ void Font::Load(Display* display, const std::string& filepath, unsigned int size
 	Load(display, filepath, size, ASCII_EXTENDED);
 }
 
-void Font::Load(Display* display, const std::string& filepath, unsigned int size, int numchar)
+void Font::Load(Display* display, const std::string& filepath, unsigned int size, unsigned int numchar)
 {
 	if (font != nullptr || bitmapFont != nullptr)
 	{
@@ -74,7 +74,7 @@ void Font::Destroy()
 
 bool Font::IsEmpty()
 {
-	return ((font == nullptr) || (bitmapFont == nullptr));
+	return ((bitmapFont == NULL) || (bitmapFont == nullptr));
 }
 
 void Font::ConvertToBitmapFont(Display* display, int numchar)

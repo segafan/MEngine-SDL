@@ -12,32 +12,25 @@
 #include "Display.h"
 #include "Font.h"
 
-#include "Camera.h"
-
-#include <unordered_map>
+#include <vector>
 
 class FontManager
 {
 public:
-	FontManager(Display* display);
+	FontManager();
 	~FontManager();
 
 	//Add & Destroy Fonts
-	void AddFont(std::string filepath, unsigned int key, int size);
-	void AddFont(TTF_Font* font, unsigned int key, int size);
-	void RemoveFont(unsigned int key, int size);
+	void AddFont(Display* display, std::string filepath, unsigned int key, unsigned int size);
+	void AddFont(Display* display, std::string filepath, unsigned int key, unsigned int size, unsigned int numchar);
+	void RemoveFont(unsigned int key);
 
-	TTF_Font* GetFont(unsigned int key, int size);
+	Font* GetFont(unsigned int key);
 
 	void Clear();
 
 private:
-	Camera& camera;
-
-	std::unordered_map<unsigned int, std::unordered_map<int, TTF_Font*> > fonts;
-
-	SDL_Window *window;
-	SDL_Renderer *renderer;
+	std::vector<Font*> fonts;
 };
 
 #endif
