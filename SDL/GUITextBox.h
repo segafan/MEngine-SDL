@@ -66,9 +66,6 @@ public:
 		{
 			std::wstring temp = converter.from_bytes(global->input.text.GetText());
 
-			if (temp.length() + text.length() > textLength)
-				temp = temp.substr(0, textLength - text.length());
-
 			if (temp != L"")
 			{
 				if (selectStart - selectEnd != 0)
@@ -76,6 +73,9 @@ public:
 					DeleteSelected();
 				}
 			}
+
+			if (temp.length() + text.length() > textLength)
+				temp = temp.substr(0, textLength - text.length());
 
 			text.insert(cursorPos, temp);
 			cursorPos += temp.length();
@@ -85,8 +85,9 @@ public:
 				Point point(global->input.mouse.GetPosition().GetX() - textPos.GetX(), global->input.mouse.GetPosition().GetY() - textPos.GetY());
 				if (global->input.mouse.OnButtonPress(SDL_BUTTON_LEFT))
 				{
-					selectStart = global->gfx.GetFont(font)->GetLetterAt(text, point);
-					selectEnd = global->gfx.GetFont(font)->GetLetterAt(text, point);
+					int letter = global->gfx.GetFont(font)->GetLetterAt(text, point);
+					selectStart = letter;
+					selectEnd = letter;
 				}
 				if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
 				{
@@ -132,7 +133,7 @@ public:
 				}
 			}
 		}
-		LOG(cursorPos << "  " << selectStart << "  " << selectEnd);
+		
 		//Text Length Calculations
 		if (text.size() > textLength)
 			text = text.substr(0, textLength);
@@ -153,25 +154,29 @@ public:
 		SDL_RenderFillRect(global->display.GetRenderer(), finalPos.ToSDLRect());
 		global->display.SetRenderColor(0, 0, 0);
 		SDL_RenderDrawRect(global->display.GetRenderer(), finalPos.ToSDLRect());
-
-		global->display.SetRenderColor(173, 214, 255);
-		if (selectEnd - selectStart != 0)
+		
+		if (focus)
 		{
-			Rect selectedRect;
-			if (selectEnd > selectStart)
-				selectedRect = global->gfx.GetFont(font)->GetTextSize(text.substr(selectStart, selectEnd - selectStart));
-			else
-				selectedRect = global->gfx.GetFont(font)->GetTextSize(text.substr(selectEnd, selectStart - selectEnd));
+			global->display.SetRenderColor(173, 214, 255);
 
-			Rect beginToSelectStart; 
-			if (selectEnd > selectStart)
-				beginToSelectStart = global->gfx.GetFont(font)->GetTextSize(text.substr(0, selectStart));
-			else
-				beginToSelectStart = global->gfx.GetFont(font)->GetTextSize(text.substr(0, selectEnd));
+			if (selectEnd - selectStart != 0)
+			{
+				Rect selectedRect;
+				if (selectEnd > selectStart)
+					selectedRect = global->gfx.GetFont(font)->GetTextSize(text.substr(selectStart, selectEnd - selectStart));
+				else
+					selectedRect = global->gfx.GetFont(font)->GetTextSize(text.substr(selectEnd, selectStart - selectEnd));
 
-			selectedRect.TranslateX(beginToSelectStart.GetW());
+				Rect beginToSelectStart;
+				if (selectEnd > selectStart)
+					beginToSelectStart = global->gfx.GetFont(font)->GetTextSize(text.substr(0, selectStart));
+				else
+					beginToSelectStart = global->gfx.GetFont(font)->GetTextSize(text.substr(0, selectEnd));
 
-			SDL_RenderFillRect(global->display.GetRenderer(), (selectedRect + textPos).ToSDLRect());
+				selectedRect.TranslateX(beginToSelectStart.GetW());
+
+				SDL_RenderFillRect(global->display.GetRenderer(), (selectedRect + textPos).ToSDLRect());
+			}
 		}
 
 		global->display.SetRenderColor(0, 0, 0);
