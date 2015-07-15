@@ -30,7 +30,9 @@ public:
 
 	int GetAlphaMod();
 	Color GetColorMod();
-
+	Rect GetSize();
+	Uint32 GetFormat();
+	int GetAccess();
 private:
 	SDL_Texture* m_texture;
 };

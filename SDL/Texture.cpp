@@ -88,3 +88,24 @@ Color Texture::GetColorMod()
 	SDL_GetTextureColorMod(m_texture, &temp.r, &temp.g, &temp.b);
 	return Color(temp.r, temp.g, temp.b);
 }
+
+Rect Texture::GetSize()
+{
+	int w, h;
+	SDL_QueryTexture(m_texture, NULL, NULL, &w, &h);
+	return Rect(0, 0, w, h);
+}
+
+Uint32 Texture::GetFormat()
+{
+	Uint32 format;
+	SDL_QueryTexture(m_texture, &format, NULL, NULL, NULL);
+	return format;
+}
+
+int Texture::GetAccess()
+{
+	int access;
+	SDL_QueryTexture(m_texture, NULL, &access, NULL, NULL);
+	return access;
+}
