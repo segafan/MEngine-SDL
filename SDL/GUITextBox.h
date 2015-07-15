@@ -23,6 +23,10 @@ public:
 		cursorTime = Time::GetTime();
 		cursorBlinkRate = 0.530;
 
+		selected = false;
+		selectStart = 0;
+		selectEnd = 0;
+
 		//Position stuff
 		pos.SetPosition(0, 0, 200, 30);
 		relPos = Rect(0, 0, 0, 0);
@@ -49,12 +53,12 @@ public:
 		//Mouse Stuff
 		if (global->input.mouse.IsHover(finalPos))
 		{
-			if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
+			if (global->input.mouse.OnButtonPress(SDL_BUTTON_LEFT))
 				focus = true;
 		}
 		else
 		{
-			if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
+			if (global->input.mouse.OnButtonPress(SDL_BUTTON_LEFT))
 				focus = false;
 		}
 
@@ -65,17 +69,42 @@ public:
 			if (temp.length() + text.length() > textLength)
 				temp = temp.substr(0, textLength - text.length());
 
+			if (temp != L"")
+			{
+				if (selectStart - selectEnd != 0)
+				{
+					DeleteSelected();
+				}
+			}
+
 			text.insert(cursorPos, temp);
 			cursorPos += temp.length();
-
-			if (global->input.mouse.OnButtonPress(SDL_BUTTON_LEFT))
+			
+			if (global->gfx.GetFont(font) != NULL)
 			{
-				if (global->gfx.GetFont(font) != NULL)
+				Point point(global->input.mouse.GetPosition().GetX() - textPos.GetX(), global->input.mouse.GetPosition().GetY() - textPos.GetY());
+				if (global->input.mouse.OnButtonPress(SDL_BUTTON_LEFT))
 				{
-					Point point(global->input.mouse.GetPosition().GetX() - textPos.GetX(), global->input.mouse.GetPosition().GetY() - textPos.GetY());
-					
-					cursorPos = global->gfx.GetFont(font)->GetLetterAt(text, point);
+					selectStart = global->gfx.GetFont(font)->GetLetterAt(text, point);
+					selectEnd = global->gfx.GetFont(font)->GetLetterAt(text, point);
+				}
+				if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
+				{
+					int letter = global->gfx.GetFont(font)->GetLetterAt(text, point);
+					selectEnd = letter;
+
+					cursorPos = letter;
 					cursorTime = Time::GetTime() - (cursorBlinkRate + 0.001);
+				}
+			}
+			if ((global->input.keyboard.IsKeyPressed(SDLK_LCTRL) || global->input.keyboard.IsKeyPressed(SDLK_RCTRL)) && global->input.keyboard.IsKeyPressed(SDLK_c))
+			{
+				if (selectEnd - selectStart != 0)
+				{
+					if (selectEnd > selectStart)
+						SDL_SetClipboardText(converter.to_bytes(text.substr(selectStart, selectEnd - selectStart)).c_str());
+					else
+						SDL_SetClipboardText(converter.to_bytes(text.substr(selectEnd, selectStart - selectEnd)).c_str());
 				}
 			}
 
@@ -90,13 +119,20 @@ public:
 				cursorTime = Time::GetTime() - (cursorBlinkRate + 0.001);
 			}
 
-			if (global->input.text.IsBackSpace() && !text.empty() && cursorPos > 0)
+			if (global->input.text.IsBackSpace() && !text.empty() && (cursorPos > 0 || selectStart - selectEnd != 0))
 			{
-				text.erase(cursorPos - 1, 1);
-				cursorPos--;
+				if (selectStart - selectEnd != 0)
+				{
+					DeleteSelected();
+				}
+				else
+				{
+					text.erase(cursorPos - 1, 1);
+					cursorPos--;
+				}
 			}
 		}
-
+		LOG(cursorPos << "  " << selectStart << "  " << selectEnd);
 		//Text Length Calculations
 		if (text.size() > textLength)
 			text = text.substr(0, textLength);
@@ -118,6 +154,27 @@ public:
 		global->display.SetRenderColor(0, 0, 0);
 		SDL_RenderDrawRect(global->display.GetRenderer(), finalPos.ToSDLRect());
 
+		global->display.SetRenderColor(173, 214, 255);
+		if (selectEnd - selectStart != 0)
+		{
+			Rect selectedRect;
+			if (selectEnd > selectStart)
+				selectedRect = global->gfx.GetFont(font)->GetTextSize(text.substr(selectStart, selectEnd - selectStart));
+			else
+				selectedRect = global->gfx.GetFont(font)->GetTextSize(text.substr(selectEnd, selectStart - selectEnd));
+
+			Rect beginToSelectStart; 
+			if (selectEnd > selectStart)
+				beginToSelectStart = global->gfx.GetFont(font)->GetTextSize(text.substr(0, selectStart));
+			else
+				beginToSelectStart = global->gfx.GetFont(font)->GetTextSize(text.substr(0, selectEnd));
+
+			selectedRect.TranslateX(beginToSelectStart.GetW());
+
+			SDL_RenderFillRect(global->display.GetRenderer(), (selectedRect + textPos).ToSDLRect());
+		}
+
+		global->display.SetRenderColor(0, 0, 0);
 		if (Time::GetTime() - cursorTime > cursorBlinkRate && focus)
 		{
 			int x = textPos.GetX() + global->gfx.GetFont(font)->GetTextSize(text.substr(0, cursorPos)).Right();
@@ -187,9 +244,32 @@ public:
 	}
 
 private:
+	void DeleteSelected()
+	{
+		if (selectStart - selectEnd != 0)
+		{
+			if (selectEnd > selectStart)
+			{
+				text.erase(selectStart, selectEnd - selectStart);
+				cursorPos = selectStart;
+			}
+			else
+			{
+				text.erase(selectEnd, selectStart - selectEnd);
+				cursorPos = selectEnd;
+			}
+			selectStart = 0;
+			selectEnd = 0;
+		}
+	}
+
 	double cursorTime;
 	double cursorBlinkRate;
 	unsigned int cursorPos;
+
+	bool selected;
+	int selectStart;
+	int selectEnd;
 
 	//Position Stuff
 	Rect pos;
