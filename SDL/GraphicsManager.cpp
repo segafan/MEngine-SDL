@@ -1,19 +1,18 @@
 #include "GraphicsManager.h"
 
-GraphicsManager::GraphicsManager(Display* display) : FontManager(), TextureManager()
+GraphicsManager::GraphicsManager() : FontManager(), TextureManager()
 {
 	imageBasepath = "";
 	animationBasepath = "";
 	fontBasepath = "";
 }
 
-void GraphicsManager::AddGraphicScript(const std::string& filepath)
+void GraphicsManager::AddGraphicScript(Display* display, const std::string& filepath)
 {
-	//TODO: REWORK
-	/*
 	std::ifstream in;
 	in.open(filepath);
 
+	LOG("Loading graphics script...");
 	int lineNum = 1;
 
 	if (in.is_open())
@@ -108,7 +107,7 @@ void GraphicsManager::AddGraphicScript(const std::string& filepath)
 						{
 							std::string imagekey = linedata[i + 2];
 
-							AddTexture(imageBasepath + imagepath, TextToNumber(imagekey));
+							AddTexture(display, (imageBasepath + imagepath), std::stoi(imagekey));
 
 							i += 2;
 							continue;
@@ -140,7 +139,7 @@ void GraphicsManager::AddGraphicScript(const std::string& filepath)
 
 								if (IsNumber(fontsize))
 								{
-									AddFont(fontBasepath + fontpath, fontkey, TextToNumber(fontsize.c_str()));
+									AddFont(display, (fontBasepath + fontpath), std::stoi(fontkey), std::stoi(fontsize));
 
 									i += 3;
 									continue;
@@ -166,5 +165,4 @@ void GraphicsManager::AddGraphicScript(const std::string& filepath)
 	}
 	else
 		LOG_ERROR("Couldn't load graphics script: " << filepath);
-		*/
 }

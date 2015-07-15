@@ -20,7 +20,7 @@ public:
 		, display(*display)
 		, state()
 		, audio()
-		, gfx(display)
+		, gfx()
 	{
 	}
 

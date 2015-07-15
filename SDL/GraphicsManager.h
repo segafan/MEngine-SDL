@@ -9,10 +9,9 @@
 class GraphicsManager : public FontManager, public TextureManager
 {
 public:
-	GraphicsManager(Display* display);
+	GraphicsManager();
 
-	//TODO: Clean up
-	void AddGraphicScript(const std::string& filepath);
+	void AddGraphicScript(Display* display, const std::string& filepath);
 
 private:
 	std::string imageBasepath;
