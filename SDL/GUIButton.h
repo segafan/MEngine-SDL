@@ -41,9 +41,23 @@ public:
 	{
 		if (enabled)
 		{
+			if (cropToText)
+			{
+				if (global->gfx.GetFont(font) != NULL)
+				{
+					Rect textSize = global->gfx.GetFont(font)->GetTextSize(text);
+					pos.SetW(textSize.GetW());
+					pos.SetH(textSize.GetH());
+				}
+			}
+
 			//Calculate Pos
 			finalPos = pos + relPos;
-			textPos.SetPosition(finalPos.CenterX(), finalPos.GetY(), 0, 0);
+			
+			if (global->gfx.GetFont(font) != NULL)
+				textPos.SetPosition(finalPos.CenterX(), finalPos.CenterY() - global->gfx.GetFont(font)->GetGlyphHeight() / 2, 0, 0);
+			else
+				textPos.SetPosition(finalPos.CenterX(), finalPos.CenterY(), 0, 0);
 
 			//Mouse
 			hover = false;
@@ -141,6 +155,20 @@ public:
 		this->enabled = EnabledAndVisible;
 		this->visible = EnabledAndVisible;
 	}
+	void CropToText(bool cropToText)
+	{
+		this->cropToText = cropToText;
+	}
+	void SetCenter(Point point)
+	{
+		pos.SetX(point.getX() - (pos.GetW() / 2));
+		pos.SetY(point.getY() - (pos.GetH() / 2));
+	}
+	void SetCenter(int x, int y)
+	{
+		pos.SetX(x - (pos.GetW() / 2));
+		pos.SetY(y - (pos.GetH() / 2));
+	}
 
 	//Getters
 
@@ -189,6 +217,8 @@ public:
 	}
 
 private:
+	bool cropToText;
+
 	//Enabled and visible
 	bool enabled;
 	bool visible;
