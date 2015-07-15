@@ -88,6 +88,8 @@ public:
 					int letter = global->gfx.GetFont(font)->GetLetterAt(text, point);
 					selectStart = letter;
 					selectEnd = letter;
+
+					cursorTime = Time::GetTime() - (cursorBlinkRate + 0.001);
 				}
 				if (global->input.mouse.IsButtonPressed(SDL_BUTTON_LEFT))
 				{
@@ -95,9 +97,9 @@ public:
 					selectEnd = letter;
 
 					cursorPos = letter;
-					cursorTime = Time::GetTime() - (cursorBlinkRate + 0.001);
 				}
 			}
+			//Control + C
 			if ((global->input.keyboard.IsKeyPressed(SDLK_LCTRL) || global->input.keyboard.IsKeyPressed(SDLK_RCTRL)) && global->input.keyboard.IsKeyPressed(SDLK_c))
 			{
 				if (selectEnd - selectStart != 0)
@@ -106,6 +108,28 @@ public:
 						SDL_SetClipboardText(converter.to_bytes(text.substr(selectStart, selectEnd - selectStart)).c_str());
 					else
 						SDL_SetClipboardText(converter.to_bytes(text.substr(selectEnd, selectStart - selectEnd)).c_str());
+				}
+			}
+			//Control + A
+ 			if ((global->input.keyboard.IsKeyPressed(SDLK_LCTRL) || global->input.keyboard.IsKeyPressed(SDLK_RCTRL)) && global->input.keyboard.IsKeyPressed(SDLK_a))
+			{
+				selectStart = 0;
+				selectEnd = text.length();
+				cursorPos = selectEnd;
+			}
+			//Control + X
+			if ((global->input.keyboard.IsKeyPressed(SDLK_LCTRL) || global->input.keyboard.IsKeyPressed(SDLK_RCTRL)) && global->input.keyboard.IsKeyPressed(SDLK_x))
+			{
+				if (selectStart - selectEnd != 0)
+				{
+					//Put it on clipboard
+					if (selectEnd > selectStart)
+						SDL_SetClipboardText(converter.to_bytes(text.substr(selectStart, selectEnd - selectStart)).c_str());
+					else
+						SDL_SetClipboardText(converter.to_bytes(text.substr(selectEnd, selectStart - selectEnd)).c_str());
+
+					//Delete it
+					DeleteSelected();
 				}
 			}
 
